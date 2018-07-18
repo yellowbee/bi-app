@@ -1,0 +1,38 @@
+
+div.radio-group {
+  padding: 10px 0px;
+  div.radio-item {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+    background-color: #eeeeee;
+    border-radius: 5px;
+
+    div.halo {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      margin: 0 10px 0 0;
+      width: 20px;
+      height: 20px;
+      border: 1px solid gray;
+      border-radius: 50%;
+
+      div.sun {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 12px;
+        height: 12px;
+        background-color: blue;
+        border-radius: 50%;
+      }
+    }
+
+    div.radio-label {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}

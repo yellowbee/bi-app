@@ -1,0 +1,24 @@
+
+div.question-detail {
+  margin: 20px auto;
+  width: 1000px;
+  color: #777777;
+
+  div {
+    div.paragraph {
+      margin: 20px auto;
+    }
+  }
+
+  .question-img {
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
+  div#solution {
+    margin-bottom: 100px;
+  }
+}

@@ -1,0 +1,25 @@
+
+div.time-option {
+  display: inline-block;
+  vertical-align: top;
+  width: 250px;
+  padding: 5px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+  background-color: #dddddd;
+  font-size: 0.8em;
+  position: relative;
+
+  span.x {
+    position: absolute;
+    top: 4px;
+    left: 230px;
+    color: red;
+    font-size: 1.2em;
+    font-weight: 600;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

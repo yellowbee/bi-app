@@ -1,0 +1,7 @@
+**/node_modules/
+**/lib/
+**/.idea/
+**/test/
+dist/
+**/bundle.js
+**/bundle.js.map

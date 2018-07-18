@@ -1,0 +1,33 @@
+@import "../globals";
+
+div#footer {
+  height: 50px;
+  background-color: $theme-color;
+
+  position:fixed;
+  bottom:0;
+  width:100%;
+
+  ul {
+    padding-top: 12px;
+    padding-left: 40px;
+
+    li.left {
+      display: block;
+      float: left;
+      a {
+        text-decoration: none;
+        font-size: 15px;
+        color: white;
+      }
+    }
+
+    li.right {
+      display: block;
+      float: right;
+      padding-bottom: 8px;
+      padding-right: 40px;
+      color: white;
+    }
+  }
+}

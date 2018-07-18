@@ -1,0 +1,49 @@
+@import "../../../globals";
+
+div#q-pool {
+  background-color: #f6f6f6;
+  height: 100%;
+
+  div#qa-tool-bar {
+    width: 1000px;
+    margin: 0px auto;
+    padding: 20px 0;
+    background-color: #f6f6f6;
+    button#qa-post {
+      @include qbutton;
+      float: right;
+    }
+  }
+
+  div#qa-sched-container {
+    width: 1000px;
+    margin: 0 auto;
+
+    div#cards-wrapper {
+      @include inline-block-element;
+      width: 800px;
+      text-align: center;
+      background-color: #f6f6f6;
+    }
+
+    div#qa-tool-sidebar {
+      margin-top: 10px;
+      background-color: #f6f6f6;
+      @include inline-block-element;
+      width: 200px;
+      background-color: #f6f6f6;
+      div.qa-sidebar-tool {
+        a {
+          text-decoration: none;
+        }
+        border: 1px solid white;
+        border-radius: 10px;
+        background-color: white;
+        margin-bottom: 10px;
+        height: 50px;
+        box-shadow: 0 2px 4px 0 rgba(180, 180, 180, 0.8);
+        text-align: center;
+      }
+    }
+  }
+}

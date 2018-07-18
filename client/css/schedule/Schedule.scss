@@ -1,0 +1,64 @@
+@import "../globals";
+
+
+div.schedule-bg {
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+  background-color: #f6f6f6;
+
+  div.schedule-panel {
+    width: 1200px;
+    min-height: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 50px 30px;
+
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+
+    span.dingbats {
+      font-family: 'Zapf Dingbats';
+    }
+
+    div.schedule-filters {
+      div.schedule-filter {
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+
+    div.schedule-cards {
+      width: 1000px;
+      margin: 20px auto;
+    }
+  }
+}
+
+div.schedule-dialog {
+  h5.schedule-label {
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  width: 100%;
+  margin: 20px auto;
+
+  div.schedule-btns {
+    margin: 0 auto;
+    button.schedule-btn {
+      @include simple-btn;
+      width: 140px;
+      margin: 0 5px;
+    }
+    button.alert {
+      background-color: red;
+      color: white;
+    }
+    button.confirm {
+      background-color: green;
+      color: white;
+    }
+  }
+}

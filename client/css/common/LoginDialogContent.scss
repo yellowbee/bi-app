@@ -1,0 +1,56 @@
+@import "../globals";
+
+div {
+  .logo {
+    text-align: center;
+    @include logo;
+    padding: 10px auto;
+  }
+
+  .page-title {
+    border-top: 5px solid #dddddd;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  #sign-in-btn {
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  button {
+    &.main-btn {
+      width: 100%;
+      padding: 10px 0;
+      background-color: $theme-color;
+      color: white;
+      border-radius: 10px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.sm-btn {
+      font-size: 0.8em;
+      padding: 5px 15px;
+      border-radius: 5px;
+      border-color: $theme-color;
+    }
+  }
+
+  .switch-sec {
+    margin-top: 15px;
+    span {
+      padding-top: 3px;
+      float: left;
+      &.sm-instr {
+        font-size: 0.8em;
+      }
+    }
+    button {
+      float: right;
+    }
+  }
+}

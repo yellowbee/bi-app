@@ -1,0 +1,16 @@
+
+.bi-searchbar {
+  position: relative;
+
+  .bi-searchbar-img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

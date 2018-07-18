@@ -1,0 +1,49 @@
+
+div.editprofile-info-group {
+  padding: 30px 0;
+}
+
+div.editprofile-info-upload-wrapper {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+
+  div.editprofile-info-upload {
+    &:hover {
+      cursor: pointer;
+    }
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    padding-top: 25px;
+    background-color: #f49e42;
+    color: white;
+  }
+
+  div.editprofile-info-thumbnail {
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+div.editprofile-info-input-wrapper {
+  display: inline-block;
+  width: 80%;
+  vertical-align: top;
+
+  input {
+    margin: 5px 0;
+  }
+}
+
+div.editprofile-info-dropdown {
+  //display: inline-block;
+  //vertical-align: top;
+  float: left;
+}
+
+.side-by-side {
+  float: left;
+}

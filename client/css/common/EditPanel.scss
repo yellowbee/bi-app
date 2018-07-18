@@ -1,0 +1,27 @@
+div.edit-panel {
+  width: 300px;
+  height: 120px;
+  border: 4px dashed #666666;
+
+  border-image: url("/images/dashed-border.png") 2 round;
+
+  border-radius: 5px;
+
+  div.btn-wrapper {
+    display: inline-block;
+    margin: 20px 10px;
+
+    div.edit-btn {
+      width: 60px;
+      height: 60px;
+      border: 1px solid #666666;
+      background-color: #dddddd;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #aaaaaa;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+div.dropdown {
+  margin: 5px 5px;
+
+  button.btn {
+    border-radius: 20px !important;
+  }
+
+  ul.dropdown-menu {
+    background-color: white !important;
+
+    li:hover {
+      background-color: #aaaaaa !important;
+    }
+    li {
+      display: block !important;
+    }
+  }
+}

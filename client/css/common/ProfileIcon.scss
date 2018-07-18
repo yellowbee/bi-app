@@ -1,0 +1,17 @@
+div#profile-frame {
+  position: relative;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  div#status {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+  }
+}

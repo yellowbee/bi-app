@@ -1,0 +1,14 @@
+div.search-bar {
+  text-align: center;
+
+  input {
+    width: 600px;
+    border-radius: 10px;
+    margin: 40px auto 20px auto;
+    background-color: #dddddd;
+    padding: 6px 10px;
+  }
+  input:focus {
+    outline: none;
+  }
+}

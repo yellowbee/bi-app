@@ -1,0 +1,55 @@
+@import "../../../globals";
+
+$font-color: #ffffff;
+$menu-selected-color: #f5a623;
+$menu-background: #143c6a;
+
+div.form-link {
+  width: 100%;
+  padding: 10px 0 50px 0;
+  background-color: $theme-bg-color;
+
+  ul {
+    width: 80%;
+    border-radius: 10px;
+    list-style-type: none;
+    margin: 20px auto;
+    padding: 0 50px;
+    overflow: hidden;
+    text-align: center;
+    background-color: white;
+
+    li {
+      margin: 0 100px;
+      display: inline-block;
+      a {
+        position: relative;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: $sm-font;
+      }
+
+      a:hover {
+        background-color: #cccccc;
+        color: $font-color;
+        text-decoration: none;
+      }
+
+      .selected {
+        border-bottom: 5px solid $theme-color;
+        color: $theme-color;
+      }
+    }
+  }
+
+  li.right {
+    float: right;
+  }
+
+  button.qform-btn {
+    @include simple-btn;
+  }
+}

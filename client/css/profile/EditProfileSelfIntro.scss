@@ -1,0 +1,34 @@
+
+  div.editprofile-selfIntro-addvideo {
+    position: relative;
+    width: 40%;
+    height: 70px;
+    border: 2px dashed #666666;
+    border-radius: 5px;
+    //border-image: url("/images/dashed-border.png") 2 round;
+    margin: 20px 0;
+
+    div.editprofile-selfIntro-addbtn {
+      position: absolute;
+      top: 25px;
+      left: 20px;
+      border: 1px solid gray;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 1.2em;
+
+      div.editprofile-selfIntro-plus {
+        position: relative;
+        top: -5px;
+      }
+    }
+
+    div.editprofile-selfIntro-text {
+      position:absolute;
+      top: 25px;
+      left: 50px;
+      font-size: 0.8em;
+      color: gray;
+    }
+  }

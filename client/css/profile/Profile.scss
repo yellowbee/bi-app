@@ -1,0 +1,36 @@
+@import '../globals.scss';
+
+div.profile {
+  width: 100%;
+  margin: auto;
+  background-color: #f6f6f6;
+
+  div.profile-wrap {
+    width: 80%;
+    margin: auto;
+    div.profile-button {
+      padding-left: 20px;
+      button#showcase-post {
+        @include qbutton;
+        float: left;
+      }
+    }
+
+    div.profile-info {
+      display: inline-block;
+      vertical-align: top;
+      width: 30%;
+      height: 1000px;
+      background: white;
+      margin: 20px 20px;
+      border-radius: 10px;
+    }
+
+    div.profile-resource {
+      display: inline-block;
+      vertical-align: top;
+      width: calc(70% - 80px);
+      margin: 20px 20px;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@import "../../../globals";
+
+form.formproject {
+  div#project-form-title {
+    font-size: 1.6em;
+    position: relative;
+    left: 5%;
+  }
+
+  width: 100%;
+  background-color: $theme-bg-color;
+
+  div#form-content {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px 30px;
+    background-color: white;
+    border-radius: 10px;
+
+    div.form-field {
+
+      .field-title {
+        margin: 10px;
+        color: gray;
+      }
+
+      div.qname-wrapper {
+        width: 90%;
+      }
+    }
+  }
+
+  div#form-proj-buttons {
+    button.qbutton {
+      @include qbutton;
+      float: right;
+      position: relative;
+      right: 5%;
+    }
+
+    padding: 20px 0 30px 0;
+  }
+
+  button.qform-btn {
+    @include simple-btn;
+    position: relative;
+    left: 83%;
+    top: 20px;
+  }
+}

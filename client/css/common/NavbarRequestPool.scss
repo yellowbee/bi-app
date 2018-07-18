@@ -1,0 +1,47 @@
+@import "../globals";
+
+$font-color: #ffffff;
+$menu-selected-color: #f5a623;
+$menu-background: #143c6a;
+
+div {
+  //border-bottom-right-radius: 10px;
+  //border-bottom-left-radius: 10px;
+
+  ul#level-2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    text-align: center;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: $sm-font;
+      }
+
+      a:hover {
+        background-color: #cccccc;
+        color: $font-color;
+        text-decoration: none;
+      }
+
+      .selected {
+        border-bottom: 2px solid $theme-color;
+      }
+    }
+  }
+
+  /*li.right {
+    float: right;
+  }*/
+}

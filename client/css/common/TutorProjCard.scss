@@ -1,0 +1,52 @@
+@import "../globals";
+
+.proj-card {
+  width: 250px;
+  height: 280px;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+  margin: 10px 10px;
+  display: inline-block;
+
+  .proj-card-head {
+    width: 250px;
+    height: 180px;
+    border-radius: 5px 5px 0 0;
+    img {
+      height: 180px;
+      width: 250px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .proj-card-foot {
+      width: 250px;
+      height: 100px;
+      padding: 10px 15px;
+      background-color: white;
+      border-radius: 0 0 5px 5px;
+      text-align: left;
+
+      .rating {
+        postion: relative;
+        margin-top: -10px;
+        span {
+          display: inline-block;
+          position: relative;
+          width: 1em;
+          font-size: 1.5em;
+        }
+
+        span.online {
+          margin-left: 80px;
+          font-size: 0.9em;
+          color: blue;
+          font-weight: 800;
+        }
+      }
+
+      .industry > span {
+        font-size: 0.8em;
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+$theme-color: #1E93E8;
+$theme-color-alt: #25A3D7;
+$theme-bg-color: #eaeeef;
+$theme-light: #95d0f4;
+
+$big-font: 24px;
+$mid-font: 18px;
+$sm-font: 16px;
+$spsm-font: 14px;
+$tiny-font: 10px;
+
+$color-lawn: #32a751;
+
+.big-font {
+  font-size: $big-font;
+}
+.mid-font {
+  font-size: $mid-font;
+}
+.sm-font {
+  font-size: $sm-font;
+}
+
+.spsm-font {
+  font-size: $spsm-font;
+}
+
+.tiny-font {
+  font-size: $tiny-font;
+}
+
+.font-color-white {
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: 'localsans-mac-bold';
+  src: local('PingFangSC-Semibold'), local('HiraginoSansGB-W6');
+}
+
+body {
+  font-family: 'localsans-mac-bold';
+}
+
+button:focus {
+  outline: none;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-bottom: 10px solid white;
+  display: none;
+}
+
+span.x-btn {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: top;
+  margin-left: 20px;
+  color: red;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin logo {
+  font-size: 28px;
+  color: $theme-color;
+}
+
+@mixin qbutton {
+  display: inline-block;
+  width: 100px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 800;
+  margin: 5px 5px;
+  background-color: $theme-color;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  span {
+    display: inline-block;
+    padding: 5px;
+  }
+}
+
+@mixin gradient-bar {
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(rgba(180,180,180,1), rgba(246,246,246,0));
+}
+
+@mixin inline-block-element {
+         display: inline-block;
+         vertical-align: top;
+}
+
+@mixin simple-btn {
+  width: 150px;
+  border-radius: 50px;
+  font-size: 1em;
+  font-weight: 300;
+  padding: 5px 20px;
+  background-color: $theme-color;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

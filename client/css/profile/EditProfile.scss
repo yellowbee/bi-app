@@ -1,0 +1,125 @@
+@import "../globals";
+
+div.editprofile-title {
+  text-align: left;
+}
+
+div.editprofile-bg {
+  width: 100%;
+  background-color: #f6f6f6;
+
+  div.editprofile-root {
+    width: 80%;
+    margin: 0 auto;
+
+    div.editprofile-link {
+      padding: 30px 0;
+
+      a {
+        text-decoration: none;
+
+        span {
+          font-size: 1.2em;
+          font-weight: 300;
+          color: black;
+        }
+      }
+    }
+
+    div.editprofile-form {
+
+      div.editprofile-navs {
+        display: inline-block;
+        vertical-align: top;
+        width: 25%;
+        margin: 0 10px ;
+
+        ul {
+          border-left: 1px solid #dddddd;
+          border-right: 1px solid #dddddd;
+          border-radius: 10px;
+
+          li.editprofile-navs-top {
+            border-top: 1px solid #dddddd;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+          li.editprofile-navs-bottom {
+            border-bottom: 1px solid #dddddd;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+          }
+
+          li {
+            list-style-type: none;
+            padding: 20px 20px;
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+            &:hover {
+              background-color: white;
+              color: blue;
+            }
+
+            a {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      div.editprofile-sections {
+        display: inline-block;
+        vertical-align: top;
+        width: 70%;
+
+        div.editprofile-section {
+          background-color: white;
+          margin-left: 10px;
+          margin-bottom: 20px;
+          text-align: center;
+          padding: 30px 40px;
+
+          div.editprofile-info-upload {
+            &:hover {
+              cursor: pointer;
+            }
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            padding-top: 25px;
+            background-color: #f49e42;
+            color: white;
+          }
+
+          div.editprofile-info-thumbnail {
+            margin-top: 10px;
+            width: 100px;
+            height: 100px;
+          }
+        }
+
+        a {
+          text-decoration: none;
+        }
+
+        div.editprofile-info-back {
+          width: 100%;
+          margin: 20px 0;
+          div.editprofile-save {
+            float: right;
+            button {
+              @include qbutton;
+              width: 150px;
+              font-size: 1em;
+            }
+          }
+        }
+
+        div.editprofile-save {
+            float: right;
+        }
+      }
+    }
+  }
+}

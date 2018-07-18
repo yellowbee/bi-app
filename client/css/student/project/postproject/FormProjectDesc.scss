@@ -1,0 +1,63 @@
+@import "../../../globals";
+
+div.formproject-desc {
+  width: 90%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 5px;
+  padding: 30px 7%;
+
+  div.form-field {
+    margin: 80px 0;
+
+    .field-title {
+      margin: 10px;
+      color: gray;
+    }
+
+    div.qname-wrapper {
+      width: 90%;
+    }
+  }
+
+  textarea.qDesc-textarea {
+    width: 80%;
+    display: inline-block;
+    vertical-align: top;
+    resize: none;
+    background: white !important;
+  }
+
+  div.panel {
+    div.panel-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  button.qdesc-btn {
+    @include simple-btn;
+  }
+
+  span.x-btn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    margin-left: 20px;
+    color: red;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  div.qDesc-tags {
+    width: 50%;
+  }
+}

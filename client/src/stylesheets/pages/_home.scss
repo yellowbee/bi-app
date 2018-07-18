@@ -1,0 +1,60 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+@import "../abstracts/variables";
+
+.home {
+  height: 100%;
+
+  h6 {
+    color: $theme-blue;
+  }
+}
+
+.home-panel-title {
+  padding: 20px 0;
+}
+
+.h7 {
+  font-size: 0.8em;
+}
+
+ul {
+  padding: 0;
+
+  li {
+    list-style-type: none;
+    padding: 10px 10px;
+    &:hover {
+      background-color: $theme-light-blue;
+      color: blue;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.home-sidebar {
+  -ms-flex: 0 0 230px;
+  flex: 0 0 300px !important;
+}
+.home-workspace {
+  flex: 0 0 calc(100% - 300px) !important;
+}
+
+/*@media (min-width: 576px) {
+  .container-full-width {
+    max-width: 100% !important;
+  }
+  .login-panel-top {
+    //height: 500px;
+  }
+}*/
+
+@media (min-width: 768px) {
+  .container-full-width {
+    max-width: 100% !important;
+  }
+}

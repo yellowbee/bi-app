@@ -1,0 +1,11 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+@import "../abstracts/variables";
+.bi-button {
+  margin: 10px 0;
+  width: 100%;
+  background-color: $theme-blue;
+  color: white;
+}

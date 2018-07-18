@@ -1,0 +1,26 @@
+@import "../globals";
+
+div#showcase-container {
+  height: calc(100% - 55px);
+  background-color: #f6f6f6;
+  div#show-case {
+    width: 1100px;
+    margin: 0 auto;
+
+    button#showcase-post {
+      @include qbutton;
+      float: right;
+    }
+
+    div.cardWrapper {
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}
+
+.card-project {
+  display: inline-block;
+  vertical-align: top;
+}

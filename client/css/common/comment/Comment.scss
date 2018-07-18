@@ -1,0 +1,17 @@
+
+div.comment {
+  div.comment--title {
+    margin: 10px 0;
+    div.comment--profile-icon {
+      display: inline-block;
+      margin-right: 10px;
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    div.comment--title-info {
+      display: inline-block;
+    }
+  }
+}

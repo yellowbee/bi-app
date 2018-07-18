@@ -1,0 +1,52 @@
+@import "../globals";
+
+$font-color: #ffffff;
+$menu-selected-color: #f5a623;
+$menu-background: #143c6a;
+
+div.link {
+  height: calc(100% - 40px);
+
+  ul#level-1 {
+    height: 55px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      width: 200px;
+      margin: 0 10%;
+      a {
+        position: relative;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: $sm-font;
+      }
+
+      a:hover {
+        background-color: #cccccc;
+        color: $font-color;
+        text-decoration: none;
+      }
+
+      .selected {
+        border-bottom: 2px solid $theme-color;
+      }
+    }
+  }
+
+  li.right {
+    float: right;
+  }
+
+  div.gradient-bar {
+    @include gradient-bar;
+  }
+}

@@ -1,0 +1,47 @@
+@import "../globals";
+
+$font-color: #ffffff;
+$menu-selected-color: #f5a623;
+$menu-background: #143c6a;
+
+div {
+  ul.profileresources-tabs {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    text-align: center;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: $sm-font;
+      }
+
+      a:hover {
+        background-color: #cccccc;
+        color: $font-color;
+        text-decoration: none;
+      }
+
+      .selected {
+        border-bottom: 2px solid $theme-color;
+      }
+    }
+  }
+
+  div.profile-qa-card-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 20px;
+  }
+}
+

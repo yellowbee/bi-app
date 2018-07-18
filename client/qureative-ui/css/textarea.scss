@@ -1,0 +1,51 @@
+div.text-area {
+  position: relative;
+  width: 90%;
+
+  ::placeholder {
+    color: #aaaaaa;
+  }
+
+  textarea {
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #aaaaaa;
+    //box-shadow: inset 0px 0px 0px 0px #eeeeee;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+    &:focus {
+      outline: none;
+    }
+  }
+
+  div.circle-cross {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    border-radius: 100%;
+    text-align: center;
+    color: white;
+    top: 45px;
+    right: -55px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+}
+
+textarea.qureative-ui-ta {
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 20px;
+  background-color: white;
+  border: 1px solid #aaaaaa;
+  //box-shadow: inset 0px 0px 0px 0px #eeeeee;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+  &:focus {
+    outline: none;
+  }
+}
