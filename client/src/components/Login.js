@@ -109,7 +109,7 @@ class Login extends Component {
             </div>
           </div>
           <div className="d-none d-lg-block col login-img padding-0">
-            <img src="/images/office.jpg"/>
+            <img src="/images/login-image.jpg"/>
           </div>
         </div>
       </div>

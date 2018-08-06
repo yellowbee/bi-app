@@ -11,6 +11,38 @@
   }
 }
 
+.hide {
+  width: 0;
+  //padding: 10px;
+}
+
+.show {
+  width: 300px;
+  //padding: 10px;
+}
+
+.home-sidenav {
+  position: relative;
+  height: 100%;
+  //width: 0;
+  //position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.home-sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .home-panel-title {
   padding: 20px 0;
 }
@@ -41,15 +73,20 @@ ul {
   flex: 0 0 300px !important;
 }
 .home-workspace {
-  flex: 0 0 calc(100% - 300px) !important;
+  //flex: 0 0 calc(100% - 300px) !important;
+  padding: 20px;
+  width: calc(100% - 300px) !important;
 }
+
+/*.third-plate-accord-body {
+  display: none;
+}*/
 
 /*@media (min-width: 576px) {
   .container-full-width {
     max-width: 100% !important;
   }
   .login-panel-top {
-    //height: 500px;
   }
 }*/
 

@@ -7,3 +7,13 @@
 .row-full-width {
   width: 100%;
 }
+
+.side {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.no-wrap {
+  white-space : nowrap; /* this does the trick */
+  //overflow : hidden;
+}

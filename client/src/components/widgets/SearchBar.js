@@ -4,7 +4,7 @@
 
 import React, { Component } from "react";
 
-class QuestionCard extends Component {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
     }
@@ -22,5 +22,5 @@ class QuestionCard extends Component {
     }
 }
 
-export default QuestionCard;
+export default SearchBar;
 

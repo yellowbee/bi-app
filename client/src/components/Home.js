@@ -3,109 +3,244 @@
  */
 
 import React, { Component } from "react";
+import { csv } from "d3-request";
+import { timeParse } from "d3-time-format";
 import axios from "axios";
 import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
-import SearchBar from "./widgets/SearchBar";
 import { setToken } from "../actions/action_auth";
+import SimpleDropdownList from "../../qureative-ui/src/ui/SimpleDropdownList";
+import createFilterOptions from "react-select-fast-filter-options";
+import Select from "react-select";
+import options from "./full-ashare-companies";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemTitle,
+  AccordionItemBody
+} from "react-accessible-accordion";
+
+// Demo styles, see 'Styles' section below for some notes on use.
+import "react-accessible-accordion/dist/fancy-example.css";
+
+const filterOptions = createFilterOptions({
+  options
+});
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.hideInnderDiv = this.hideInnderDiv.bind(this);
-        /**
-         * To enable login-free mode
-         */
-        /*axios.get("http://localhost:8601").then(() => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sideNav: true
+    };
+
+    this.openNav = this.openNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    /**
+     * To enable login-free mode
+     */
+    /*axios.get("http://localhost:8601").then(() => {
          localStorage.setItem("server_port", "8601");
          });*/
-        let token = localStorage.getItem("token");
-        if (token) {
-            axios
-                .get(`https://whenty-ws.herokuapp.com/api/user/renew/${token}`)
-                .then(response => {
-                    this.props.setToken(response.data);
-                })
-                .catch(err => {
-                    localStorage.removeItem("token");
-                });
-        }
+    let token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get(`https://whenty-ws.herokuapp.com/api/user/renew/${token}`)
+        .then(response => {
+          this.props.setToken(response.data);
+        })
+        .catch(err => {
+          localStorage.removeItem("token");
+        });
     }
 
-    /**
-     * To catch bubbled up click events from children to close their dropdowns
-     */
-    hideInnderDiv(e) {
-        console.log("root container clicked");
-        let doms = document.getElementsByClassName("select-dropdown");
-        for (let i = 0; i < doms.length; i++) {
-            if (doms[i] != e.target.nextSibling) {
-                doms[i].classList.remove("show");
-                doms[i].classList.add("hide");
-            }
-        }
+    let parseTime = timeParse("%Y-%m");
+    csv(
+      "/sample-data/roe.csv",
+      d => {
+        d.date = parseTime(d.date);
+        return d;
+      },
+      (error, data) => {
+        if (error) throw error;
+
+        console.log(data);
+        this.setState({ data });
+      }
+    );
+  }
+
+  openNav() {
+    this.setState({ sideNav: true });
+  }
+
+  closeNav() {
+    this.setState({ sideNav: false });
+  }
+
+  handleChange(selectedOption) {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  }
+
+  render() {
+    console.log(this.props.state);
+    let navStyle;
+    if (this.state.sideNav) {
+      navStyle = "side no-wrap home-sidenav show";
+    } else {
+      navStyle = "side no-wrap home-sidenav hide";
     }
 
-    render() {
-        console.log(this.props.state);
-        return (
-            <div className="home" onClick={this.hideInnderDiv}>
-                <div className="container container-full-width">
-                    <div className="row row-full-width">
-                        <div className="col home-sidebar" style={{borderRight: "1px solid gray"}}>
-                            <div className="home-logo">
-                                <span className="bi-logo horizontal-2" />
-                                <h6 className="bi-title horizontal-2">企业分析软件</h6>
-                            </div>
-                            <SearchBar placeholder="简称 / 代码 / 拼音"/>
-                            <ul>
-                                <li>
-                                    <a href="#basic-info">企业分析</a>
-                                </li>
-                                <li>
-                                    <a href="#self-intro">资讯</a>
-                                </li>
-                                <li>
-                                    <a href="#work-exp">我的</a>
-                                </li>
-                                <li>
-                                    <a href="#contact-method">股吧</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div className="col home-workspace">
-                            <NavLink exact to="/">
-                                <div>登出</div>
-                            </NavLink>
-
-                            <div className="home-panel-title">
-                                <h6>行情中心</h6>
-                            </div>
-                            <div>
-                                <div className="h7">代码搜索:</div>
-                            <SearchBar placeholder="简称 / 代码 / 拼音"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+    return (
+      <div className="home">
+        <div className={navStyle} style={{ borderRight: "1px solid gray" }}>
+          <div style={{ padding: "10px" }}>
+            <div
+              className="closebtn"
+              onClick={e => {
+                this.closeNav();
+              }}
+            >
+              &times;
             </div>
-        );
-    }
+            <div className="home-logo">
+              <span className="bi-logo horizontal-2" />
+              <h6 className="bi-title horizontal-2">企业分析软件</h6>
+            </div>
+            <ul>
+              <li>
+                <a href="#basic-info">企业分析</a>
+              </li>
+              <li>
+                <a href="#self-intro">资讯</a>
+              </li>
+              <li>
+                <a href="#work-exp">我的</a>
+              </li>
+              <li>
+                <a href="#contact-method">股吧</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="side no-wrap home-workspace">
+          <span
+            style={{ fontSize: "30px", cursor: "pointer" }}
+            onClick={e => {
+              this.openNav();
+            }}
+          >
+            &#9776;
+          </span>
+          <NavLink exact to="/">
+            <div>登出</div>
+          </NavLink>
+
+          <div className="container">
+            <div className="row">
+                <div className="col-md-3">
+                  <div>选定公司</div>
+                </div>
+            </div>
+            <div className="row">
+              <div className="col-md-3">
+                  <div className="home-panel-title">
+                      <h6>分类查询</h6>
+                  </div>
+                <Accordion>
+                  <AccordionItem expanded={true}>
+                    <AccordionItemTitle>
+                      <h6>股票市场分类</h6>
+                    </AccordionItemTitle>
+                    <AccordionItemBody>
+                      <div>全部a股</div>
+                        <div>上证a股</div>
+                        <div>深证a股</div>
+                        <div>创业板</div>
+                        <div>中小企业板</div>
+                        <div>深圳主板a股</div>
+                        <div>全部b股</div>
+                        <div>上证b股</div>
+                        <div>深证b股</div>
+                    </AccordionItemBody>
+                  </AccordionItem>
+
+                  <AccordionItem>
+                    <AccordionItemTitle>
+                      <h6>第三版</h6>
+                    </AccordionItemTitle>
+                    <AccordionItemBody className="third-plate-accord-body">
+                    </AccordionItemBody>
+                  </AccordionItem>
+
+                    <AccordionItem>
+                        <AccordionItemTitle>
+                            <h6>行业分类</h6>
+                        </AccordionItemTitle>
+                    </AccordionItem>
+                </Accordion>
+              </div>
+              <div className="col-md-6">
+                  <div className="home-panel-title">
+                      <h6>查询</h6>
+                  </div>
+                <Select
+                  //filterOptions={filterOptions}
+                  options={options}
+                  isMulti={true}
+                  isSearchable={true}
+                  placeholder={"搜索公司..."}
+                  onChange={this.handleChange}
+                  closeMenuOnSelect={false}
+                  className="home-select"
+                />
+              </div>
+                <div className="col-md-3">
+                    <div className="home-panel-title">
+                        <h6>&nbsp;</h6>
+                    </div>
+
+                    <button style={{width: "100px", backgroundColor: "#4c85ce", color: "white"}}>选定</button>
+                </div>
+            </div>
+          </div>
+          {/*
+                <div className="col-md-2">
+                    <SimpleDropdownList
+                        title="选择开始日期"
+                        itemList={["Art", "Design"]}
+                        setCategory={this.props.setCategory}
+                    />
+                </div>
+                <div className="col-md-2">
+                    <SimpleDropdownList
+                        title="选择结束日期"
+                        itemList={["Art", "Design"]}
+                        setCategory={this.props.setCategory}
+                    />
+                </div>*/}
+        </div>
+      </div>
+    );
+  }
 }
 
 let mapStateToProps = state => ({
-    state: state
+  state: state
 });
 
 let mapDispatchToProps = dispatch => ({
-    setToken: value => {
-        dispatch(setToken(value));
-    }
+  setToken: value => {
+    dispatch(setToken(value));
+  }
 });
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Home)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Home)
 );
-
