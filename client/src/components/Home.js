@@ -19,6 +19,8 @@ import {
   AccordionItemTitle,
   AccordionItemBody
 } from "react-accessible-accordion";
+import TreeMenuNode from "./widgets/TreeMenuNode";
+import TreeMenuRoot from "./widgets/TreeMenuRoot";
 
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
@@ -109,20 +111,42 @@ class Home extends Component {
               <span className="bi-logo horizontal-2" />
               <h6 className="bi-title horizontal-2">企业分析软件</h6>
             </div>
-            <ul>
-              <li>
-                <a href="#basic-info">企业分析</a>
-              </li>
-              <li>
-                <a href="#self-intro">资讯</a>
-              </li>
-              <li>
-                <a href="#work-exp">我的</a>
-              </li>
-              <li>
-                <a href="#contact-method">股吧</a>
-              </li>
-            </ul>
+
+            <TreeMenuRoot>
+              <TreeMenuNode nodeName="企业分析" expandAtOpen={true}>
+                <ul>
+                  <li>
+                    <a href="#basic-info">公司指标查询与分析</a>
+                  </li>
+                  <li>
+                    <a href="#self-intro">自助式指标预测</a>
+                  </li>
+                  <li>
+                    <a href="#work-exp">企业会计信息质量</a>
+                  </li>
+                  <li>
+                    <a href="#contact-method">企业估值</a>
+                  </li>
+                  <li>
+                    <a href="#contact-method">一键报告生成</a>
+                  </li>
+                </ul>
+              </TreeMenuNode>
+              <ul>
+                  <li>
+                      <a href="#basic-info">我的</a>
+                  </li>
+                  <li>
+                      <a href="#basic-info">资讯</a>
+                  </li>
+                  <li>
+                      <a href="#basic-info">排行榜</a>
+                  </li>
+                  <li>
+                      <a href="#basic-info">贴吧</a>
+                  </li>
+              </ul>
+            </TreeMenuRoot>
           </div>
         </div>
 
@@ -141,15 +165,15 @@ class Home extends Component {
 
           <div className="container">
             <div className="row">
-                <div className="col-md-3">
-                  <div>选定公司</div>
-                </div>
+              <div className="col-md-3">
+                <div>选定公司</div>
+              </div>
             </div>
             <div className="row">
               <div className="col-md-3">
-                  <div className="home-panel-title">
-                      <h6>分类查询</h6>
-                  </div>
+                <div className="home-panel-title">
+                  <h6>分类查询</h6>
+                </div>
                 <Accordion>
                   <AccordionItem expanded={true}>
                     <AccordionItemTitle>
@@ -157,14 +181,14 @@ class Home extends Component {
                     </AccordionItemTitle>
                     <AccordionItemBody>
                       <div>全部a股</div>
-                        <div>上证a股</div>
-                        <div>深证a股</div>
-                        <div>创业板</div>
-                        <div>中小企业板</div>
-                        <div>深圳主板a股</div>
-                        <div>全部b股</div>
-                        <div>上证b股</div>
-                        <div>深证b股</div>
+                      <div>上证a股</div>
+                      <div>深证a股</div>
+                      <div>创业板</div>
+                      <div>中小企业板</div>
+                      <div>深圳主板a股</div>
+                      <div>全部b股</div>
+                      <div>上证b股</div>
+                      <div>深证b股</div>
                     </AccordionItemBody>
                   </AccordionItem>
 
@@ -172,21 +196,20 @@ class Home extends Component {
                     <AccordionItemTitle>
                       <h6>第三版</h6>
                     </AccordionItemTitle>
-                    <AccordionItemBody className="third-plate-accord-body">
-                    </AccordionItemBody>
+                    <AccordionItemBody className="third-plate-accord-body" />
                   </AccordionItem>
 
-                    <AccordionItem>
-                        <AccordionItemTitle>
-                            <h6>行业分类</h6>
-                        </AccordionItemTitle>
-                    </AccordionItem>
+                  <AccordionItem>
+                    <AccordionItemTitle>
+                      <h6>行业分类</h6>
+                    </AccordionItemTitle>
+                  </AccordionItem>
                 </Accordion>
               </div>
               <div className="col-md-6">
-                  <div className="home-panel-title">
-                      <h6>查询</h6>
-                  </div>
+                <div className="home-panel-title">
+                  <h6>查询</h6>
+                </div>
                 <Select
                   //filterOptions={filterOptions}
                   options={options}
@@ -198,13 +221,21 @@ class Home extends Component {
                   className="home-select"
                 />
               </div>
-                <div className="col-md-3">
-                    <div className="home-panel-title">
-                        <h6>&nbsp;</h6>
-                    </div>
-
-                    <button style={{width: "100px", backgroundColor: "#4c85ce", color: "white"}}>选定</button>
+              <div className="col-md-3">
+                <div className="home-panel-title">
+                  <h6>&nbsp;</h6>
                 </div>
+
+                <button
+                  style={{
+                    width: "100px",
+                    backgroundColor: "#4c85ce",
+                    color: "white"
+                  }}
+                >
+                  选定
+                </button>
+              </div>
             </div>
           </div>
           {/*
