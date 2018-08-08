@@ -11,34 +11,27 @@ import { NavLink, withRouter } from "react-router-dom";
 import { setToken } from "../actions/action_auth";
 import SimpleDropdownList from "../../qureative-ui/src/ui/SimpleDropdownList";
 import createFilterOptions from "react-select-fast-filter-options";
-import Select from "react-select";
-import options from "./full-ashare-companies";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemTitle,
-  AccordionItemBody
-} from "react-accessible-accordion";
+import ComapanySelector from "./ui/analysis/CompanySelector";
 import TreeMenuNode from "./widgets/TreeMenuNode";
 import TreeMenuRoot from "./widgets/TreeMenuRoot";
 
-// Demo styles, see 'Styles' section below for some notes on use.
-import "react-accessible-accordion/dist/fancy-example.css";
-
-const filterOptions = createFilterOptions({
-  options
-});
+import CompanyPortfolio from "./ui/analysis/CompanyPortfolio";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideNav: true
+      sideNav: true,
+      selector: true,
+      portfolio: false
     };
 
     this.openNav = this.openNav.bind(this);
     this.closeNav = this.closeNav.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleConfirmSelection = this.handleConfirmSelection.bind(this);
+    this.handleBackToAddMore = this.handleBackToAddMore.bind(this);
+
     /**
      * To enable login-free mode
      */
@@ -81,9 +74,19 @@ class Home extends Component {
     this.setState({ sideNav: false });
   }
 
-  handleChange(selectedOption) {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+  handleChange(selectedOptions) {
+    this.setState({ selectedOptions });
+    console.log(`Option selected:`, selectedOptions);
+  }
+
+  handleConfirmSelection() {
+    if (this.state.selectedOptions && this.state.selectedOptions.length > 0) {
+        this.setState({selector: false, portfolio: true});
+    }
+  }
+
+  handleBackToAddMore() {
+    this.setState({ selector: true, portfolio: false });
   }
 
   render() {
@@ -133,18 +136,18 @@ class Home extends Component {
                 </ul>
               </TreeMenuNode>
               <ul>
-                  <li>
-                      <a href="#basic-info">我的</a>
-                  </li>
-                  <li>
-                      <a href="#basic-info">资讯</a>
-                  </li>
-                  <li>
-                      <a href="#basic-info">排行榜</a>
-                  </li>
-                  <li>
-                      <a href="#basic-info">贴吧</a>
-                  </li>
+                <li>
+                  <a href="#basic-info">我的</a>
+                </li>
+                <li>
+                  <a href="#basic-info">资讯</a>
+                </li>
+                <li>
+                  <a href="#basic-info">排行榜</a>
+                </li>
+                <li>
+                  <a href="#basic-info">贴吧</a>
+                </li>
               </ul>
             </TreeMenuRoot>
           </div>
@@ -163,81 +166,21 @@ class Home extends Component {
             <div>登出</div>
           </NavLink>
 
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3">
-                <div>选定公司</div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-3">
-                <div className="home-panel-title">
-                  <h6>分类查询</h6>
-                </div>
-                <Accordion>
-                  <AccordionItem expanded={true}>
-                    <AccordionItemTitle>
-                      <h6>股票市场分类</h6>
-                    </AccordionItemTitle>
-                    <AccordionItemBody>
-                      <div>全部a股</div>
-                      <div>上证a股</div>
-                      <div>深证a股</div>
-                      <div>创业板</div>
-                      <div>中小企业板</div>
-                      <div>深圳主板a股</div>
-                      <div>全部b股</div>
-                      <div>上证b股</div>
-                      <div>深证b股</div>
-                    </AccordionItemBody>
-                  </AccordionItem>
+          {this.state.selector && (
+            <ComapanySelector
+              handleChange={this.handleChange}
+              handleConfirmSelection={this.handleConfirmSelection}
+              defaultValue={this.state.selectedOptions}
+            />
+          )}
 
-                  <AccordionItem>
-                    <AccordionItemTitle>
-                      <h6>第三版</h6>
-                    </AccordionItemTitle>
-                    <AccordionItemBody className="third-plate-accord-body" />
-                  </AccordionItem>
+          {this.state.portfolio && (
+            <CompanyPortfolio
+              selection={this.state.selectedOptions}
+              handleBackToAddMore={this.handleBackToAddMore}
+            />
+          )}
 
-                  <AccordionItem>
-                    <AccordionItemTitle>
-                      <h6>行业分类</h6>
-                    </AccordionItemTitle>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-              <div className="col-md-6">
-                <div className="home-panel-title">
-                  <h6>查询</h6>
-                </div>
-                <Select
-                  //filterOptions={filterOptions}
-                  options={options}
-                  isMulti={true}
-                  isSearchable={true}
-                  placeholder={"搜索公司..."}
-                  onChange={this.handleChange}
-                  closeMenuOnSelect={false}
-                  className="home-select"
-                />
-              </div>
-              <div className="col-md-3">
-                <div className="home-panel-title">
-                  <h6>&nbsp;</h6>
-                </div>
-
-                <button
-                  style={{
-                    width: "100px",
-                    backgroundColor: "#4c85ce",
-                    color: "white"
-                  }}
-                >
-                  选定
-                </button>
-              </div>
-            </div>
-          </div>
           {/*
                 <div className="col-md-2">
                     <SimpleDropdownList
