@@ -3,14 +3,14 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../common/Spinner";
+import StandardParameterAnalysis from "./StandardParameterAnalysis";
 import { BI_API_ROOT_URL } from "../../../constants";
 
 class CompanyPortfolio extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0,
-      curRoe: {}
+      selectedIndex: 0
     };
     this.getRoes = this.getRoes.bind(this);
     this.getRoe = this.getRoe.bind(this);
@@ -69,8 +69,8 @@ class CompanyPortfolio extends Component {
             {options.map((option, i) => (
               <TabPanel key={option.value}>
                   {
-                    this.state.selectedIndex === i &&
-                    <span>这是{option.label}的分析</span>
+                    this.state.selectedIndex === i && this.state.curRoe &&
+                        <StandardParameterAnalysis data={this.state.curRoe}/>
                   }
               </TabPanel>
             ))}

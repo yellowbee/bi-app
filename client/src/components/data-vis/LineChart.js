@@ -41,7 +41,7 @@ class LineChart extends Component {
       // Scale the range of the data
       x.domain(
           extent(data, function(d) {
-              return d.date;
+              return d ? d.date : null;
           })
       );
       /*y.domain([
@@ -50,14 +50,19 @@ class LineChart extends Component {
               return d.val;
           })
       ]);*/
-      console.log(max(data, function (d) {
-          return d.val;
-      }));
+      /*console.log(max(data, function (d) {
+          if (d.val) {
+              return d.val;
+          } else {
+              return 0;
+          }
+      }));*/
       y.domain([0, 20]);
 
     // define the line
     let valueline = line()
       //.curve(curveBasis)
+        .defined(function(d) { return d; })
       .x(function(d) {
         return x(d.date);
       })
@@ -66,14 +71,13 @@ class LineChart extends Component {
       });
 
       // define the line2
-      let valueline2 = line()
-      //.curve(curveBasis)
+      /*let valueline2 = line()
           .x(function(d) {
               return x(d.date);
           })
           .y(function(d) {
               return y(d.val2);
-          });
+          });*/
 
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
@@ -99,11 +103,11 @@ class LineChart extends Component {
         .attr("transform", "translate(30, 0)");
 
     // add valueline2 path
-      svg
+      /*svg
           .append("path")
           .datum(data)
           .attr("class", "line2")
-          .attr("d", valueline2)
+          .attr("d", valueline2)*/
           //.attr("transform", "translate(30, 0)");
 
     // Add the X Axis
@@ -143,6 +147,15 @@ class LineChart extends Component {
               .tickSize(-width)
               .tickFormat("")
           )
+
+      svg.selectAll(".dot")
+          .data(data.filter(function(d) { return d; }))
+          .enter().append("circle")
+          .attr("class", "dot")
+          .attr("cx", valueline.x())
+          .attr("cy", valueline.y())
+          .attr("r", 3.5)
+          .attr("transform", "translate(30, 0)");
   }
 
   render() {
