@@ -31,6 +31,7 @@ class Home extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleConfirmSelection = this.handleConfirmSelection.bind(this);
     this.handleBackToAddMore = this.handleBackToAddMore.bind(this);
+    this.onTabSelect = this.onTabSelect.bind(this);
 
     /**
      * To enable login-free mode
@@ -87,6 +88,10 @@ class Home extends Component {
 
   handleBackToAddMore() {
     this.setState({ selector: true, portfolio: false });
+  }
+
+  onTabSelect(selectedTabIndex) {
+    this.setState({selectedTabIndex});
   }
 
   render() {
