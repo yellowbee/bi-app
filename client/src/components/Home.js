@@ -7,31 +7,21 @@ import { csv } from "d3-request";
 import { timeParse } from "d3-time-format";
 import axios from "axios";
 import { connect } from "react-redux";
-import { NavLink, withRouter } from "react-router-dom";
+import {NavLink, Route, Switch, withRouter} from "react-router-dom";
 import { setToken } from "../actions/action_auth";
-import SimpleDropdownList from "../../qureative-ui/src/ui/SimpleDropdownList";
-import createFilterOptions from "react-select-fast-filter-options";
-import ComapanySelector from "./ui/analysis/CompanySelector";
 import TreeMenuNode from "./widgets/TreeMenuNode";
 import TreeMenuRoot from "./widgets/TreeMenuRoot";
-
-import CompanyPortfolio from "./ui/analysis/CompanyPortfolio";
+import ParameterQuery from "./ui/analysis/ParameterQuery";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideNav: true,
-      selector: true,
-      portfolio: false
+      sideNav: true
     };
 
     this.openNav = this.openNav.bind(this);
     this.closeNav = this.closeNav.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleConfirmSelection = this.handleConfirmSelection.bind(this);
-    this.handleBackToAddMore = this.handleBackToAddMore.bind(this);
-    this.onTabSelect = this.onTabSelect.bind(this);
 
     /**
      * To enable login-free mode
@@ -75,25 +65,6 @@ class Home extends Component {
     this.setState({ sideNav: false });
   }
 
-  handleChange(selectedOptions) {
-    this.setState({ selectedOptions });
-    console.log(`Option selected:`, selectedOptions);
-  }
-
-  handleConfirmSelection() {
-    if (this.state.selectedOptions && this.state.selectedOptions.length > 0) {
-        this.setState({selector: false, portfolio: true});
-    }
-  }
-
-  handleBackToAddMore() {
-    this.setState({ selector: true, portfolio: false });
-  }
-
-  onTabSelect(selectedTabIndex) {
-    this.setState({selectedTabIndex});
-  }
-
   render() {
     console.log(this.props.state);
     let navStyle;
@@ -124,19 +95,19 @@ class Home extends Component {
               <TreeMenuNode nodeName="企业分析" expandAtOpen={true}>
                 <ul>
                   <li>
-                    <a href="#basic-info">公司指标查询与分析</a>
+                    <NavLink activeClassName="selected" to="/home/param-query">公司指标查询与分析</NavLink>
                   </li>
                   <li>
-                    <a href="#self-intro">自助式指标预测</a>
+                    <NavLink activeClassName="selected" to="/home/param-prediction">自助式指标预测</NavLink>
                   </li>
                   <li>
-                    <a href="#work-exp">企业会计信息质量</a>
+                    <NavLink activeClassName="selected" to="/home/accounting-info">企业会计信息质量</NavLink>
                   </li>
                   <li>
-                    <a href="#contact-method">企业估值</a>
+                    <NavLink activeClassName="selected" to="/home/estimation">企业估值</NavLink>
                   </li>
                   <li>
-                    <a href="#contact-method">一键报告生成</a>
+                    <NavLink activeClassName="selected" to="/home/report">一键报告生成</NavLink>
                   </li>
                 </ul>
               </TreeMenuNode>
@@ -158,50 +129,9 @@ class Home extends Component {
           </div>
         </div>
 
-        <div className="side no-wrap home-workspace">
-          <span
-            style={{ fontSize: "30px", cursor: "pointer" }}
-            onClick={e => {
-              this.openNav();
-            }}
-          >
-            &#9776;
-          </span>
-          <NavLink exact to="/">
-            <div>登出</div>
-          </NavLink>
-
-          {this.state.selector && (
-            <ComapanySelector
-              handleChange={this.handleChange}
-              handleConfirmSelection={this.handleConfirmSelection}
-              defaultValue={this.state.selectedOptions}
-            />
-          )}
-
-          {this.state.portfolio && (
-            <CompanyPortfolio
-              selection={this.state.selectedOptions}
-              handleBackToAddMore={this.handleBackToAddMore}
-            />
-          )}
-
-          {/*
-                <div className="col-md-2">
-                    <SimpleDropdownList
-                        title="选择开始日期"
-                        itemList={["Art", "Design"]}
-                        setCategory={this.props.setCategory}
-                    />
-                </div>
-                <div className="col-md-2">
-                    <SimpleDropdownList
-                        title="选择结束日期"
-                        itemList={["Art", "Design"]}
-                        setCategory={this.props.setCategory}
-                    />
-                </div>*/}
-        </div>
+          <Switch>
+              <Route path="/home/param-query" component={ParameterQuery} />
+          </Switch>
       </div>
     );
   }

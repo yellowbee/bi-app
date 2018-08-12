@@ -29,7 +29,7 @@ render(
       <Router basename="/">
         <Switch>
           <Route path="/home" component={Home} />
-          <Route path="/" component={Login} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Router>
     </PersistGate>

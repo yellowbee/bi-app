@@ -57,7 +57,7 @@ class LineChart extends Component {
               return 0;
           }
       }));*/
-      y.domain([0, 20]);
+      y.domain([-20, 40]);
 
     // define the line
     let valueline = line()

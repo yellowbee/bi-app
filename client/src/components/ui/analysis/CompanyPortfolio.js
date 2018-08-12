@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../common/Spinner";
-import StandardParameterAnalysis from "./StandardParameterAnalysis";
+import ParameterVisualization from "./ParameterVisualization";
 import { BI_API_ROOT_URL } from "../../../constants";
 
 class CompanyPortfolio extends Component {
@@ -70,7 +70,7 @@ class CompanyPortfolio extends Component {
               <TabPanel key={option.value}>
                   {
                     this.state.selectedIndex === i && this.state.curRoe &&
-                        <StandardParameterAnalysis data={this.state.curRoe}/>
+                        <ParameterVisualization data={this.state.curRoe}/>
                   }
               </TabPanel>
             ))}

@@ -29,13 +29,12 @@ class TreeMenuNode extends Component {
         </div>
 
         <div
+            className="tmnode-leaves"
           onClick={e => {
             e.stopPropagation();
           }}
           style={{
-            display: this.state.displayChildren,
-            position: "relative",
-            left: "10px"
+            display: this.state.displayChildren
           }}
         >
           {this.props.children}
