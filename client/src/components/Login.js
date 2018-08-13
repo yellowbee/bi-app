@@ -59,7 +59,7 @@ class Login extends Component {
                     localStorage.setItem("token", response.data.token);
                     //localStorage.setItem("userName", response.data.userName);
                     //localStorage.setItem("fullName", response.data.fullName);
-                    this.props.history.push("/home/param-query");
+                    this.props.history.push("/home/main-shares");
                 })
                 .catch(error => {
                     console.log(error.response);

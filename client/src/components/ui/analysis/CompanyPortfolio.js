@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { NavLink } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../common/Spinner";
@@ -26,17 +27,17 @@ class CompanyPortfolio extends Component {
 
   getRoe(code) {
     this.setState({ fetchInProgress: true });
-    axios
-      .get(`${BI_API_ROOT_URL}/api/roe/${code}`)
-      .then(response => {
-        console.log("ROE for current option:");
-        console.log(response.data);
-        this.setState({ fetchInProgress: false, curRoe: response.data });
-      });
+    axios.get(`${BI_API_ROOT_URL}/api/roe/${code}`).then(response => {
+      console.log("ROE for current option:");
+      console.log(response.data);
+      this.setState({ fetchInProgress: false, curRoe: response.data });
+    });
   }
 
   componentDidMount() {
-    this.getRoe(this.props.selection[0].value);
+    if (this.props.selection.length > 0) {
+      this.getRoe(this.props.selection[0].value);
+    }
   }
 
   render() {
@@ -45,17 +46,20 @@ class CompanyPortfolio extends Component {
       <div>
         <div style={{ marginBottom: "40px" }}>
           <span>已选定公司 ({options.length}) &nbsp;&nbsp;&nbsp;</span>
-          <a href="javascript:;" onClick={this.props.handleBackToAddMore}>
-            返回继续添加
-          </a>
+          <NavLink activeClassName="selected" to="/home/main-shares">
+            返回设置主选公司
+          </NavLink>
         </div>
 
         {this.state.fetchInProgress && <Spinner />}
         {!this.state.fetchInProgress && (
-          <Tabs selectedIndex={this.state.selectedIndex} onSelect={(tabIndex) => {
-            this.setState({selectedIndex: tabIndex})
-            this.getRoe(this.props.selection[tabIndex].value)
-          }}>
+          <Tabs
+            selectedIndex={this.state.selectedIndex}
+            onSelect={tabIndex => {
+              this.setState({ selectedIndex: tabIndex });
+              this.getRoe(this.props.selection[tabIndex].value);
+            }}
+          >
             <TabList>
               {options.map(option => (
                 <Tab key={option.value}>
@@ -68,10 +72,10 @@ class CompanyPortfolio extends Component {
 
             {options.map((option, i) => (
               <TabPanel key={option.value}>
-                  {
-                    this.state.selectedIndex === i && this.state.curRoe &&
-                        <ParameterVisualization data={this.state.curRoe}/>
-                  }
+                {this.state.selectedIndex === i &&
+                  this.state.curRoe && (
+                    <ParameterVisualization data={this.state.curRoe} />
+                  )}
               </TabPanel>
             ))}
           </Tabs>

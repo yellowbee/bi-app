@@ -5,6 +5,7 @@ import options from "../../shanghai-a-share";
 import createFilterOptions from "react-select-fast-filter-options";
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
+import HandyNav from "../nav/HandyNav";
 
 class CompanySelector extends Component {
     constructor(props) {
@@ -76,20 +77,7 @@ class CompanySelector extends Component {
                             />
                         </div>
                         <div className="col-md-3">
-                            <div className="home-panel-title">
-                                <h6>&nbsp;</h6>
-                            </div>
-
-                            <button
-                                style={{
-                                    width: "100px",
-                                    backgroundColor: "#4c85ce",
-                                    color: "white"
-                                }}
-                                onClick={this.props.handleConfirmSelection}
-                            >
-                                选定
-                            </button>
+                            <HandyNav/>
                         </div>
                     </div>
                 </div>

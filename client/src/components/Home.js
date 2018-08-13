@@ -9,9 +9,9 @@ import axios from "axios";
 import { connect } from "react-redux";
 import {NavLink, Route, Switch, withRouter} from "react-router-dom";
 import { setToken } from "../actions/action_auth";
-import TreeMenuNode from "./widgets/TreeMenuNode";
-import TreeMenuRoot from "./widgets/TreeMenuRoot";
 import ParameterQuery from "./ui/analysis/ParameterQuery";
+import MainNav from "./ui/nav/MainNav";
+import ShareSelector from "./ui/analysis/ShareSelector";
 
 class Home extends Component {
   constructor(props) {
@@ -91,45 +91,12 @@ class Home extends Component {
               <h6 className="bi-title horizontal-2">企业分析软件</h6>
             </div>
 
-            <TreeMenuRoot>
-              <TreeMenuNode nodeName="企业分析" expandAtOpen={true}>
-                <ul>
-                  <li>
-                    <NavLink activeClassName="selected" to="/home/param-query">公司指标查询与分析</NavLink>
-                  </li>
-                  <li>
-                    <NavLink activeClassName="selected" to="/home/param-prediction">自助式指标预测</NavLink>
-                  </li>
-                  <li>
-                    <NavLink activeClassName="selected" to="/home/accounting-info">企业会计信息质量</NavLink>
-                  </li>
-                  <li>
-                    <NavLink activeClassName="selected" to="/home/estimation">企业估值</NavLink>
-                  </li>
-                  <li>
-                    <NavLink activeClassName="selected" to="/home/report">一键报告生成</NavLink>
-                  </li>
-                </ul>
-              </TreeMenuNode>
-              <ul>
-                <li>
-                  <a href="#basic-info">我的</a>
-                </li>
-                <li>
-                  <a href="#basic-info">资讯</a>
-                </li>
-                <li>
-                  <a href="#basic-info">排行榜</a>
-                </li>
-                <li>
-                  <a href="#basic-info">贴吧</a>
-                </li>
-              </ul>
-            </TreeMenuRoot>
+            <MainNav/>
           </div>
         </div>
 
           <Switch>
+              <Route path="/home/main-shares" component={ShareSelector} />
               <Route path="/home/param-query" component={ParameterQuery} />
           </Switch>
       </div>

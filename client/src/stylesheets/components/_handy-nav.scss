@@ -1,0 +1,22 @@
+
+.hdnav {
+  margin-top: 25px;
+  padding: 0;
+  width: 180px;
+  border: 1px solid lightblue;
+}
+
+.hn-item {
+  font-size: 0.8em;
+  padding: 5px 10px;
+  &:hover {
+    background-color: lightblue;
+  }
+}
+
+.hn-item {
+  a {
+    padding: 0;
+    border: 0;
+  }
+}
