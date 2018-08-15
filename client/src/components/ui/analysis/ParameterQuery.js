@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import CompanyPortfolio from "./CompanyPortfolio";
+import SlidingPanel from "../../widgets/SlidingPanel";
 
 class ParameterQuery extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedIndex: 0,
-        selectedOptions: []
+      selectedOptions: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleConfirmSelection = this.handleConfirmSelection.bind(this);
@@ -32,7 +33,7 @@ class ParameterQuery extends Component {
 
   render() {
     return (
-      <div className="side no-wrap home-workspace">
+      <div className="side home-workspace">
         <span
           style={{ fontSize: "30px", cursor: "pointer" }}
           onClick={e => {
@@ -45,16 +46,19 @@ class ParameterQuery extends Component {
           <div>登出</div>
         </NavLink>
 
-        <CompanyPortfolio
-          selection={this.props.state.mainShares}
-        />
+        <CompanyPortfolio selection={this.props.state.mainShares} />
+
+        <SlidingPanel />
       </div>
     );
   }
 }
 
 let mapStateToProps = state => ({
-    state: state
+  state: state
 });
 
-export default connect(mapStateToProps, null)(ParameterQuery);
+export default connect(
+  mapStateToProps,
+  null
+)(ParameterQuery);
