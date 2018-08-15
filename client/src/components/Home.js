@@ -104,6 +104,11 @@ class Home extends Component {
   }
 }
 
+/**
+ * Redux state here is redundant. It's kept only for the purpose of debugging.
+ * @param state
+ * @returns {{state: *}}
+ */
 let mapStateToProps = state => ({
   state: state
 });

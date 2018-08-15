@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../common/Spinner";
-import ParameterVisualization from "./ParameterVisualization";
+import ParameterVisualization from "./StandardParameterVisualization";
 import { BI_API_ROOT_URL } from "../../../constants";
+import LandscapeNavBar from "../../widgets/LandscapeNavBar";
+import StandardParameterVisualization from "./StandardParameterVisualization";
+import ShareSelector from "./ShareSelector";
+import ParameterQuery from "./ParameterQuery";
 
 class CompanyPortfolio extends Component {
   constructor(props) {
@@ -41,6 +45,29 @@ class CompanyPortfolio extends Component {
   }
 
   render() {
+    let style = {
+      container: {
+        gridTemplateColumns: "repeat(6, 1fr)",
+      }
+    };
+
+    let items = [
+      {
+        style: {
+          gridColumn: "1 / 2"
+        },
+        path: "/home/param-query",
+        label: "查看标准分析"
+      },
+      {
+        style: {
+          gridColumn: "2 / 3"
+        },
+        path: "/home/param-query/more-param",
+        label: "查看更多指标"
+      }
+    ];
+
     let options = this.props.selection;
     return (
       <div>
@@ -74,7 +101,26 @@ class CompanyPortfolio extends Component {
               <TabPanel key={option.value}>
                 {this.state.selectedIndex === i &&
                   this.state.curRoe && (
-                    <ParameterVisualization data={this.state.curRoe} />
+                    <div>
+                      <LandscapeNavBar style={style} items={items} />
+                      <Switch>
+                          <Route
+                              exact
+                              path="/home/param-query/more-param"
+                              render={() => (
+                                  <div>More Param</div>
+                              )}
+                          />
+                          <Route
+                              path="/home/param-query"
+                              render={() => (
+                                  <StandardParameterVisualization
+                                      data={this.state.curRoe}
+                                  />
+                              )}
+                          />
+                      </Switch>
+                    </div>
                   )}
               </TabPanel>
             ))}

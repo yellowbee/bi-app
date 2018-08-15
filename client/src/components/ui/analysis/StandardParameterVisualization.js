@@ -19,7 +19,7 @@ const convertTwoArrToOneArray = data => {
   return newArray;
 };
 
-class ParameterVisualization extends Component {
+class StandardParameterVisualization extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -46,4 +46,4 @@ class ParameterVisualization extends Component {
   }
 }
 
-export default ParameterVisualization;
+export default StandardParameterVisualization;

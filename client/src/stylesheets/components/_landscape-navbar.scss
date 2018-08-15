@@ -1,0 +1,14 @@
+
+li.lsnavbar-item {
+  font-size: 0.8em;
+  .selected {
+    border-left: 0px;
+    border-bottom: 3px solid blue;
+  }
+}
+
+ul.lsnavbar-container {
+  display: grid;
+  grid-template-rows: auto;
+  align-content: center;
+}
