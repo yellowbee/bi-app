@@ -1,0 +1,74 @@
+
+// style for quarter selectors
+.ac-select__control {
+  min-height: 20px !important;
+}
+
+.ac-select__single-value {
+  //color: blue !important;
+}
+
+.ac-select__value-container {
+  font-size: $font-size-small;
+  height: 20px;
+}
+
+.ac-select__menu {
+  font-size: $font-size-small;
+}
+
+.ac-select__indicator {
+  width: 12px;
+  height: 12px;
+  svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.qtr-selector-container {
+  display: grid;
+  grid-template-columns: 115px 15px 115px auto;
+  margin-top: 10px;
+}
+
+.qtr-selector-ele {
+
+}
+
+.ac-text {
+  font-size: $font-size-small;
+}
+.ac-title {
+  font-size: $font-size-medium;
+}
+
+.ac-qtr {
+  padding: 30px 10px;
+  border-bottom: 1px solid lightblue;
+}
+
+.ac-type {
+  padding: 10px 10px;
+  border-bottom: 1px solid lightblue;
+}
+
+.ac-peer {
+  height: 300px;
+  padding: 10px 10px;
+  border-bottom: 1px solid lightblue;
+}
+
+// sytle for peer selector
+.ac-peer__value-container {
+  font-size: $font-size-small;
+}
+.ac-peer__menu {
+  font-size: $font-size-small;
+}
+
+.ac-submit {
+  width: 80%;
+  margin: 20px auto;
+}
+

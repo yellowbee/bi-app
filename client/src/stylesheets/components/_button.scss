@@ -8,4 +8,9 @@
   width: 100%;
   background-color: $theme-blue;
   color: white;
+
+  &:focus {
+    outline: none !important;
+  }
 }
+

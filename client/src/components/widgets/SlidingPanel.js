@@ -17,7 +17,7 @@ class SlidingPanel extends Component {
     let wrapperClass = this.state.show ? "sp-wrapper sp-show" : "sp-wrapper sp-hide";
     return (
       <div className={wrapperClass}>
-        <div className="sp-panel"></div>
+        <div className="sp-panel">{this.props.children}</div>
         <div className="sp-handle" onClick={() => {
             let show = !this.state.show;
             this.setState({show: show})

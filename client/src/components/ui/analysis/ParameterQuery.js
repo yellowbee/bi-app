@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import CompanyPortfolio from "./CompanyPortfolio";
 import SlidingPanel from "../../widgets/SlidingPanel";
+import AdvancedConfig from "./AdvancedConfig";
 
 class ParameterQuery extends Component {
   constructor(props) {
@@ -48,7 +49,9 @@ class ParameterQuery extends Component {
 
         <CompanyPortfolio selection={this.props.state.mainShares} />
 
-        <SlidingPanel />
+        <SlidingPanel>
+            <AdvancedConfig/>
+        </SlidingPanel>
       </div>
     );
   }
