@@ -6,7 +6,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import options from "../../quarters";
-import moment from "moment";
 import peerOptions from "../../shanghai-a-share";
 import "../../../../qureative-ui/css/radio-group.scss";
 
@@ -19,6 +18,7 @@ class AdvancedConfig extends Component {
       radioGroup: [false, false, false, false]
     };
     this.radioCallback = this.radioCallback.bind(this);
+    this.handlePeerChange = this.handlePeerChange.bind(this);
   }
 
   radioCallback(i) {
@@ -27,6 +27,10 @@ class AdvancedConfig extends Component {
     });
 
     this.setState({ radioGroup });
+  }
+
+  handlePeerChange(selectedOptions) {
+      this.props.setMainShares(selectedOptions);
   }
 
   render() {
@@ -97,7 +101,7 @@ class AdvancedConfig extends Component {
               isMulti={true}
               isSearchable={true}
               placeholder={"简称/代码"}
-              onChange={this.props.handleChange}
+              onChange={this.handlePeerChange}
               closeMenuOnSelect={false}
               classNamePrefix="ac-peer"
             />

@@ -35,14 +35,14 @@ class ParameterQuery extends Component {
   render() {
     return (
       <div className="side home-workspace">
-        <span
+          {/*<span
           style={{ fontSize: "30px", cursor: "pointer" }}
           onClick={e => {
             this.openNav();
           }}
         >
           &#9776;
-        </span>
+        </span>*/}
         <NavLink exact to="/login">
           <div>登出</div>
         </NavLink>

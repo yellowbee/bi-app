@@ -12,7 +12,6 @@ class ShareSelector extends Component {
       selectedIndex: 0
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleConfirmSelection = this.handleConfirmSelection.bind(this);
     this.onTabSelect = this.onTabSelect.bind(this);
   }
 
@@ -22,12 +21,6 @@ class ShareSelector extends Component {
       this.props.setMainShares(selectedOptions);
   }
 
-  handleConfirmSelection() {
-    if (this.state.selectedOptions && this.state.selectedOptions.length > 0) {
-      this.setState({ selector: false, portfolio: true });
-    }
-  }
-
   onTabSelect(selectedTabIndex) {
     this.setState({ selectedTabIndex });
   }
@@ -35,14 +28,14 @@ class ShareSelector extends Component {
   render() {
     return (
       <div className="side no-wrap home-workspace">
-        <span
+          {/*<span
           style={{ fontSize: "30px", cursor: "pointer" }}
           onClick={e => {
             this.openNav();
           }}
         >
           &#9776;
-        </span>
+        </span>*/}
         <NavLink exact to="/login">
           <div>登出</div>
         </NavLink>

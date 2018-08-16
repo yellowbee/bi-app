@@ -78,14 +78,14 @@ class Home extends Component {
       <div className="home">
         <div className={navStyle} style={{ borderRight: "1px solid gray" }}>
           <div style={{ padding: "10px" }}>
-            <div
+              {/*<div
               className="closebtn"
               onClick={e => {
                 this.closeNav();
               }}
             >
               &times;
-            </div>
+            </div>*/}
             <div className="home-logo">
               <span className="bi-logo horizontal-2" />
               <h6 className="bi-title horizontal-2">企业分析软件</h6>
