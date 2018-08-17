@@ -9,6 +9,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
+import _ from "lodash";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { setToken } from "../actions/action_auth";

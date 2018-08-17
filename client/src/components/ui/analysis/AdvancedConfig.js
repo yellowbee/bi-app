@@ -30,7 +30,7 @@ class AdvancedConfig extends Component {
   }
 
   handlePeerChange(selectedOptions) {
-      this.props.setMainShares(selectedOptions);
+      //this.props.setMainShares(selectedOptions);
   }
 
   render() {
