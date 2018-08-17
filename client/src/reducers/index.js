@@ -1,9 +1,4 @@
 import { combineReducers } from 'redux';
-import projectCards from './reducer_projectcards';
-import questionCards from './reducer_questioncards';
-import questionDetail from './reducer_questiondetail';
-import formQuestion from './reducer_question_form';
-import formProject from './reducer_project_form';
 import auth from './reducer_auth';
 import mainShares from './reducer_main_shares';
 
@@ -15,6 +10,14 @@ import mainShares from './reducer_main_shares';
 const rootReducer = combineReducers({
     auth: auth,
     mainShares: mainShares
+    /*advancedConfig: {
+        paramAnalysis: paramAnalysis // {
+                                           startQtr: "1990-3",
+                                           endQtr: "2000-3",
+                                           type: "all",
+                                           peers: ["0001", '0002"]
+                                        }
+    }*/
 });
 
 export default rootReducer;

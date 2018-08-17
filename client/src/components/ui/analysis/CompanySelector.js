@@ -48,7 +48,7 @@ class CompanySelector extends Component {
 
                                 <AccordionItem>
                                     <AccordionItemTitle>
-                                        <h6>第三版</h6>
+                                        <h6>新三板</h6>
                                     </AccordionItemTitle>
                                     <AccordionItemBody className="third-plate-accord-body" />
                                 </AccordionItem>

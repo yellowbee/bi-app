@@ -5,7 +5,7 @@
 
 import React, { Component } from "react";
 import Select from "react-select";
-import options from "../../quarters";
+import options from "../../../../json/quarters";
 import peerOptions from "../../shanghai-a-share";
 import "../../../../qureative-ui/css/radio-group.scss";
 
