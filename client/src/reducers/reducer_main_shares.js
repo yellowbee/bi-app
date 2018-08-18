@@ -1,5 +1,5 @@
 /**
- * Created by bhuang on 3/11/18.
+ * Created by bhuang on 8/11/18.
  * Sign in and sign up info should not be stored in redux state.
  */
 

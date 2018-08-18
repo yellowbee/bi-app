@@ -5,6 +5,8 @@
 
 import React, { Component } from "react";
 import Select from "react-select";
+import { connect } from "react-redux";
+import { setParamAnalysis } from "../../../actions/action_analysis_config";
 import options from "../../../../json/quarters";
 import peerOptions from "../../shanghai-a-share";
 import "../../../../qureative-ui/css/radio-group.scss";
@@ -30,15 +32,19 @@ class AdvancedConfig extends Component {
   }
 
   handlePeerChange(selectedOptions) {
-      //this.props.setMainShares(selectedOptions);
+    //let oldParamAnalysis = this.props.state.analysisConfig.paramAnalysis;
+    this.props.setParamAnalysis({peers: selectedOptions});
+    console.log(this.props.state);
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={e => {
-          e.preventDefault();
-        }}>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+          }}
+        >
           <div className="ac-qtr">
             <div className="ac-title">时间设置</div>
             <div className="qtr-selector-container">
@@ -102,13 +108,16 @@ class AdvancedConfig extends Component {
               isSearchable={true}
               placeholder={"简称/代码"}
               onChange={this.handlePeerChange}
+              defaultValue={this.props.state.paramAnalysis.peers}
               closeMenuOnSelect={false}
               classNamePrefix="ac-peer"
             />
           </div>
 
           <div className="ac-submit">
-            <button className="bi-button" type="submit">保存设置</button>
+            <button className="bi-button" type="submit">
+              保存设置
+            </button>
           </div>
         </form>
       </div>
@@ -116,4 +125,17 @@ class AdvancedConfig extends Component {
   }
 }
 
-export default AdvancedConfig;
+let mapStateToProps = state => ({
+  state: state
+});
+
+let mapDispatchToProps = dispatch => ({
+  setParamAnalysis: value => {
+    dispatch(setParamAnalysis(value));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdvancedConfig);

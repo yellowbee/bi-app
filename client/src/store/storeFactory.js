@@ -54,6 +54,14 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
  *  }
  *
  */
+/*analysisConfig: {
+        paramAnalysis: paramAnalysis // {
+                                           startQtr: "1990-3",
+                                           endQtr: "2000-3",
+                                           type: "all",
+                                           peers: ["0001", '0002"]
+                                        }
+    }*/
 const storeFactory = () =>
     applyMiddleware(ReduxPromise)(createStore)(persistedReducer);
 
