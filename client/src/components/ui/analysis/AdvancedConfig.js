@@ -33,8 +33,8 @@ class AdvancedConfig extends Component {
 
   handlePeerChange(selectedOptions) {
     //let oldParamAnalysis = this.props.state.analysisConfig.paramAnalysis;
-    this.props.setParamAnalysis({peers: selectedOptions});
-    console.log(this.props.state);
+    //this.props.setParamAnalysis({peers: selectedOptions});
+    this.setState({ peers: selectedOptions });
   }
 
   render() {
@@ -43,6 +43,7 @@ class AdvancedConfig extends Component {
         <form
           onSubmit={e => {
             e.preventDefault();
+            this.props.setParamAnalysis({peers: this.state.peers})
           }}
         >
           <div className="ac-qtr">

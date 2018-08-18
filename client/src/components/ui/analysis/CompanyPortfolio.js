@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { NavLink, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../common/Spinner";
@@ -131,4 +132,8 @@ class CompanyPortfolio extends Component {
   }
 }
 
-export default CompanyPortfolio;
+let mapStateToProps = state => ({
+    state: state
+});
+
+export default connect(mapStateToProps, null)(CompanyPortfolio);
