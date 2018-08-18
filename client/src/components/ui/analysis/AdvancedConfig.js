@@ -10,6 +10,7 @@ import { setParamAnalysis } from "../../../actions/action_analysis_config";
 import options from "../../../../json/quarters";
 import peerOptions from "../../shanghai-a-share";
 import "../../../../qureative-ui/css/radio-group.scss";
+import Alert from "../../widgets/Alert";
 
 const typeOptions = ["一季报", "半年报", "三季报", "年报"];
 
@@ -43,7 +44,8 @@ class AdvancedConfig extends Component {
         <form
           onSubmit={e => {
             e.preventDefault();
-            this.props.setParamAnalysis({peers: this.state.peers})
+            this.props.setParamAnalysis({peers: this.state.peers});
+            this.refs.myAlert.success('设置保存成功!', 5000);
           }}
         >
           <div className="ac-qtr">
@@ -121,6 +123,9 @@ class AdvancedConfig extends Component {
             </button>
           </div>
         </form>
+
+        <Alert ref="myAlert" />
+
       </div>
     );
   }
