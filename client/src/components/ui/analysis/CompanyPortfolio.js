@@ -22,9 +22,22 @@ class CompanyPortfolio extends Component {
     this.getRoe = this.getRoe.bind(this);
   }
 
-  getRoes() {
+    /**
+     * Get the roes of the main share and its peers from rest api.
+     * @param mainIdx the tab index of the current main share
+     * @param peers
+     */
+  getRoes(mainIdx) {
     this.setState({ fetchInProgress: true });
-    axios.get(`${BI_API_ROOT_URL}/api/roes/codes=000001.SZ`).then(response => {
+    let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
+    let companies = `codes=${mainCompanyVal}`;
+    let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
+    for (let i=0; i < peers.length; i++) {
+      let peerVal = peers[i].value;
+      companies += `&codes=${peerVal}`;
+    }
+    console.log(companies);
+    axios.get(`${BI_API_ROOT_URL}/api/roes/${companies}`).then(response => {
       console.log(response.data);
       this.setState({ fetchInProgress: false, roes: response.data });
     });
@@ -40,12 +53,16 @@ class CompanyPortfolio extends Component {
   }
 
   componentDidMount() {
-    if (this.props.selection.length > 0) {
-      this.getRoe(this.props.selection[0].value);
+    if (this.props.state.mainShares.length > 0) {
+      //this.getRoe(this.props.state.mainShares[this.state.selectedIndex].value);
+       this.getRoes(this.state.selectedIndex);
     }
   }
 
   render() {
+    console.log("current local state: ");
+    console.log(this.state);
+
     let style = {
       container: {
         gridTemplateColumns: "repeat(6, 1fr)",
@@ -69,7 +86,7 @@ class CompanyPortfolio extends Component {
       }
     ];
 
-    let options = this.props.selection;
+    let options = this.props.state.mainShares;
     return (
       <div>
         <div style={{ marginBottom: "40px" }}>
@@ -85,7 +102,8 @@ class CompanyPortfolio extends Component {
             selectedIndex={this.state.selectedIndex}
             onSelect={tabIndex => {
               this.setState({ selectedIndex: tabIndex });
-              this.getRoe(this.props.selection[tabIndex].value);
+              //this.getRoe(this.props.state.mainShares[tabIndex].value);
+                this.getRoes(tabIndex);
             }}
           >
             <TabList>
@@ -101,23 +119,22 @@ class CompanyPortfolio extends Component {
             {options.map((option, i) => (
               <TabPanel key={option.value}>
                 {this.state.selectedIndex === i &&
-                  this.state.curRoe && (
+                  this.state.roes && (
                     <div>
                       <LandscapeNavBar style={style} items={items} />
                       <Switch>
                           <Route
-                              exact
-                              path="/home/param-query/more-param"
-                              render={() => (
-                                  <div>More Param</div>
-                              )}
-                          />
-                          <Route
                               path="/home/param-query"
                               render={() => (
                                   <StandardParameterVisualization
-                                      data={this.state.curRoe}
+                                      data={this.state.roes}
                                   />
+                              )}
+                          />
+                          <Route
+                              path="/home/param-query/more-param"
+                              render={() => (
+                                  <div>More Param</div>
                               )}
                           />
                       </Switch>

@@ -44,7 +44,7 @@ class LandscapeNavBar extends Component {
         return (
             <ul style={style.container} className="lsnavbar-container">
                 {items.map((item, i) =>
-                    <li style={item.style} className="lsnavbar-item">
+                    <li key={i} style={item.style} className="lsnavbar-item">
                         <NavLink activeClassName="selected" exact to={item.path}>{item.label}</NavLink>
                     </li>
                 )}

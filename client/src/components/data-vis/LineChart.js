@@ -22,7 +22,10 @@ class LineChart extends Component {
     this.createBarChart();
   }
   createBarChart() {
-    const data = this.props.data;
+    let shareNames = Object.keys(this.props.data);
+    const data = this.props.data[shareNames[0]];
+    const data2 = this.props.data[shareNames[1]];
+
     let svg = select(this.node);
     //let g = select(svg).append('g');
 
@@ -38,31 +41,32 @@ class LineChart extends Component {
     let x = scaleTime().range([0, width]);
     let y = scaleLinear().range([height, 0]);
 
-      // Scale the range of the data
-      x.domain(
-          extent(data, function(d) {
-              return d ? d.date : null;
-          })
-      );
-      /*y.domain([
-          0,
-          max(data, function(d) {
-              return d.val;
-          })
-      ]);*/
-      /*console.log(max(data, function (d) {
-          if (d.val) {
-              return d.val;
-          } else {
-              return 0;
-          }
-      }));*/
-      y.domain([-20, 40]);
+    // Scale the range of the data
+    x.domain(
+      extent(data, function(d) {
+        return d ? d.date : null;
+      })
+    );
+    y.domain([-20, 40]);
+
+    // set the ranges
+    let x2 = scaleTime().range([0, width]);
+    let y2 = scaleLinear().range([height, 0]);
+
+    // Scale the range of the data
+    x2.domain(
+      extent(data2, function(d) {
+        return d ? d.date : null;
+      })
+    );
+    y2.domain([-20, 40]);
 
     // define the line
     let valueline = line()
       //.curve(curveBasis)
-        .defined(function(d) { return d; })
+      .defined(function(d) {
+        return d;
+      })
       .x(function(d) {
         return x(d.date);
       })
@@ -70,16 +74,19 @@ class LineChart extends Component {
         return y(d.val);
       });
 
-      // define the line2
-      /*let valueline2 = line()
-          .x(function(d) {
-              return x(d.date);
-          })
-          .y(function(d) {
-              return y(d.val2);
-          });*/
+    // define the line2
+    let valueline2 = line()
+      .defined(function(d) {
+        return d;
+      })
+      .x(function(d) {
+        return x2(d.date);
+      })
+      .y(function(d) {
+        return y2(d.val);
+      });
 
-    // append the svg obgect to the body of the page
+    // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     svg
@@ -100,15 +107,15 @@ class LineChart extends Component {
       .datum(data)
       .attr("class", "line1")
       .attr("d", valueline)
-        .attr("transform", "translate(30, 0)");
+      .attr("transform", "translate(30, 0)");
 
     // add valueline2 path
-      /*svg
-          .append("path")
-          .datum(data)
-          .attr("class", "line2")
-          .attr("d", valueline2)*/
-          //.attr("transform", "translate(30, 0)");
+    svg
+      .append("path")
+      .datum(data2)
+      .attr("class", "line2")
+      .attr("d", valueline2);
+    //.attr("transform", "translate(30, 0)");
 
     // Add the X Axis
     svg
@@ -122,40 +129,63 @@ class LineChart extends Component {
       .attr("transform", "translate(30,0)")
       .call(axisLeft(y));
 
-      // gridlines in x axis function
-      function make_x_gridlines() {
-          return axisBottom(x)
-              .ticks(5)
-      }
-      // gridlines in y axis function
-      function make_y_gridlines() {
-          return axisLeft(y)
-              .ticks(5)
-      }
-      // add the X gridlines
-      svg.append("g")
-          .attr("class", "grid")
-          .attr("transform", "translate(0," + height + ")")
-          .call(make_x_gridlines()
-              .tickSize(-height)
-              .tickFormat("")
-          )
+    // gridlines in x axis function
+    function make_x_gridlines() {
+      return axisBottom(x).ticks(5);
+    }
+    // gridlines in y axis function
+    function make_y_gridlines() {
+      return axisLeft(y).ticks(5);
+    }
+    // add the X gridlines
+    svg
+      .append("g")
+      .attr("class", "grid")
+      .attr("transform", "translate(0," + height + ")")
+      .call(
+        make_x_gridlines()
+          .tickSize(-height)
+          .tickFormat("")
+      );
     // add the Y gridlines
-      svg.append("g")
-          .attr("class", "grid")
-          .call(make_y_gridlines()
-              .tickSize(-width)
-              .tickFormat("")
-          )
+    svg
+      .append("g")
+      .attr("class", "grid")
+      .call(
+        make_y_gridlines()
+          .tickSize(-width)
+          .tickFormat("")
+      );
 
-      svg.selectAll(".dot")
-          .data(data.filter(function(d) { return d; }))
-          .enter().append("circle")
-          .attr("class", "dot")
-          .attr("cx", valueline.x())
-          .attr("cy", valueline.y())
-          .attr("r", 3.5)
-          .attr("transform", "translate(30, 0)");
+    svg
+      .selectAll(".dot")
+      .data(
+        data.filter(function(d) {
+          return d;
+        })
+      )
+      .enter()
+      .append("circle")
+      .attr("class", "dot")
+      .attr("cx", valueline.x())
+      .attr("cy", valueline.y())
+      .attr("r", 3.5)
+      .attr("transform", "translate(30, 0)");
+
+    svg
+      .selectAll(".dot2")
+      .data(
+        data2.filter(function(d) {
+          return d;
+        })
+      )
+      .enter()
+      .append("circle")
+      .attr("class", "dot2")
+      .attr("cx", valueline2.x())
+      .attr("cy", valueline2.y())
+      .attr("r", 3.5);
+    //.attr("transform", "translate(30, 0)");
   }
 
   render() {

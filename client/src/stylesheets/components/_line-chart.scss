@@ -1,22 +1,86 @@
+
+$color0: #4a90e2;
+$color1: #d0021b;
+$color2: #f5a623;
+$color3: #417505;
+$color4: #ff5600;
+$color5: #e010dc;
+$color6: #9013fe;
+$color7: #50e3c2;
+$color8: #233f8a;
+$color9: #7ed321;
+
+.line0 {
+  fill: none;
+  stroke: $color0;
+  stroke-width: 1.5px;
+}
 .line1 {
   fill: none;
-  stroke: steelblue;
+  stroke: $color1;
   stroke-width: 1.5px;
 }
 .line2 {
   fill: none;
-  stroke: red;
+  stroke: $color2;
   stroke-width: 1.5px;
+}
+.line3 {
+  fill: none;
+  stroke: $color3;
+  stroke-width: 1.5px;
+}
+.line4 {
+  fill: none;
+  stroke: $color4;
+  stroke-width: 1.5px;
+}
+
+.dot0 {
+  fill: white;
+  stroke: $color0;
+  stroke-width: 1.5px;
+}
+
+.dot1 {
+  fill: white;
+  stroke: $color1;
+  stroke-width: 1.5px;
+}
+.dot2 {
+  fill: white;
+  stroke: $color2;
+  stroke-width: 1.5px;
+}
+.dot3 {
+  fill: white;
+  stroke: $color3;
+  stroke-width: 1.5px;
+}
+.dot4 {
+  fill: white;
+  stroke: $color4;
+  stroke-width: 1.5px;
+}
+
+.legend0 {
+  fill: $color0;
+}
+.legend1 {
+  fill: $color1;
+}
+.legend2 {
+  fill: $color2;
+}
+.legend3 {
+  fill: $color3;
+}
+.legend4 {
+  fill: $color4;
 }
 
 .grid line {
   stroke: lightgrey;
   stroke-opacity: 0.7;
   shape-rendering: crispEdges;
-}
-
-.dot {
-  fill: white;
-  stroke: steelblue;
-  stroke-width: 1.5px;
 }

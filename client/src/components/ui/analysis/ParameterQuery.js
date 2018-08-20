@@ -47,7 +47,7 @@ class ParameterQuery extends Component {
           <div>登出</div>
         </NavLink>
 
-        <CompanyPortfolio selection={this.props.state.mainShares} />
+        <CompanyPortfolio/>
 
         <SlidingPanel>
             <AdvancedConfig/>
