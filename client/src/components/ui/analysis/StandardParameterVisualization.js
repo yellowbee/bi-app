@@ -16,8 +16,8 @@ import { timeParse } from "d3-time-format";
  *               ...
  *            ]
  */
-const convertTwoArrToOneArray = packed => {
-  let parseTime = timeParse("%Y-%m");
+const convertTwoArrToOneArray = (packed, timeFormat) => {
+  let parseTime = timeParse(timeFormat);
   let expanded = [];
   for (let i = 0; i < packed.date.length; i++) {
     expanded.push(
@@ -42,21 +42,16 @@ class StandardParameterVisualization extends Component {
       // data = {"0001": [], "0002": [], ...}
       let data = {};
       for (let i=0; i < this.props.data.length; i++) {
-          data[this.props.data[i].code] = convertTwoArrToOneArray(this.props.data[i]);
+          data[this.props.data[i].code] = convertTwoArrToOneArray(this.props.data[i], this.props.timeFormat);
       }
       //console.log("expanded data: ");
       //console.log(data);
 
     return (
       <div>
-        <div
-          style={{ width: "100%", backgroundColor: "#d0e7f2", textAlign: "center", padding: "5px 0" }}
-        >
-          ROE (净资产收益率)
-        </div>
         <div style={{marginTop: "20px"}}>
             {/*<LineChart size={[1000, 500]} data={data} />*/}
-            <MultiSeriesLineChart size={[1000, 500]} data={data} />
+            <MultiSeriesLineChart size={[1000, 500]} data={data} domain={this.props.domain}/>
         </div>
       </div>
     );

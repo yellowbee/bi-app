@@ -95,12 +95,13 @@ class MultiSeriesLineChart extends Component {
                 return d ? d.date : null;
             })
         );
-        y.domain([-20, 40]);
+        y.domain(this.props.domain);
 
         // Add the X Axis
+        let originRatio = Math.abs(this.props.domain[1] - 0) / Math.abs(this.props.domain[1] - this.props.domain[0]);
         svg
             .append("g")
-            .attr("transform", "translate(30," + height + ")")
+            .attr("transform", "translate(30," + (originRatio * height) + ")")
             .call(axisBottom(x));
 
         // Add the Y Axis
@@ -130,7 +131,7 @@ class MultiSeriesLineChart extends Component {
             );*/
 
         // parse the date / time
-        let parseTime = timeParse("%Y-%m");
+        //let parseTime = timeParse(this.props.timeFormat);
 
         for (let i=0; i<shareNames.length; i++) {
             if (i > 4) { // now only draws up to 5 lines

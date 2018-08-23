@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import {NavLink, Route, Switch, withRouter} from "react-router-dom";
 import { setToken } from "../actions/action_auth";
 import ParameterQuery from "./ui/analysis/ParameterQuery";
+import AccountingInfo from "./ui/analysis/AccountingInfo";
 import MainNav from "./ui/nav/MainNav";
 import ShareSelector from "./ui/analysis/ShareSelector";
 
@@ -98,6 +99,7 @@ class Home extends Component {
           <Switch>
               <Route path="/home/main-shares" component={ShareSelector} />
               <Route path="/home/param-query" component={ParameterQuery} />
+              <Route path="/home/accounting-info" component={AccountingInfo} />
           </Switch>
       </div>
     );

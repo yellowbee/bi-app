@@ -126,9 +126,18 @@ class CompanyPortfolio extends Component {
                           <Route
                               path="/home/param-query"
                               render={() => (
+                                  <div>
+                                      <div
+                                          style={{ width: "100%", backgroundColor: "#d0e7f2", textAlign: "center", padding: "5px 0" }}
+                                      >
+                                          ROE (净资产收益率)
+                                      </div>
                                   <StandardParameterVisualization
                                       data={this.state.roes}
+                                      timeFormat={"%Y-%m"}
+                                      domain={[-20, 40]}
                                   />
+                                  </div>
                               )}
                           />
                           <Route
