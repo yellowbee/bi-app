@@ -1,0 +1,16 @@
+
+ul.cs-list {
+  li {
+    padding: 5px 5px;
+    text-align: center;
+
+    &:hover {
+      background-color: $theme-light-blue;
+    }
+
+    &.selected {
+      border: 0;
+      background-color: $theme-light-blue;
+    }
+  }
+}
