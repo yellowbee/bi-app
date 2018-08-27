@@ -12,11 +12,14 @@ import createFilterOptions from "react-select-fast-filter-options";
 import "react-accessible-accordion/dist/fancy-example.css";
 import HandyNav from "../nav/HandyNav";
 import axios from "axios";
+import Spinner from "../../ui/common/Spinner";
 
 class CompanySelector extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      spinner: false
+    };
   }
 
   render() {
@@ -45,12 +48,12 @@ class CompanySelector extends Component {
                           this.state.selected === "A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "A" });
+                          this.setState({ selected: "A", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-a`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -64,12 +67,12 @@ class CompanySelector extends Component {
                           this.state.selected === "SH-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SH-A" });
+                          this.setState({ selected: "SH-A", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-sh-a`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -83,12 +86,12 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SZ-A" });
+                          this.setState({ selected: "SZ-A", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-sz-a`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -102,12 +105,12 @@ class CompanySelector extends Component {
                           this.state.selected === "STARTUP" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "STARTUP" });
+                          this.setState({ selected: "STARTUP", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-startup`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -121,12 +124,12 @@ class CompanySelector extends Component {
                           this.state.selected === "MD-SM" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "MD-SM" });
+                          this.setState({ selected: "MD-SM", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-md-sm`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -140,14 +143,14 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-MAIN-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SZ-MAIN-A" });
+                          this.setState({ selected: "SZ-MAIN-A", spinner: true });
                           axios
                             .get(
                               `https://bi-ws.herokuapp.com/api/idx-sz-main-a`
                             )
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -161,12 +164,12 @@ class CompanySelector extends Component {
                           this.state.selected === "B" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "B" });
+                          this.setState({ selected: "B", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-b`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -180,12 +183,12 @@ class CompanySelector extends Component {
                           this.state.selected === "SH-B" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SH-B" });
+                          this.setState({ selected: "SH-B", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-sz-b`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -199,12 +202,12 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-B" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SZ-B" });
+                          this.setState({ selected: "SZ-B", spinner: true });
                           axios
                             .get(`https://bi-ws.herokuapp.com/api/idx-sh-b`)
                             .then(response => {
                               console.log(response);
-                              this.setState({ options: response.data });
+                              this.setState({ options: response.data, spinner: false });
                             })
                             .catch(err => {
                               console.log(err);
@@ -230,6 +233,11 @@ class CompanySelector extends Component {
                   </AccordionItemTitle>
                 </AccordionItem>
               </Accordion>
+                { this.state.spinner &&
+                    <div style={{position: "relative", top: "-300px", left: "70px"}}>
+                <Spinner/>
+                    </div>
+                }
             </div>
             <div className="col-md-6">
               <div className="home-panel-title">
