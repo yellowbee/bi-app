@@ -45,7 +45,7 @@ class AdvancedConfig extends Component {
           onSubmit={e => {
             e.preventDefault();
             this.props.setParamAnalysis({peers: this.state.peers});
-            this.refs.myAlert.success('设置保存成功!', 5000);
+            this.refs.myAlert.success('设置保存成功!', 2000);
           }}
         >
           <div className="ac-qtr">

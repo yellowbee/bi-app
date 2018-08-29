@@ -97,6 +97,7 @@ class CompanyPortfolio extends Component {
                         data={this.state.das}
                         timeFormat={"%Y"}
                         domain={[1, -1]}
+                        dateType={'year'}
                       />
                     </div>
                   )}

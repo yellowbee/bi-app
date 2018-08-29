@@ -69,6 +69,8 @@ class MultiSeriesLineChart extends Component {
         this.createLineChart();
     }
     createLineChart() {
+        console.log('data: ');
+        console.log(this.props.data);
         let svg = select(this.node);
         let shareNames = Object.keys(this.props.data);
         if (shareNames.length > 0) {
@@ -88,7 +90,12 @@ class MultiSeriesLineChart extends Component {
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             // set the ranges
-            let x = scaleTime().range([0, width]);
+            let x;
+            if (this.props.dateType === 'quarter') {
+                x = scaleLinear().range([0, width]);
+            } else {
+                x = scaleTime().range([0, width]);
+            }
             let y = scaleLinear().range([height, 0]);
             // Scale the domains
             x.domain(
@@ -100,10 +107,44 @@ class MultiSeriesLineChart extends Component {
 
             // Add the X Axis
             let originRatio = Math.abs(this.props.domain[1] - 0) / Math.abs(this.props.domain[1] - this.props.domain[0]);
-            svg
-                .append("g")
-                .attr("transform", "translate(30," + (originRatio * height) + ")")
-                .call(axisBottom(x));
+
+            if (this.props.dateType === 'quarter') {
+                // get all non null data points
+                let tValues = [];
+                for (let i = 0; i < 116; i++) {
+                    if (i % 2 === 0) {
+                        tValues.push(i);
+                    }
+                }
+                svg
+                    .append("g")
+                    .attr("transform", "translate(30," + (originRatio * height) + ")")
+                    .call(axisBottom(x).tickValues(tValues).tickFormat((d, i) => {
+                        let quarter = '';
+                        let year = 1990 + Math.floor(d / 4) + '年';
+                        if (d % 4 === 0) {
+                            quarter = '1季';
+                        } else if (d % 4 === 1) {
+                            quarter = '2季';
+                        } else if (d % 4 === 2) {
+                            quarter = '3季';
+                        } else if (d % 4 === 3) {
+                            quarter = '年季';
+                        }
+                        return year + quarter;
+                    }));
+
+                svg.selectAll(".tick > text")
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", ".15em")
+                    .attr("transform", "rotate(-45)");
+            } else {
+                svg
+                    .append("g")
+                    .attr("transform", "translate(30," + (originRatio * height) + ")")
+                    .call(axisBottom(x));
+            }
 
             // Add the Y Axis
             svg

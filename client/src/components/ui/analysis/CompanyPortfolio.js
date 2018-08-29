@@ -136,6 +136,7 @@ class CompanyPortfolio extends Component {
                                       data={this.state.roes}
                                       timeFormat={"%Y-%m"}
                                       domain={[-20, 40]}
+                                      dateType={'quarter'}
                                   />
                                   </div>
                               )}
