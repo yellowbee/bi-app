@@ -20,6 +20,7 @@ class AdvancedConfig extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      peers: this.props.state.paramAnalysis.peers,
       radioGroup: [
           this.props.state.paramAnalysis.qtrType === 0,
           this.props.state.paramAnalysis.qtrType === 1,
@@ -66,7 +67,7 @@ class AdvancedConfig extends Component {
                   isMulti={false}
                   isSearchable={false}
                   placeholder={"开始年与季报..."}
-                  onChange={this.props.handleChange}
+                  onChange={() => {}}
                   closeMenuOnSelect={true}
                   className="ac-select"
                   classNamePrefix="ac-select"
@@ -79,7 +80,7 @@ class AdvancedConfig extends Component {
                   isMulti={false}
                   isSearchable={false}
                   placeholder={"开始年与季报..."}
-                  onChange={this.props.handleChange}
+                  onChange={() => {}}
                   closeMenuOnSelect={true}
                   className="ac-select"
                   classNamePrefix="ac-select"
@@ -117,7 +118,7 @@ class AdvancedConfig extends Component {
               isSearchable={true}
               placeholder={"简称/代码"}
               onChange={this.handlePeerChange}
-              defaultValue={this.props.state.paramAnalysis.peers}
+              defaultValue={this.state.peers}
               closeMenuOnSelect={false}
               classNamePrefix="ac-peer"
             />
