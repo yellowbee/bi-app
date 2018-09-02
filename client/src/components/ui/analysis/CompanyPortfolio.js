@@ -11,28 +11,35 @@ import LandscapeNavBar from "../../widgets/LandscapeNavBar";
 import StandardParameterVisualization from "./StandardParameterVisualization";
 import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
+import { qtrType } from "../../../constants";
+import SlidingPanel from "../../widgets/SlidingPanel";
+import AdvancedConfig from "./AdvancedConfig";
 
 class CompanyPortfolio extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0
+      selectedIndex: 0,
+      qtrType: this.props.state.paramAnalysis.qtrType,
+      peers: this.props.state.paramAnalysis.peers
     };
     this.getRoes = this.getRoes.bind(this);
     this.getRoe = this.getRoe.bind(this);
+    this.updateQtrType = this.updateQtrType.bind(this);
+    this.updatePeers = this.updatePeers.bind(this);
   }
 
-    /**
-     * Get the roes of the main share and its peers from rest api.
-     * @param mainIdx the tab index of the current main share
-     * @param peers
-     */
+  /**
+   * Get the roes of the main share and its peers from rest api.
+   * @param mainIdx the tab index of the current main share
+   * @param peers
+   */
   getRoes(mainIdx) {
     this.setState({ fetchInProgress: true });
     let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
     let companies = `codes=${mainCompanyVal}`;
-    let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
-    for (let i=0; i < peers.length; i++) {
+    let peers = this.state.peers ? this.state.peers : [];
+    for (let i = 0; i < peers.length; i++) {
       let peerVal = peers[i].value;
       companies += `&codes=${peerVal}`;
     }
@@ -52,10 +59,17 @@ class CompanyPortfolio extends Component {
     });
   }
 
+  updateQtrType(qtrType) {
+    this.setState({ qtrType: qtrType });
+  }
+  updatePeers(peers) {
+    this.setState({ peers });
+  }
+
   componentDidMount() {
     if (this.props.state.mainShares.length > 0) {
       //this.getRoe(this.props.state.mainShares[this.state.selectedIndex].value);
-       this.getRoes(this.state.selectedIndex);
+      this.getRoes(this.state.selectedIndex);
     }
   }
 
@@ -65,7 +79,7 @@ class CompanyPortfolio extends Component {
 
     let style = {
       container: {
-        gridTemplateColumns: "repeat(6, 1fr)",
+        gridTemplateColumns: "repeat(6, 1fr)"
       }
     };
 
@@ -103,7 +117,7 @@ class CompanyPortfolio extends Component {
             onSelect={tabIndex => {
               this.setState({ selectedIndex: tabIndex });
               //this.getRoe(this.props.state.mainShares[tabIndex].value);
-                this.getRoes(tabIndex);
+              this.getRoes(tabIndex);
             }}
           >
             <TabList>
@@ -123,30 +137,33 @@ class CompanyPortfolio extends Component {
                     <div>
                       <LandscapeNavBar style={style} items={items} />
                       <Switch>
-                          <Route
-                              path="/home/param-query"
-                              render={() => (
-                                  <div>
-                                      <div
-                                          style={{ width: "100%", backgroundColor: "#d0e7f2", textAlign: "center", padding: "5px 0" }}
-                                      >
-                                          ROE (净资产收益率)
-                                      </div>
-                                  <StandardParameterVisualization
-                                      data={this.state.roes}
-                                      timeFormat={"%Y-%m"}
-                                      domain={[-20, 40]}
-                                      dateType={'quarter'}
-                                  />
-                                  </div>
-                              )}
-                          />
-                          <Route
-                              path="/home/param-query/more-param"
-                              render={() => (
-                                  <div>More Param</div>
-                              )}
-                          />
+                        <Route
+                          path="/home/param-query"
+                          render={() => (
+                            <div>
+                              <div
+                                style={{
+                                  width: "100%",
+                                  backgroundColor: "#d0e7f2",
+                                  textAlign: "center",
+                                  padding: "5px 0"
+                                }}
+                              >
+                                ROE (净资产收益率)
+                              </div>
+                              <StandardParameterVisualization
+                                  data={this.state.roes}
+                                domain={[-20, 40]}
+                                qtrType={this.state.qtrType}
+                                mainIdx={this.state.selectedIndex}
+                              />
+                            </div>
+                          )}
+                        />
+                        <Route
+                          path="/home/param-query/more-param"
+                          render={() => <div>More Param</div>}
+                        />
                       </Switch>
                     </div>
                   )}
@@ -154,13 +171,22 @@ class CompanyPortfolio extends Component {
             ))}
           </Tabs>
         )}
+        <SlidingPanel>
+          <AdvancedConfig
+            updateQtrType={this.updateQtrType}
+            updatePeers={this.updatePeers}
+          />
+        </SlidingPanel>
       </div>
     );
   }
 }
 
 let mapStateToProps = state => ({
-    state: state
+  state: state
 });
 
-export default connect(mapStateToProps, null)(CompanyPortfolio);
+export default connect(
+  mapStateToProps,
+  null
+)(CompanyPortfolio);

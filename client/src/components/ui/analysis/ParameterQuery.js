@@ -21,9 +21,9 @@ class ParameterQuery extends Component {
 
         <CompanyPortfolio/>
 
-        <SlidingPanel>
+          {/*<SlidingPanel>
             <AdvancedConfig/>
-        </SlidingPanel>
+        </SlidingPanel>*/}
       </div>
     );
   }

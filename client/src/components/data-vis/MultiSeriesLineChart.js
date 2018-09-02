@@ -9,6 +9,7 @@ import { max, extent } from "d3-array";
 import { select } from "d3-selection";
 import { line, curveBasis } from "d3-shape";
 import { axisBottom, axisLeft } from "d3-axis";
+import { qtrType } from "../../constants";
 
 // gridlines in x axis function
 function make_x_gridlines(x) {
@@ -61,13 +62,21 @@ class MultiSeriesLineChart extends Component {
     constructor(props) {
         super(props);
         this.createLineChart = this.createLineChart.bind(this);
+        this.removePreviousChart = this.removePreviousChart.bind(this);
     }
     componentDidMount() {
         this.createLineChart();
     }
     componentDidUpdate() {
+        this.removePreviousChart();
         this.createLineChart();
     }
+
+    removePreviousChart() {
+        let svg = select(this.node);
+        svg.selectAll("*").remove();
+    }
+
     createLineChart() {
         console.log('data: ');
         console.log(this.props.data);
@@ -99,7 +108,7 @@ class MultiSeriesLineChart extends Component {
             let y = scaleLinear().range([height, 0]);
             // Scale the domains
             x.domain(
-                extent(this.props.data[shareNames[0]], function (d) {
+                extent(this.props.data[shareNames[0]].data, function (d) {
                     return d ? d.date : null;
                 })
             );
@@ -108,28 +117,31 @@ class MultiSeriesLineChart extends Component {
             // Add the X Axis
             let originRatio = Math.abs(this.props.domain[1] - 0) / Math.abs(this.props.domain[1] - this.props.domain[0]);
 
-            if (this.props.dateType === 'quarter') {
                 // get all non null data points
                 let tValues = [];
-                for (let i = 0; i < 116; i++) {
-                    if (i % 2 === 0) {
-                        tValues.push(i);
-                    }
+                for (let i = 0; i < this.props.data[shareNames[0]].data.length; i++) {
+                    tValues.push(i);
                 }
                 svg
                     .append("g")
                     .attr("transform", "translate(30," + (originRatio * height) + ")")
                     .call(axisBottom(x).tickValues(tValues).tickFormat((d, i) => {
-                        let quarter = '';
-                        let year = 1990 + Math.floor(d / 4) + '年';
-                        if (d % 4 === 0) {
-                            quarter = '1季';
-                        } else if (d % 4 === 1) {
-                            quarter = '2季';
-                        } else if (d % 4 === 2) {
-                            quarter = '3季';
-                        } else if (d % 4 === 3) {
-                            quarter = '年季';
+
+                        let quarter;
+                        let year = 1990 + d + '年';
+                        switch(this.props.qtrType) {
+                            case qtrType.FIRST:
+                                quarter = '一季报';
+                                break;
+                            case qtrType.MID:
+                                quarter = '半年报';
+                                break;
+                            case qtrType.THIRD:
+                                quarter = '三季报';
+                                break;
+                            default:
+                                quarter = '年报';
+                                break;
                         }
                         return year + quarter;
                     }));
@@ -139,12 +151,6 @@ class MultiSeriesLineChart extends Component {
                     .attr("dx", "-.8em")
                     .attr("dy", ".15em")
                     .attr("transform", "rotate(-45)");
-            } else {
-                svg
-                    .append("g")
-                    .attr("transform", "translate(30," + (originRatio * height) + ")")
-                    .call(axisBottom(x));
-            }
 
             // Add the Y Axis
             svg
@@ -180,7 +186,7 @@ class MultiSeriesLineChart extends Component {
                     break;
                 }
 
-                let data = this.props.data[shareNames[i]];
+                let data = this.props.data[shareNames[i]].data;
 
                 // define the line
                 let valueline = line()

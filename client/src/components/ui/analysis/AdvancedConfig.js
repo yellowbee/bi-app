@@ -11,14 +11,21 @@ import options from "../../../../json/quarters";
 import peerOptions from "../../shanghai-a-share";
 import "../../../../qureative-ui/css/radio-group.scss";
 import Alert from "../../widgets/Alert";
+import { qtrType } from "../../../constants";
 
 const typeOptions = ["一季报", "半年报", "三季报", "年报"];
+const qtrTypeEnum = [qtrType.FIRST, qtrType.MID, qtrType.THIRD, qtrType.YEAR];
 
 class AdvancedConfig extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      radioGroup: [false, false, false, false]
+      radioGroup: [
+          this.props.state.paramAnalysis.qtrType === 0,
+          this.props.state.paramAnalysis.qtrType === 1,
+          this.props.state.paramAnalysis.qtrType === 2,
+          this.props.state.paramAnalysis.qtrType === 3
+      ]
     };
     this.radioCallback = this.radioCallback.bind(this);
     this.handlePeerChange = this.handlePeerChange.bind(this);
@@ -29,7 +36,7 @@ class AdvancedConfig extends Component {
       return i === j;
     });
 
-    this.setState({ radioGroup });
+    this.setState({ radioGroup, qtrType: qtrTypeEnum[i] });
   }
 
   handlePeerChange(selectedOptions) {
@@ -44,8 +51,10 @@ class AdvancedConfig extends Component {
         <form
           onSubmit={e => {
             e.preventDefault();
-            this.props.setParamAnalysis({peers: this.state.peers});
-            this.refs.myAlert.success('设置保存成功!', 2000);
+            this.props.setParamAnalysis({ peers: this.state.peers, qtrType: this.state.qtrType });
+            this.props.updateQtrType(this.state.qtrType);
+            this.props.updatePeers(this.state.peers);
+            this.refs.myAlert.success("设置保存成功!", 2000);
           }}
         >
           <div className="ac-qtr">
@@ -84,17 +93,14 @@ class AdvancedConfig extends Component {
             <div className="radio-group">
               {typeOptions.map((option, i) => (
                 <div className="radio-item">
-                  {status !== "rejected" &&
-                    status !== "accepted" && (
-                      <div
-                        className="halo"
-                        onClick={() => {
-                          this.radioCallback(i);
-                        }}
-                      >
-                        {this.state.radioGroup[i] && <div className="sun" />}
-                      </div>
-                    )}
+                  <div
+                    className="halo"
+                    onClick={() => {
+                      this.radioCallback(i);
+                    }}
+                  >
+                    {this.state.radioGroup[i] && <div className="sun" />}
+                  </div>
                   <div className="radio-label" style={{ fontSize: "0.6em" }}>
                     {option}
                   </div>
@@ -125,7 +131,6 @@ class AdvancedConfig extends Component {
         </form>
 
         <Alert ref="myAlert" />
-
       </div>
     );
   }
