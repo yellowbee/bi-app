@@ -35,7 +35,7 @@ function addLegend(svg, legendText, xOffset) {
             {
                 return `translate(${xOffset},` + i * 20 + ")"
             }
-        })
+        });
 
     legend.append('rect')
         .attr("x", 0)
@@ -81,6 +81,7 @@ class MultiSeriesLineChart extends Component {
         console.log('data: ');
         console.log(this.props.data);
         let svg = select(this.node);
+
         let shareNames = Object.keys(this.props.data);
         if (shareNames.length > 0) {
 
@@ -89,14 +90,18 @@ class MultiSeriesLineChart extends Component {
                 width = this.props.size[0] - margin.left - margin.right,
                 height = this.props.size[1] - margin.top - margin.bottom;
 
+            svg.attr('viewBox','0 0 '+Math.max(width,height)+' '+Math.min(width,height))
+                .attr('preserveAspectRatio','xMinYMin')
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
             // append the svg object to the body of the page
             // appends a 'group' element to 'svg'
             // moves the 'group' element to the top left margin
-            svg
+            /*svg
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");*/
 
             // set the ranges
             let x;
@@ -229,7 +234,7 @@ class MultiSeriesLineChart extends Component {
                     .attr("transform", "translate(30, 0)");
             }
 
-            addLegend(svg, shareNames, this.props.size[0] - 100);
+            addLegend(svg, shareNames, this.props.size[0] - 200);
         }
 
     }
@@ -240,8 +245,6 @@ class MultiSeriesLineChart extends Component {
             {this.props.data &&
             <svg
                 ref={node => (this.node = node)}
-                width={this.props.size[0]}
-                height={this.props.size[1]}
             />}
             </div>
 
