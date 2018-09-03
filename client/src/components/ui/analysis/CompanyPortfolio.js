@@ -26,7 +26,6 @@ class CompanyPortfolio extends Component {
     this.getRoes = this.getRoes.bind(this);
     this.getRoe = this.getRoe.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
-    this.updatePeers = this.updatePeers.bind(this);
   }
 
   /**
@@ -34,11 +33,15 @@ class CompanyPortfolio extends Component {
    * @param mainIdx the tab index of the current main share
    * @param peers
    */
-  getRoes(mainIdx) {
+  getRoes(mainIdx, peers) {
+    if (mainIdx === undefined) {
+      mainIdx = this.state.selectedIndex;
+    }
     this.setState({ fetchInProgress: true });
     let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
     let companies = `codes=${mainCompanyVal}`;
-    let peers = this.state.peers ? this.state.peers : [];
+    //let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
+      peers = peers ? peers : [];
     for (let i = 0; i < peers.length; i++) {
       let peerVal = peers[i].value;
       companies += `&codes=${peerVal}`;
@@ -62,14 +65,11 @@ class CompanyPortfolio extends Component {
   updateQtrType(qtrType) {
     this.setState({ qtrType: qtrType });
   }
-  updatePeers(peers) {
-    this.setState({ peers });
-  }
 
   componentDidMount() {
     if (this.props.state.mainShares.length > 0) {
       //this.getRoe(this.props.state.mainShares[this.state.selectedIndex].value);
-      this.getRoes(this.state.selectedIndex);
+      this.getRoes(this.state.selectedIndex, this.props.state.paramAnalysis.peers);
     }
   }
 
@@ -117,7 +117,7 @@ class CompanyPortfolio extends Component {
             onSelect={tabIndex => {
               this.setState({ selectedIndex: tabIndex });
               //this.getRoe(this.props.state.mainShares[tabIndex].value);
-              this.getRoes(tabIndex);
+              this.getRoes(tabIndex, this.props.state.paramAnalysis.peers);
             }}
           >
             <TabList>
@@ -153,7 +153,7 @@ class CompanyPortfolio extends Component {
                               </div>
                               <StandardParameterVisualization
                                   data={this.state.roes}
-                                domain={[-20, 40]}
+                                domain={[-40, 40]}
                                 qtrType={this.state.qtrType}
                                 mainIdx={this.state.selectedIndex}
                               />
@@ -174,7 +174,7 @@ class CompanyPortfolio extends Component {
         <SlidingPanel>
           <AdvancedConfig
             updateQtrType={this.updateQtrType}
-            updatePeers={this.updatePeers}
+            updateData={this.getRoes}
           />
         </SlidingPanel>
       </div>

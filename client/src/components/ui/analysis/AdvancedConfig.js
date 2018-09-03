@@ -54,7 +54,7 @@ class AdvancedConfig extends Component {
             e.preventDefault();
             this.props.setParamAnalysis({ peers: this.state.peers, qtrType: this.state.qtrType });
             this.props.updateQtrType(this.state.qtrType);
-            this.props.updatePeers(this.state.peers);
+            this.props.updateData(undefined, this.state.peers);
             this.refs.myAlert.success("设置保存成功!", 2000);
           }}
         >
