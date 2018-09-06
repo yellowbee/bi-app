@@ -1,0 +1,19 @@
+
+.bool-navbar__item {
+  font-size: 0.8em;
+  text-align: center;
+  &:hover {
+    background-color: $theme-light-blue;
+    cursor: pointer;
+  }
+}
+
+.bool-navbar__item--selected {
+  border-bottom: 3px solid blue;
+}
+
+.bool-navbar {
+  display: grid;
+  grid-template-rows: auto;
+  align-content: center;
+}
