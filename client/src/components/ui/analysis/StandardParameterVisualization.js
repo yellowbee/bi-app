@@ -43,7 +43,7 @@ class StandardParameterVisualization extends Component {
       console.log(data);
     return (
       <div>
-          <div className="std-param-vis">
+          <div className="std-param-vis" style={{width: "90%"}}>
               <div className="param-vis-elem__title">
                   { this.props.title }
               </div>
