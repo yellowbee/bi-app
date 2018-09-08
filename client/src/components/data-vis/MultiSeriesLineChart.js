@@ -249,7 +249,22 @@ class MultiSeriesLineChart extends Component {
           .attr("cx", valueline.x())
           .attr("cy", valueline.y())
           .attr("r", 3.5)
-          .attr("transform", "translate(30, 0)");
+          .attr("transform", "translate(30, 0)")
+            .on("mouseover", function (d) {
+                console.log('mouse over');
+                let x = parseFloat(select(this).attr('cx'));
+                let y = parseFloat(select(this).attr('cy'));
+                svg.append('text')
+                    .attr("class", "tooltip-txt")
+                    .attr("x", x)
+                    .attr("y", y - 10)
+                    .text(d.val);
+
+            })
+            .on("mouseout", function () {
+              console.log('mouse out');
+                svg.selectAll('.tooltip-txt').remove();
+            })
       }
 
       addLegend(svg, shareNames, this.props.size[0] - 400);
@@ -258,7 +273,10 @@ class MultiSeriesLineChart extends Component {
 
   render() {
     return (
-      <div>{this.props.data && <svg ref={node => (this.node = node)} />}</div>
+        <div>
+            <div id="ttip" />
+            {this.props.data && <svg ref={node => (this.node = node)}/>}
+        </div>
     );
   }
 }
