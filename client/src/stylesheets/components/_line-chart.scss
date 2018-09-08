@@ -101,8 +101,23 @@ $color9: #7ed321;
   font-weight: bold;
 }
 
-.tooltip-txt {
+.bi-tooltip {
   z-index: 10;
   font-size: 15px;
   pointer-events: none;
+}
+
+.bi-tooltip__block {
+  z-index: 12;
+  stroke-width: 2px;
+  stroke: cyan;
+  width: 100px;
+  height: 50px;
+  fill: white;
+  opacity: 0.5;
+}
+.bi-tooltip__block__text {
+  z-index: 12;
+  font-size: 15px;
+  color: black;
 }

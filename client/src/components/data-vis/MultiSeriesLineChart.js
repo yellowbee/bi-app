@@ -251,19 +251,23 @@ class MultiSeriesLineChart extends Component {
           .attr("r", 3.5)
           .attr("transform", "translate(30, 0)")
             .on("mouseover", function (d) {
-                console.log('mouse over');
                 let x = parseFloat(select(this).attr('cx'));
                 let y = parseFloat(select(this).attr('cy'));
-                svg.append('text')
-                    .attr("class", "tooltip-txt")
-                    .attr("x", x)
-                    .attr("y", y - 10)
+                let tipG = svg.append('g')
+                    .attr("transform", "translate(" + x + ", " + (y-50) + ")")
+                    .attr("class", "bi-tooltip");
+
+                tipG.append('rect')
+                    .attr("class", "bi-tooltip__block")
+
+                tipG.append('text')
+                    .attr("transform", "translate(30, 25)")
+                    .attr("class", "bi-tooltip__block__text")
                     .text(d.val);
 
             })
             .on("mouseout", function () {
-              console.log('mouse out');
-                svg.selectAll('.tooltip-txt').remove();
+                svg.selectAll('.bi-tooltip').remove();
             })
       }
 
