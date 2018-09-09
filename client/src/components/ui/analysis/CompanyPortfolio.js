@@ -7,7 +7,8 @@ import axios from "axios";
 import Spinner from "../common/Spinner";
 import ParameterVisualization from "./StandardParameterVisualization";
 import { BI_API_ROOT_URL } from "../../../constants";
-import LandscapeNavBar from "../../widgets/LandscapeNavBar";
+//import LandscapeNavBar from "../../widgets/LandscapeNavBar";
+import BooleanNavbar from "../../widgets/BooleanNavbar";
 import StandardParameterVisualization from "./StandardParameterVisualization";
 import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
@@ -21,11 +22,13 @@ class CompanyPortfolio extends Component {
     this.state = {
       selectedIndex: 0,
       qtrType: this.props.state.paramAnalysis.qtrType,
-      peers: this.props.state.paramAnalysis.peers
+      peers: this.props.state.paramAnalysis.peers,
+        menuItems: [true, false, false, false, false, false]
     };
     this.getRoes = this.getRoes.bind(this);
     this.getRoe = this.getRoe.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
+      this.updateNavbar = this.updateNavbar.bind(this);
   }
 
   /**
@@ -73,6 +76,10 @@ class CompanyPortfolio extends Component {
     }
   }
 
+    updateNavbar(menuItems) {
+        this.setState({ menuItems });
+    }
+
   render() {
     console.log("current local state: ");
     console.log(this.state);
@@ -88,14 +95,12 @@ class CompanyPortfolio extends Component {
         style: {
           gridColumn: "1 / 2"
         },
-        path: "/home/param-query",
         label: "查看标准分析"
       },
       {
         style: {
           gridColumn: "2 / 3"
         },
-        path: "/home/param-query/more-param",
         label: "查看更多指标"
       }
     ];
@@ -135,11 +140,12 @@ class CompanyPortfolio extends Component {
                 {this.state.selectedIndex === i &&
                   this.state.roes && (
                     <div>
-                      <LandscapeNavBar style={style} items={items} />
-                      <Switch>
-                        <Route
-                          path="/home/param-query"
-                          render={() => (
+                        <BooleanNavbar
+                            style={style}
+                            items={items}
+                            updateNavbar={this.updateNavbar}
+                        />
+                        { this.state.menuItems[0] && (
                             <div>
                               <StandardParameterVisualization
                                   data={this.state.roes}
@@ -149,13 +155,7 @@ class CompanyPortfolio extends Component {
                                   title="ROE (净资产收益率)"
                               />
                             </div>
-                          )}
-                        />
-                        <Route
-                          path="/home/param-query/more-param"
-                          render={() => <div>More Param</div>}
-                        />
-                      </Switch>
+                        )}
                     </div>
                   )}
               </TabPanel>
