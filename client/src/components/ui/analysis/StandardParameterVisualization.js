@@ -29,15 +29,18 @@ class StandardParameterVisualization extends Component {
   }
 
   render() {
-    // this.props.data = [packed, packed, ...]
-    //let data = convertTwoArrToOneArray(this.props.data);
-    //console.log("packed data")
-    //console.log(this.props.data);
-
+      console.log('raw data: ');
+      console.log(this.props.data);
     // data = {"0001": [], "0002": [], ...}
     let data = {};
+    let max = 10;
+    let min = -10;
       for (let i=0; i < this.props.data.length; i++) {
           data[this.props.data[i].code] = util.getDataByQtrType(this.props.data[i], this.props.qtrType);
+          let curMax = Math.max(...(this.props.data[i].val));
+          let curMin = Math.min(...(this.props.data[i].val));
+          max = max > curMax ? max : curMax;
+          min = min < curMin ? min: curMin;
       }
       console.log("expanded data: ");
       console.log(data);
@@ -50,7 +53,7 @@ class StandardParameterVisualization extends Component {
             <MultiSeriesLineChart
               size={[1200, 500]}
               data={data}
-              domain={this.props.domain}
+              domain={[min - 10, max + 10]}
               qtrType={this.props.qtrType}
             />
           </div>

@@ -203,7 +203,6 @@ class CompanyPortfolio extends Component {
                             {this.state.loadTracker.map(val => (
                                 <StandardParameterVisualization
                                     data={this.state.roes}
-                                    domain={[-40, 40]}
                                     qtrType={this.state.qtrType}
                                     mainIdx={this.state.selectedIndex}
                                     title="ROE (净资产收益率)"
