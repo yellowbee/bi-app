@@ -19,7 +19,9 @@ class ParameterQuery extends Component {
           <div>登出</div>
         </NavLink>
 
+          <div style={{marginTop: "150px", marginBottom: "100px"}}>
         <CompanyPortfolio/>
+          </div>
 
           {/*<SlidingPanel>
             <AdvancedConfig/>

@@ -33,8 +33,8 @@ class StandardParameterVisualization extends Component {
       console.log(this.props.data);
     // data = {"0001": [], "0002": [], ...}
     let data = {};
-    let max = 10;
-    let min = -10;
+    let max = 5;
+    let min = -5;
       for (let i=0; i < this.props.data.length; i++) {
           data[this.props.data[i].code] = util.getDataByQtrType(this.props.data[i], this.props.qtrType);
           let curMax = Math.max(...(this.props.data[i].val));
@@ -53,7 +53,7 @@ class StandardParameterVisualization extends Component {
             <MultiSeriesLineChart
               size={[1200, 500]}
               data={data}
-              domain={[min - 10, max + 10]}
+              domain={[min, max]}
               qtrType={this.props.qtrType}
             />
           </div>

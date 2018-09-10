@@ -24,9 +24,12 @@ class CompanyPortfolio extends Component {
       qtrType: this.props.state.paramAnalysis.qtrType,
       peers: this.props.state.paramAnalysis.peers,
       menuItems: [true, false, false, false, false, false],
+        paramsToLoad: ['roas', 'epss', 'cfpss', 'brgrs', 'npgrs'],
+        paramNames: ['总资产收益率', '每股收益', '每股净现金流', '营业总收入增长率', '净利润增长率'],
       loadTracker: []
     };
     this.getRoes = this.getRoes.bind(this);
+    this.getNextParam = this.getNextParam.bind(this);
     this.getRoe = this.getRoe.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
     this.updateNavbar = this.updateNavbar.bind(this);
@@ -54,10 +57,13 @@ class CompanyPortfolio extends Component {
                 message:'bottom reached'
             });*/
       console.log("bottom reached");
-      if (this.state.loadTracker.length < 4) {
-          let curTracker = this.state.loadTracker;
-          curTracker.push(true);
-          this.setState({loadTracker: curTracker});
+      if (this.state.loadTracker.length < 6) {
+        let nextParam = this.state.paramsToLoad[this.state.loadTracker.length];
+          this.getNextParam(
+              this.state.selectedIndex,
+              this.props.state.paramAnalysis.peers,
+              nextParam
+          );
       }
     } else {
       /*this.setState({
@@ -90,6 +96,26 @@ class CompanyPortfolio extends Component {
       console.log(response.data);
       this.setState({ fetchInProgress: false, roes: response.data });
     });
+  }
+
+  getNextParam(mainIdx, peers, paramAcro) {
+      if (mainIdx === undefined) {
+          mainIdx = this.state.selectedIndex;
+      }
+      let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
+      let companies = `codes=${mainCompanyVal}`;
+      //let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
+      peers = peers ? peers : [];
+      for (let i = 0; i < peers.length; i++) {
+          let peerVal = peers[i].value;
+          companies += `&codes=${peerVal}`;
+      }
+      console.log(companies);
+      axios.get(`${BI_API_ROOT_URL}/api/${paramAcro}/${companies}`).then(response => {
+          let loadTracker = this.state.loadTracker;
+          loadTracker.push({paramAcro, data: response.data});
+          this.setState({ loadTracker });
+      });
   }
 
   getRoe(code) {
@@ -200,12 +226,13 @@ class CompanyPortfolio extends Component {
                             title="ROE (净资产收益率)"
                           />
 
-                            {this.state.loadTracker.map(val => (
+                            {this.state.loadTracker.map((param, i) => (
                                 <StandardParameterVisualization
-                                    data={this.state.roes}
+                                    key={param.paramAcro}
+                                    data={param.data}
                                     qtrType={this.state.qtrType}
                                     mainIdx={this.state.selectedIndex}
-                                    title="ROE (净资产收益率)"
+                                    title={this.state.paramNames[i]}
                                 />
                             ))}
                         </div>
