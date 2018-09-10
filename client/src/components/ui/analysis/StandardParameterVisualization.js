@@ -29,34 +29,39 @@ class StandardParameterVisualization extends Component {
   }
 
   render() {
-      console.log('raw data: ');
-      console.log(this.props.data);
+    console.log("raw data: ");
+    console.log(this.props.data);
     // data = {"0001": [], "0002": [], ...}
     let data = {};
     let max = 5;
     let min = -5;
-      for (let i=0; i < this.props.data.length; i++) {
-          data[this.props.data[i].code] = util.getDataByQtrType(this.props.data[i], this.props.qtrType);
-          let curMax = Math.max(...(this.props.data[i].val));
-          let curMin = Math.min(...(this.props.data[i].val));
-          max = max > curMax ? max : curMax;
-          min = min < curMin ? min: curMin;
-      }
-      console.log("expanded data: ");
-      console.log(data);
+    for (let i = 0; i < this.props.data.length; i++) {
+      data[this.props.data[i].code] = util.getDataByQtrType(
+        this.props.data[i],
+        this.props.qtrType
+      );
+      let curMax = Math.max(...this.props.data[i].val);
+      let curMin = Math.min(...this.props.data[i].val);
+      max = max > curMax ? max : curMax;
+      min = min < curMin ? min : curMin;
+    }
+
+    max = max <= 99 ? max : 120;
+    min = min >= -99 ? min : -120;
+
+    console.log("expanded data: ");
+    console.log(data);
     return (
       <div>
-          <div className="std-param-vis" style={{width: "90%"}}>
-              <div className="param-vis-elem__title">
-                  { this.props.title }
-              </div>
-            <MultiSeriesLineChart
-              size={[1200, 500]}
-              data={data}
-              domain={[min, max]}
-              qtrType={this.props.qtrType}
-            />
-          </div>
+        <div className="std-param-vis" style={{ width: "90%" }}>
+          <div className="param-vis-elem__title">{this.props.title}</div>
+          <MultiSeriesLineChart
+            size={[1200, 500]}
+            data={data}
+            domain={[min, max]}
+            qtrType={this.props.qtrType}
+          />
+        </div>
       </div>
     );
   }

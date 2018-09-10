@@ -36,8 +36,18 @@ const util = {
         });
 
         let data = [];
+        // 财务异常数据缩尾
         for (let i=0; i<val.length; i++) {
-            data.push(val[i] ? {date: i, val: val[i]} : null);
+            //data.push(val[i] ? {date: i, val: val[i]} : null);
+            if (!val[i]) {
+                data.push(null);
+            } else if (val[i] > 99) {
+                data.push({date: i, val: 99});
+            } else if (val[i] < -99) {
+                data.push({date: i, val: -99});
+            } else {
+                data.push({date: i, val: val[i]});
+            }
         }
 
         return { startYear, data };
