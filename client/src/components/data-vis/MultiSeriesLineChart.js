@@ -99,7 +99,8 @@ class MultiSeriesLineChart extends Component {
       svg
         .attr(
           "viewBox",
-          "0 0 " + Math.max(width, height) + " " + Math.min(width, height)
+          //"0 0 " + Math.max(width, height) + " " + Math.min(width, height)
+          "0 0 1100 450"
         )
         .attr("preserveAspectRatio", "xMinYMin");
       //.append("g")
@@ -136,7 +137,7 @@ class MultiSeriesLineChart extends Component {
 
       // get all non null data points
       let tValues = [];
-      for (let i = 0; i <= this.props.data[shareNames[0]].data.length; i++) {
+      for (let i = 0; i < this.props.data[shareNames[0]].data.length; i++) {
         tValues.push(i);
       }
       svg

@@ -23,12 +23,48 @@ class CompanyPortfolio extends Component {
       selectedIndex: 0,
       qtrType: this.props.state.paramAnalysis.qtrType,
       peers: this.props.state.paramAnalysis.peers,
-        menuItems: [true, false, false, false, false, false]
+      menuItems: [true, false, false, false, false, false],
+      loadTracker: []
     };
     this.getRoes = this.getRoes.bind(this);
     this.getRoe = this.getRoe.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
-      this.updateNavbar = this.updateNavbar.bind(this);
+    this.updateNavbar = this.updateNavbar.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  // infinite scrolling handler
+  handleScroll() {
+    const windowHeight =
+      "innerHeight" in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight) {
+      /*this.setState({
+                message:'bottom reached'
+            });*/
+      console.log("bottom reached");
+      if (this.state.loadTracker.length < 4) {
+          let curTracker = this.state.loadTracker;
+          curTracker.push(true);
+          this.setState({loadTracker: curTracker});
+      }
+    } else {
+      /*this.setState({
+                message:'not at bottom'
+            });*/
+      console.log("not at bottom");
+    }
   }
 
   /**
@@ -44,7 +80,7 @@ class CompanyPortfolio extends Component {
     let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
     let companies = `codes=${mainCompanyVal}`;
     //let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
-      peers = peers ? peers : [];
+    peers = peers ? peers : [];
     for (let i = 0; i < peers.length; i++) {
       let peerVal = peers[i].value;
       companies += `&codes=${peerVal}`;
@@ -72,13 +108,22 @@ class CompanyPortfolio extends Component {
   componentDidMount() {
     if (this.props.state.mainShares.length > 0) {
       //this.getRoe(this.props.state.mainShares[this.state.selectedIndex].value);
-      this.getRoes(this.state.selectedIndex, this.props.state.paramAnalysis.peers);
+      this.getRoes(
+        this.state.selectedIndex,
+        this.props.state.paramAnalysis.peers
+      );
     }
+
+    window.addEventListener("scroll", this.handleScroll);
   }
 
-    updateNavbar(menuItems) {
-        this.setState({ menuItems });
-    }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  updateNavbar(menuItems) {
+    this.setState({ menuItems });
+  }
 
   render() {
     console.log("current local state: ");
@@ -120,7 +165,7 @@ class CompanyPortfolio extends Component {
           <Tabs
             selectedIndex={this.state.selectedIndex}
             onSelect={tabIndex => {
-              this.setState({ selectedIndex: tabIndex });
+              this.setState({ selectedIndex: tabIndex, loadTracker: [] });
               //this.getRoe(this.props.state.mainShares[tabIndex].value);
               this.getRoes(tabIndex, this.props.state.paramAnalysis.peers);
             }}
@@ -140,22 +185,32 @@ class CompanyPortfolio extends Component {
                 {this.state.selectedIndex === i &&
                   this.state.roes && (
                     <div>
-                        <BooleanNavbar
-                            style={style}
-                            items={items}
-                            updateNavbar={this.updateNavbar}
-                        />
-                        { this.state.menuItems[0] && (
-                            <div>
-                              <StandardParameterVisualization
-                                  data={this.state.roes}
-                                domain={[-40, 40]}
-                                qtrType={this.state.qtrType}
-                                mainIdx={this.state.selectedIndex}
-                                  title="ROE (净资产收益率)"
-                              />
-                            </div>
-                        )}
+                      <BooleanNavbar
+                        style={style}
+                        items={items}
+                        updateNavbar={this.updateNavbar}
+                      />
+                      {this.state.menuItems[0] && (
+                        <div>
+                          <StandardParameterVisualization
+                            data={this.state.roes}
+                            domain={[-40, 40]}
+                            qtrType={this.state.qtrType}
+                            mainIdx={this.state.selectedIndex}
+                            title="ROE (净资产收益率)"
+                          />
+
+                            {this.state.loadTracker.map(val => (
+                                <StandardParameterVisualization
+                                    data={this.state.roes}
+                                    domain={[-40, 40]}
+                                    qtrType={this.state.qtrType}
+                                    mainIdx={this.state.selectedIndex}
+                                    title="ROE (净资产收益率)"
+                                />
+                            ))}
+                        </div>
+                      )}
                     </div>
                   )}
               </TabPanel>
