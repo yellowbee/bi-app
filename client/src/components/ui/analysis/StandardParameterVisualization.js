@@ -53,7 +53,7 @@ class StandardParameterVisualization extends Component {
     console.log(data);
     return (
       <div>
-        <div className="std-param-vis" style={{ width: "90%" }}>
+        <div className="std-param-vis" style={{ width: "80%", margin: "0 auto 100px auto" }}>
           <div className="param-vis-elem__title">{this.props.title}</div>
           <MultiSeriesLineChart
             size={[1200, 500]}
