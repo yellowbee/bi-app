@@ -182,7 +182,7 @@ class CompanyPortfolio extends Component {
         <div style={{ marginBottom: "40px" }}>
           <span>已选定公司 ({options.length}) &nbsp;&nbsp;&nbsp;</span>
           <NavLink activeClassName="selected" to="/home/main-shares">
-            返回设置主选公司
+              <span className="label1--themed">返回设置主选公司</span>
           </NavLink>
         </div>
 
