@@ -14,7 +14,7 @@ class ParameterQuery extends Component {
 
   render() {
     return (
-      <div className="side home-workspace">
+      <div>
         <NavLink exact to="/login">
           <div>登出</div>
         </NavLink>

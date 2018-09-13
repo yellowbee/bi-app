@@ -78,7 +78,7 @@ class Home extends Component {
 
     return (
       <div className="home">
-        <div className={navStyle} style={{ borderRight: "1px solid gray" }}>
+        <div className="left-navbar">
           <div style={{ padding: "10px" }}>
               {/*<div
               className="closebtn"
@@ -97,12 +97,14 @@ class Home extends Component {
           </div>
         </div>
 
+        <div className="content">
           <Switch>
               <Route path="/home/main-shares" component={ShareSelector} />
               <Route path="/home/param-query" component={ParameterQuery} />
               <Route path="/home/param-prediction" component={ParameterPrediction} />
               <Route path="/home/accounting-info" component={AccountingInfo} />
           </Switch>
+        </div>
       </div>
     );
   }

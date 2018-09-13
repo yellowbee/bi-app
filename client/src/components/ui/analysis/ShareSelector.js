@@ -27,7 +27,7 @@ class ShareSelector extends Component {
 
   render() {
     return (
-      <div className="side no-wrap home-workspace">
+      <div>
           {/*<span
           style={{ fontSize: "30px", cursor: "pointer" }}
           onClick={e => {
