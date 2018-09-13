@@ -70,7 +70,6 @@ $breakpoints: (
 ///   $base-url: 'http://cdn.example.com/assets/';
 $base-url: '/assets/' !default;
 
-$theme-blue: #4880db;
 $theme-light-blue: #b2ccf7;
 
 /// unified global font-size
@@ -80,3 +79,10 @@ $font-size-small: 0.6em;
 
 // alert colors
 $alert-success-color: #5bcc9d;
+
+// colors
+$theme-blue: #4a90e2;
+$color-main-text: #444444;
+
+// color for title bar of a chart
+$color-title-bar: #eff6fe;

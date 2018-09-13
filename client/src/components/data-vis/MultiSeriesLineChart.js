@@ -38,7 +38,7 @@ function addLegend(svg, legendText, xOffset) {
     .attr("class", "legends3")
     .attr("transform", function(d, i) {
       {
-        return `translate(${xOffset},` + i * 20 + ")";
+        return `translate(${xOffset},` + (i * 20 + 10) + ")";
       }
     });
 
@@ -280,7 +280,9 @@ class MultiSeriesLineChart extends Component {
     return (
         <div>
             <div id="ttip" />
+            <div className="line-chart-wrapper">
             {this.props.data && <svg ref={node => (this.node = node)}/>}
+            </div>
         </div>
     );
   }

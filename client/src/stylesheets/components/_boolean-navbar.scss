@@ -1,7 +1,10 @@
+$text-color: #8b9b9b;
 
 .bool-navbar__item {
   font-size: 0.8em;
   text-align: center;
+  color: $text-color;
+
   &:hover {
     background-color: $theme-light-blue;
     cursor: pointer;
@@ -9,7 +12,8 @@
 }
 
 .bool-navbar__item--selected {
-  border-bottom: 3px solid blue;
+  border-bottom: 3px solid $theme-blue;
+  color: $theme-blue;
 }
 
 .bool-navbar {

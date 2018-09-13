@@ -1,0 +1,9 @@
+$text-color: #8b9b9b;
+
+.react-tabs__tab {
+  color: $text-color;
+}
+
+.react-tabs__tab--selected {
+  color: $theme-blue;
+}

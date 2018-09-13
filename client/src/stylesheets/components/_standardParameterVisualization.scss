@@ -1,7 +1,7 @@
 .param-vis-elem__title {
   width: 100%;
-  background-color: #d0e7f2;
-  text-align: center;
-  padding: 5px 0;
+  background-color: $color-title-bar;
+  border: 1px solid $color-svg-border;
+  padding: 3px 15px 3px 15px;
   margin: 0;
 }

@@ -10,6 +10,8 @@ $color7: #50e3c2;
 $color8: #233f8a;
 $color9: #7ed321;
 
+$color-svg-border: #ebedf8;
+
 svg {
   background-color: white;
 }
@@ -124,4 +126,8 @@ svg {
   z-index: 12;
   font-size: 15px;
   color: black;
+}
+
+.line-chart-wrapper {
+  border: 1px solid $color-svg-border;
 }
