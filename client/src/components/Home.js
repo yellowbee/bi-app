@@ -13,6 +13,7 @@ import ParameterQuery from "./ui/analysis/ParameterQuery";
 import ParameterPrediction from "./ui/analysis/ParameterPrediction";
 import AccountingInfo from "./ui/analysis/AccountingInfo";
 import MainNav from "./ui/nav/MainNav";
+import LeftNav from "./ui/nav/LeftNav";
 import ShareSelector from "./ui/analysis/ShareSelector";
 
 class Home extends Component {
@@ -79,7 +80,7 @@ class Home extends Component {
     return (
       <div className="home">
         <div className="left-navbar">
-          <div style={{ padding: "10px" }}>
+          <div>
               {/*<div
               className="closebtn"
               onClick={e => {
@@ -93,7 +94,8 @@ class Home extends Component {
               <h6 className="bi-title horizontal-2">企业分析软件</h6>
             </div>
 
-            <MainNav/>
+              {/*<MainNav/>*/}
+              <LeftNav/>
           </div>
         </div>
 

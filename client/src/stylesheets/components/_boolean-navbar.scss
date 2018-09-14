@@ -21,3 +21,17 @@ $text-color: #8b9b9b;
   grid-template-rows: auto;
   align-content: center;
 }
+
+ul {
+  padding: 0;
+
+  li {
+    list-style-type: none;
+    padding: 10px 10px;
+
+    a {
+      padding: 10px 5px;
+      text-decoration: none !important;
+    }
+  }
+}

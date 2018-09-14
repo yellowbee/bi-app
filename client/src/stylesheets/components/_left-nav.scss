@@ -1,0 +1,26 @@
+ul {
+  padding: 0;
+  font-size: 0.9em;
+
+  li.left-nav--item {
+    list-style-type: none;
+    padding: 0;
+
+    &:hover {
+      color: $theme-blue;
+      background-color: $theme-light-blue;
+    }
+
+    a {
+      display: block;
+      padding: 10px 10px 10px 30px;
+      text-decoration: none !important;
+      color: $color-main-text;
+
+      &.selected {
+        background-color: $theme-light-blue;
+        color: $theme-blue;
+      }
+    }
+  }
+}
