@@ -255,7 +255,7 @@ class MultiSeriesLineChart extends Component {
                 let x = parseFloat(select(this).attr('cx'));
                 let y = parseFloat(select(this).attr('cy'));
                 let tipG = svg.append('g')
-                    .attr("transform", "translate(" + x + ", " + (y-50) + ")")
+                    .attr("transform", "translate(" + x + ", " + (y-35) + ")")
                     .attr("class", "bi-tooltip");
 
                 tipG.append('rect')
