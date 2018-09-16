@@ -92,21 +92,6 @@ svg {
   stroke-dasharray: 5;
 }
 
-#ttip {
-  position: relative;
-  z-index: 10;
-  width: 75px;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid #000;
-  //pointer-events: none;
-  visibility: hidden;
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .bi-tooltip {
   z-index: 10;
   font-size: 15px;
@@ -117,14 +102,14 @@ svg {
   z-index: 12;
   stroke-width: 2px;
   stroke: cyan;
-  width: 100px;
-  height: 50px;
+  width: 50px;
+  height: 25px;
   fill: white;
   opacity: 1;
 }
 .bi-tooltip__block__text {
   z-index: 12;
-  font-size: 15px;
+  font-size: 12px;
   color: black;
 }
 

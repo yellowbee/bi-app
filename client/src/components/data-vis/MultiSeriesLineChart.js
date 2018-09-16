@@ -262,7 +262,7 @@ class MultiSeriesLineChart extends Component {
                     .attr("class", "bi-tooltip__block")
 
                 tipG.append('text')
-                    .attr("transform", "translate(30, 25)")
+                    .attr("transform", "translate(10, 15)")
                     .attr("class", "bi-tooltip__block__text")
                     .text(d.val);
 
@@ -279,7 +279,6 @@ class MultiSeriesLineChart extends Component {
   render() {
     return (
         <div>
-            <div id="ttip" />
             <div className="line-chart-wrapper">
             {this.props.data && <svg ref={node => (this.node = node)}/>}
             </div>
