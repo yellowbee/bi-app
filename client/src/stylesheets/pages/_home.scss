@@ -6,10 +6,6 @@
 .home {
   height: 100%;
   color: $color-main-text;
-
-  h6 {
-    color: $theme-blue;
-  }
 }
 
 .hide {
@@ -117,15 +113,49 @@
   width: 250px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
+  top: 40px; /* Stay at the top */
   left: 0;
-  background-color: $color-background; /* Black */
+  background-color: #ffffff; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
   border-right: 1px solid $color-svg-border;
+  box-shadow: 0 1px 1px 0 rgba(0, 28, 36, .5);
 }
 
 .content {
   margin-left: 250px; /* Same as the width of the sidebar */
+  margin-top: 40px;
   padding: 0 20px;
+}
+
+#navbar-top {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: $color-bg-top-navbar;
+}
+
+.home-logo {
+  position: absolute;
+}
+.logo__circle {
+  position: relative;
+  top: 8px;
+  left: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+}
+
+.logo__title {
+  position: relative;
+  left: 20px;
+  top: 2px;
+  display: inline-block;
+  color: white;
 }

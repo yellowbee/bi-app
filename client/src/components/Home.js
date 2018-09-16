@@ -79,6 +79,12 @@ class Home extends Component {
 
     return (
       <div className="home">
+          <div id="navbar-top">
+              <div className="home-logo">
+                  <span className="logo__circle" />
+                  <span className="logo__title">企业分析软件</span>
+              </div>
+          </div>
         <div className="left-navbar">
           <div>
               {/*<div
@@ -89,11 +95,6 @@ class Home extends Component {
             >
               &times;
             </div>*/}
-            <div className="home-logo">
-              <span className="bi-logo horizontal-2" />
-              <h6 className="bi-title horizontal-2">企业分析软件</h6>
-            </div>
-
               {/*<MainNav/>*/}
               <LeftNav/>
           </div>
