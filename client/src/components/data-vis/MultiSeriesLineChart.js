@@ -181,6 +181,7 @@ class MultiSeriesLineChart extends Component {
         .call(axisLeft(y));
 
       // add the X gridlines
+        // To remove annoying end tick, use tickSizeOuter(0)
       svg
         .append("g")
         .attr("class", "grid")
@@ -189,6 +190,7 @@ class MultiSeriesLineChart extends Component {
           make_x_gridlines(x, tValues)
             .tickSize(-height)
             .tickFormat("")
+              .tickSizeOuter(0)
         );
 
       // add the Y gridlines
