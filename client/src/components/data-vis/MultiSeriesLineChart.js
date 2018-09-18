@@ -232,7 +232,7 @@ class MultiSeriesLineChart extends Component {
         svg
           .append("path")
           .datum(data)
-          .attr("class", lineClass)
+          .attr("class", lineClass + " solid")
           .attr("d", valueline)
           .attr("transform", "translate(30, 0)");
 

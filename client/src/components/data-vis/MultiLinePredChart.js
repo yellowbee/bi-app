@@ -246,8 +246,14 @@ class MultiLinePredChart extends Component {
                 let lineClass = "line" + i;
                 svg
                     .append("path")
-                    .datum(data)
-                    .attr("class", lineClass)
+                    .datum(data.slice(0, 24))
+                    .attr("class", lineClass + " solid")
+                    .attr("d", valueline)
+                    .attr("transform", "translate(30, 0)");
+                svg
+                    .append("path")
+                    .datum(data.slice(23, 29))
+                    .attr("class", lineClass + " dashed")
                     .attr("d", valueline)
                     .attr("transform", "translate(30, 0)");
 

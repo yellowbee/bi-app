@@ -16,30 +16,32 @@ svg {
   background-color: white;
 }
 
+.solid {
+  stroke-width: 1.5px;
+}
+.dashed {
+  stroke-dasharray: 5;
+}
+
 .line0 {
   fill: none;
   stroke: $color0;
-  stroke-width: 1.5px;
 }
 .line1 {
   fill: none;
   stroke: $color1;
-  stroke-width: 1.5px;
 }
 .line2 {
   fill: none;
   stroke: $color2;
-  stroke-width: 1.5px;
 }
 .line3 {
   fill: none;
   stroke: $color3;
-  stroke-width: 1.5px;
 }
 .line4 {
   fill: none;
   stroke: $color4;
-  stroke-width: 1.5px;
 }
 
 .dot0 {
