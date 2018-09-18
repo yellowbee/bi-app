@@ -87,15 +87,6 @@ class Home extends Component {
           </div>
         <div className="left-navbar">
           <div>
-              {/*<div
-              className="closebtn"
-              onClick={e => {
-                this.closeNav();
-              }}
-            >
-              &times;
-            </div>*/}
-              {/*<MainNav/>*/}
               <LeftNav/>
           </div>
         </div>

@@ -34,7 +34,7 @@ class StandardParameterVisualization extends Component {
     // data = {"0001": [], "0002": [], ...}
     let data = {};
     let max = 5;
-    let min = -5;
+    let min = -10;
     for (let i = 0; i < this.props.data.length; i++) {
       data[this.props.data[i].code] = util.getDataByQtrType(
         this.props.data[i],

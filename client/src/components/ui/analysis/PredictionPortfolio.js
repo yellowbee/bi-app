@@ -14,6 +14,7 @@ import ParameterQuery from "./ParameterQuery";
 import { qtrType } from "../../../constants";
 import SlidingPanel from "../../widgets/SlidingPanel";
 import AdvancedConfig from "./AdvancedConfig";
+import ParameterPredictionVisualization from "./ParameterPredictionVisualization";
 
 class PredictionPortfolio extends Component {
   constructor(props) {
@@ -25,9 +26,9 @@ class PredictionPortfolio extends Component {
       menuItems: [true, false, false, false, false, false]
     };
     this.getRoes = this.getRoes.bind(this);
-    this.getRoe = this.getRoe.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
     this.updateNavbar = this.updateNavbar.bind(this);
+    //this.getPredParamByName = this.getPredParamByName.bind(this);
   }
 
   /**
@@ -49,20 +50,31 @@ class PredictionPortfolio extends Component {
       companies += `&codes=${peerVal}`;
     }
     console.log(companies);
-    axios.get(`${BI_API_ROOT_URL}/api/roes/${companies}`).then(response => {
+    axios.get(`${BI_API_ROOT_URL}/api/roes-hist-pred/${companies}`).then(response => {
       console.log(response.data);
       this.setState({ fetchInProgress: false, roes: response.data });
     });
   }
 
-  getRoe(code) {
-    this.setState({ fetchInProgress: true });
-    axios.get(`${BI_API_ROOT_URL}/api/roe/${code}`).then(response => {
-      console.log("ROE for current option:");
-      console.log(response.data);
-      this.setState({ fetchInProgress: false, curRoe: response.data });
-    });
-  }
+    /*getPredParamByName(mainIdx, peers, paramAcro) {
+        if (mainIdx === undefined) {
+            mainIdx = this.state.selectedIndex;
+        }
+        let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
+        let companies = `codes=${mainCompanyVal}`;
+        //let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
+        peers = peers ? peers : [];
+        for (let i = 0; i < peers.length; i++) {
+            let peerVal = peers[i].value;
+            companies += `&codes=${peerVal}`;
+        }
+        console.log(companies);
+        axios.get(`${BI_API_ROOT_URL}/api/${paramAcro}/${companies}`).then(response => {
+            let loadTracker = this.state.loadTracker;
+            loadTracker.push({paramAcro, data: response.data});
+            this.setState({ loadTracker });
+        });
+    }*/
 
   updateQtrType(qtrType) {
     this.setState({ qtrType: qtrType });
@@ -155,12 +167,19 @@ class PredictionPortfolio extends Component {
                       />
                       {this.state.menuItems[0] && (
                         <div>
-                          <StandardParameterVisualization
+                            {/*<StandardParameterVisualization
                             data={this.state.roes}
                             domain={[-40, 40]}
                             qtrType={this.state.qtrType}
                             mainIdx={this.state.selectedIndex}
                             title="ROE (净资产收益率)"
+                          />*/}
+                          <ParameterPredictionVisualization
+                              data={this.state.roes}
+                              domain={[-40, 40]}
+                              qtrType={this.state.qtrType}
+                              mainIdx={this.state.selectedIndex}
+                              title="ROE (净资产收益率)"
                           />
                         </div>
                       )}

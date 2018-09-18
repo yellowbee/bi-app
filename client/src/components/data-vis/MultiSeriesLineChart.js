@@ -148,7 +148,7 @@ class MultiSeriesLineChart extends Component {
             .tickValues(tValues)
             .tickFormat((d, i) => {
               let quarter;
-              let year = 1990 + d + "年";
+              let year = 1990 + d;
               switch (this.props.qtrType) {
                 case qtrType.FIRST:
                   quarter = "一季报";
