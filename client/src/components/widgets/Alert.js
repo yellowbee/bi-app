@@ -10,7 +10,7 @@ class Alert extends Component {
         super(props);
         this.state = {
             show: false
-        }
+        };
         this.success = this.success.bind(this);
     }
 

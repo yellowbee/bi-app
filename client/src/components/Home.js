@@ -15,6 +15,7 @@ import AccountingInfo from "./ui/analysis/AccountingInfo";
 import MainNav from "./ui/nav/MainNav";
 import LeftNav from "./ui/nav/LeftNav";
 import ShareSelector from "./ui/analysis/ShareSelector";
+import Report from "./ui/report/Report";
 
 class Home extends Component {
   constructor(props) {
@@ -97,6 +98,7 @@ class Home extends Component {
               <Route path="/home/param-query" component={ParameterQuery} />
               <Route path="/home/param-prediction" component={ParameterPrediction} />
               <Route path="/home/accounting-info" component={AccountingInfo} />
+              <Route path="/home/report" component={Report} />
           </Switch>
         </div>
       </div>

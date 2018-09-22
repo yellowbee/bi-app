@@ -1,0 +1,151 @@
+import React, { Component } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { NavLink, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import "react-tabs/style/react-tabs.css";
+import axios from "axios";
+import Spinner from "../common/Spinner";
+import { BI_API_ROOT_URL } from "../../../constants";
+import BooleanNavbar from "../../widgets/BooleanNavbar";
+import Blind from "../../widgets/Blind";
+import CompanyIntro from "./CompanyIntro";
+
+class Report extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedIndex: 0,
+            qtrType: this.props.state.paramAnalysis.qtrType,
+            peers: this.props.state.paramAnalysis.peers,
+            menuItems: [true, false, false, false, false, false]
+        };
+        this.updateQtrType = this.updateQtrType.bind(this);
+        this.updateNavbar = this.updateNavbar.bind(this);
+        this.getCompanyIntro = this.getCompanyIntro.bind(this);
+    }
+
+    /**
+     * Get the roes of the main share and its peers from rest api.
+     * @param mainIdx the tab index of the current main share
+     * @param peers
+     */
+    getCompanyIntro(mainIdx) {
+        if (mainIdx === undefined) {
+            mainIdx = this.state.selectedIndex;
+        }
+        this.setState({ fetchInProgress: true });
+        let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
+        let companies = `codes=${mainCompanyVal}`;
+        axios.get(`${BI_API_ROOT_URL}/api/company-info/${companies}`).then(response => {
+            console.log(response.data);
+            this.setState({ fetchInProgress: false, companyInfo: response.data });
+        });
+    }
+
+    updateQtrType(qtrType) {
+        this.setState({ qtrType: qtrType });
+    }
+
+    componentDidMount() {
+        if (this.props.state.mainShares.length > 0) {
+            this.getCompanyIntro(
+                this.state.selectedIndex
+            );
+        }
+    }
+
+    updateNavbar(menuItems) {
+        this.setState({ menuItems });
+    }
+
+    render() {
+        console.log("current local state: ");
+        console.log(this.state);
+
+        let style = {
+            container: {
+                gridTemplateColumns: "repeat(6, 1fr)"
+            }
+        };
+
+        let items = [
+            {
+                style: {
+                    gridColumn: "1 / 2"
+                },
+                label: "基本报告"
+            },
+            {
+                style: {
+                    gridColumn: "2 / 3"
+                },
+                label: "高级报告"
+            }
+        ];
+
+        let options = this.props.state.mainShares;
+        return (
+            <div>
+                <div style={{ marginBottom: "40px" }}>
+                    <span>已选定公司 ({options.length}) &nbsp;&nbsp;&nbsp;</span>
+                    <NavLink activeClassName="selected" to="/home/main-shares">
+                        返回设置主选公司
+                    </NavLink>
+                </div>
+
+                {this.state.fetchInProgress && <Spinner />}
+                {!this.state.fetchInProgress && (
+                    <Tabs
+                        selectedIndex={this.state.selectedIndex}
+                        onSelect={tabIndex => {
+                            this.setState({ selectedIndex: tabIndex });
+                            this.getCompanyIntro(tabIndex);
+                        }}
+                    >
+                        <TabList>
+                            {options.map(option => (
+                                <Tab key={option.value}>
+                  <span style={{ fontSize: "0.8em" }}>
+                    {option.label} ({option.value})
+                  </span>
+                                </Tab>
+                            ))}
+                        </TabList>
+
+                        {options.map((option, i) => (
+                            <TabPanel key={option.value}>
+                                {this.state.selectedIndex === i &&
+                                this.state.companyInfo && (
+                                    <div>
+                                        <BooleanNavbar
+                                            style={style}
+                                            items={items}
+                                            updateNavbar={this.updateNavbar}
+                                        />
+                                        {this.state.menuItems[0] && (
+                                            <div>
+                                                <Blind index={1} title={"公司简介"}>
+                                                    <CompanyIntro info={this.state.companyInfo[0]}/>
+                                                </Blind>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </TabPanel>
+                        ))}
+                    </Tabs>
+                )}
+            </div>
+        );
+    }
+}
+
+let mapStateToProps = state => ({
+    state: state
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(Report);
+

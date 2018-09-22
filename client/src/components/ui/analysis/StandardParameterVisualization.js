@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-//import LineChart from "../../data-vis/LineChart";
 import MultiSeriesLineChart from "../../data-vis/MultiSeriesLineChart";
-import { timeParse } from "d3-time-format";
 const util = require("../../../util/ParamUtil");
-import { BI_API_ROOT_URL, qtrType } from "../../../constants";
-import axios from "axios";
 import { connect } from "react-redux";
-import Spinner from "../common/Spinner";
 
 /** packed parameter
  * packed = {
