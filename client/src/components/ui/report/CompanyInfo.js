@@ -5,7 +5,7 @@
 
 import React, { Component } from "react";
 
-class CompanyIntro extends Component {
+class CompanyInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -53,4 +53,4 @@ class CompanyIntro extends Component {
   }
 }
 
-export default CompanyIntro;
+export default CompanyInfo;

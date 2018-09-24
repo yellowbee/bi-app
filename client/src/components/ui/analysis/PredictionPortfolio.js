@@ -15,6 +15,7 @@ import { qtrType } from "../../../constants";
 import SlidingPanel from "../../widgets/SlidingPanel";
 import AdvancedConfig from "./AdvancedConfig";
 import ParameterPredictionVisualization from "./ParameterPredictionVisualization";
+import dataUtil from "../../../util/DataUtil";
 
 class PredictionPortfolio extends Component {
   constructor(props) {
@@ -25,35 +26,11 @@ class PredictionPortfolio extends Component {
       peers: this.props.state.paramAnalysis.peers,
       menuItems: [true, false, false, false, false, false]
     };
-    this.getRoes = this.getRoes.bind(this);
+    //this.getRoes = this.getRoes.bind(this);
+      this.getRoes = dataUtil.getPredRoes.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
     this.updateNavbar = this.updateNavbar.bind(this);
     //this.getPredParamByName = this.getPredParamByName.bind(this);
-  }
-
-  /**
-   * Get the roes of the main share and its peers from rest api.
-   * @param mainIdx the tab index of the current main share
-   * @param peers
-   */
-  getRoes(mainIdx, peers) {
-    if (mainIdx === undefined) {
-      mainIdx = this.state.selectedIndex;
-    }
-    this.setState({ fetchInProgress: true });
-    let mainCompanyVal = this.props.state.mainShares[mainIdx].value;
-    let companies = `codes=${mainCompanyVal}`;
-    //let peers = this.props.state.paramAnalysis.peers ? this.props.state.paramAnalysis.peers : [];
-    peers = peers ? peers : [];
-    for (let i = 0; i < peers.length; i++) {
-      let peerVal = peers[i].value;
-      companies += `&codes=${peerVal}`;
-    }
-    console.log(companies);
-    axios.get(`${BI_API_ROOT_URL}/api/roes-hist-pred/${companies}`).then(response => {
-      console.log(response.data);
-      this.setState({ fetchInProgress: false, roes: response.data });
-    });
   }
 
     /*getPredParamByName(mainIdx, peers, paramAcro) {
