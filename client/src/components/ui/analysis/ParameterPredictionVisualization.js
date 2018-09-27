@@ -69,7 +69,7 @@ class ParameterPredictionVisualization extends Component {
       <div>
         <div
           className="std-param-vis"
-          style={{ width: "90%", margin: "0 auto 100px auto" }}
+          style={{ width: "90%", margin: "0 auto 0 auto" }}
         >
           <div className="param-vis-elem__title">{this.props.title}</div>
           <MultiLinePredChart
