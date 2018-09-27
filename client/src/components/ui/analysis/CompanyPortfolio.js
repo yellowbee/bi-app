@@ -6,13 +6,12 @@ import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../common/Spinner";
 import ParameterVisualization from "./StandardParameterVisualization";
-import { BI_API_ROOT_URL } from "../../../constants";
+import { BI_API_ROOT_URL, qtrType } from "../../../constants";
 //import LandscapeNavBar from "../../widgets/LandscapeNavBar";
 import BooleanNavbar from "../../widgets/BooleanNavbar";
 import StandardParameterVisualization from "./StandardParameterVisualization";
 import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
-import { qtrType } from "../../../constants";
 import SlidingPanel from "../../widgets/SlidingPanel";
 import AdvancedConfig from "./AdvancedConfig";
 
@@ -21,7 +20,7 @@ class CompanyPortfolio extends Component {
     super(props);
     this.state = {
       selectedIndex: 0,
-      qtrType: this.props.state.paramAnalysis.qtrType,
+      qtrType: this.props.state.paramAnalysis.qtrType ? this.props.state.paramAnalysis.qtrType : qtrType.YEAR,
       peers: this.props.state.paramAnalysis.peers,
       menuItems: [true, false, false, false, false, false],
         paramsToLoad: ['roas', 'epss', 'cfpss', 'brgrs', 'npgrs'],
@@ -222,7 +221,6 @@ class CompanyPortfolio extends Component {
                             data={this.state.roes}
                             domain={[-40, 40]}
                             qtrType={this.state.qtrType}
-                            mainIdx={this.state.selectedIndex}
                             title="ROE (净资产收益率)"
                           />
 
@@ -231,7 +229,6 @@ class CompanyPortfolio extends Component {
                                     key={param.paramAcro}
                                     data={param.data}
                                     qtrType={this.state.qtrType}
-                                    mainIdx={this.state.selectedIndex}
                                     title={this.state.paramNames[i]}
                                 />
                             ))}

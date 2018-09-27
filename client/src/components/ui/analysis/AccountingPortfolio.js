@@ -11,6 +11,7 @@ import LandscapeNavBar from "../../widgets/LandscapeNavBar";
 import StandardParameterVisualization from "./StandardParameterVisualization";
 import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
+import AccountingInfoVisualization from "./AccountingInfoVisualization";
 
 class CompanyPortfolio extends Component {
   constructor(props) {
@@ -93,11 +94,9 @@ class CompanyPortfolio extends Component {
                         >
                             DA (可操纵性应计)
                         </div>
-                      <StandardParameterVisualization
-                        data={this.state.das}
-                        timeFormat={"%Y"}
-                        domain={[1, -1]}
-                        dateType={'year'}
+                        <AccountingInfoVisualization
+                          data={this.state.das}
+                        />
                       />
                     </div>
                   )}

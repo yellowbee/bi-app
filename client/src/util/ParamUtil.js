@@ -30,8 +30,13 @@ const util = {
                 case 2:
                     return i % 4 === 2; // only get 3rd qtr
                     break;
-                default:
+                case 3:
                     return i % 4 === 3; // year by default
+                case 4:
+                    return true; // keep all data points
+                default:
+                    return true; // keep all data points
+
             }
         });
 
