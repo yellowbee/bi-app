@@ -4,10 +4,9 @@
 
 import React, { Component } from "react";
 import { scaleLinear, scaleTime } from "d3-scale";
-import { timeParse } from "d3-time-format";
-import { max, extent } from "d3-array";
+import { extent } from "d3-array";
 import { select } from "d3-selection";
-import { line, curveBasis } from "d3-shape";
+import { line } from "d3-shape";
 import { axisBottom, axisLeft } from "d3-axis";
 import { qtrType } from "../../constants";
 
