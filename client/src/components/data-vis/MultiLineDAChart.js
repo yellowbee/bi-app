@@ -20,6 +20,7 @@ function make_x_gridlines(x, tValues) {
 }
 // gridlines in y axis function
 function make_y_gridlines(y, tValues) {
+  //return axisLeft(y).ticks(5);
   return axisLeft(y).tickValues(tValues);
 }
 
