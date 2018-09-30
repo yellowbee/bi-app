@@ -14,8 +14,8 @@ class AccountingInfoVisualization extends Component {
         console.log(this.props.data);
         // data = {"0001": [], "0002": [], ...}
         let data = {};
-        let max = 0.5;
-        let min = -0.5;
+        let max = 0.2;
+        let min = -0.2;
         for (let i = 0; i < this.props.data.length; i++) {
             data[this.props.data[i].code] = util.getDataByQtrType(
                 this.props.data[i],
