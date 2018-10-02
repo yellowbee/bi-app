@@ -15,6 +15,7 @@ class SlidingPanel extends Component {
 
   render() {
     let wrapperClass = this.state.show ? "sp-wrapper sp-show" : "sp-wrapper sp-hide";
+    let handleArrow = this.state.show ? "/images/arrow-right.png" : "/images/arrow-left.png";
     return (
       <div className={wrapperClass}>
         <div className="sp-panel">{this.props.children}</div>
@@ -28,7 +29,7 @@ class SlidingPanel extends Component {
             <div>选</div>
             <div>项</div>
           </div>
-          <img src="/images/right_arrow.png"/>
+          <img src={handleArrow}/>
         </div>
       </div>
     );
