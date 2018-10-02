@@ -89,15 +89,17 @@ class CompanyPortfolio extends Component {
                 {this.state.selectedIndex === i &&
                   this.state.das && (
                     <div>
-                        <div
-                            style={{ width: "100%", backgroundColor: "#d0e7f2", textAlign: "center", padding: "5px 0" }}
-                        >
-                            DA (可操纵性应计)
-                        </div>
-                        <AccountingInfoVisualization
-                          data={this.state.das}
-                        />
-                      />
+                      <div
+                        style={{
+                          width: "100%",
+                          backgroundColor: "#d0e7f2",
+                          textAlign: "center",
+                          padding: "5px 0"
+                        }}
+                      >
+                        DA (可操纵性应计)
+                      </div>
+                      <AccountingInfoVisualization data={this.state.das} />
                     </div>
                   )}
               </TabPanel>
@@ -113,7 +115,4 @@ let mapStateToProps = state => ({
   state: state
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(CompanyPortfolio);
+export default connect(mapStateToProps, null)(CompanyPortfolio);

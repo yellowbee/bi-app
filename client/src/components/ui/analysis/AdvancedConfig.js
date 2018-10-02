@@ -125,8 +125,8 @@ class AdvancedConfig extends Component {
           </div>
 
           <div className="ac-submit">
-            <button className="bi-button" type="submit">
-              保存设置
+            <button className="ac-button" type="submit">
+              确认设置
             </button>
           </div>
         </form>
