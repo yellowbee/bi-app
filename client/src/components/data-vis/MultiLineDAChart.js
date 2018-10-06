@@ -10,6 +10,9 @@ import { select } from "d3-selection";
 import { line, curveBasis } from "d3-shape";
 import { axisBottom, axisLeft } from "d3-axis";
 import { qtrType } from "../../constants";
+import _ from "lodash";
+import { connect } from "react-redux";
+const d3Util = require("../../util/D3Util");
 
 // gridlines in x axis function
 /*function make_x_gridlines(x) {
@@ -22,48 +25,6 @@ function make_x_gridlines(x, tValues) {
 function make_y_gridlines(y, tValues) {
   //return axisLeft(y).ticks(5);
   return axisLeft(y).tickValues(tValues);
-}
-
-/**
- *
- * @param svg
- * @param legendText
- */
-function addLegend(svg, legendText, xOffset) {
-  //D3 Vertical Legend
-  let legend = svg
-    .selectAll(".legend")
-    .data(legendText)
-    .enter()
-    .append("g")
-    .attr("class", "legends3")
-    .attr("transform", function(d, i) {
-      {
-        return `translate(${xOffset},` + (i * 20 + 10) + ")";
-      }
-    });
-
-  legend
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", 10)
-    .attr("height", 10)
-    .attr("class", function(d, i) {
-      return "legend" + i;
-    });
-
-  legend
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 10)
-    //.attr("dy", ".35em")
-    .text(function(d, i) {
-      return d;
-    })
-    .attr("class", "textselected")
-    .style("text-anchor", "start")
-    .style("font-size", 10);
 }
 
 class MultiLineDAChart extends Component {
@@ -274,9 +235,50 @@ class MultiLineDAChart extends Component {
           .on("mouseout", function() {
             svg.selectAll(".bi-tooltip").remove();
           });
+
+        // display landmines
+        let rand = _.random(5, 10);
+        let landmineData = data.filter(function(d, i) {
+          return i % rand === 0;
+        });
+        svg.selectAll(".landmine")
+          .data(
+            landmineData.filter(function(d) {
+              return d;
+            })
+          )
+          .enter()
+          .append("image")
+          .attr("xlink:href", "/images/landmine.svg")
+          .attr("class", "landmine")
+          .attr("x", valueline.x())
+          .attr("y", valueline.y())
+          .attr("width", 30)
+          .attr("height", 30)
+          .attr("transform", "translate(15, -15)")
+          .on("mouseover", function(d) {
+            let x = parseFloat(select(this).attr("x"));
+            let y = parseFloat(select(this).attr("y"));
+            let tipG = svg
+              .append("g")
+              .attr("transform", "translate(" + x + ", " + (y - 40) + ")")
+              .attr("class", "bi-tooltip");
+
+            tipG.append("rect").attr("class", "bi-tooltip--violation__block");
+
+            tipG
+              .append("text")
+              .attr("transform", "translate(10, 15)")
+              .attr("class", "bi-tooltip__block__text")
+              .text("舞弊事件");
+          })
+          .on("mouseout", function() {
+            svg.selectAll(".bi-tooltip").remove();
+          });
+
       }
 
-      addLegend(svg, shareNames, this.props.size[0] - 400);
+      d3Util.addLegend(svg, shareNames, this.props.size[0] - 400, this.props.state.mainShares.concat(this.props.state.paramAnalysis.peers));
     }
   }
 
@@ -290,4 +292,11 @@ class MultiLineDAChart extends Component {
     );
   }
 }
-export default MultiLineDAChart;
+let mapStateToProps = state => ({
+  state: state
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(MultiLineDAChart);

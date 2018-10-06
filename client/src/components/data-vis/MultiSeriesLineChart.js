@@ -10,7 +10,8 @@ import { select } from "d3-selection";
 import { line, curveBasis } from "d3-shape";
 import { axisBottom, axisLeft } from "d3-axis";
 import { qtrType } from "../../constants";
-
+import { connect } from "react-redux";
+const d3Util = require("../../util/D3Util");
 // gridlines in x axis function
 /*function make_x_gridlines(x) {
   return axisBottom(x).ticks(5);
@@ -21,48 +22,6 @@ function make_x_gridlines(x, tValues) {
 // gridlines in y axis function
 function make_y_gridlines(y) {
   return axisLeft(y).ticks(5);
-}
-
-/**
- *
- * @param svg
- * @param legendText
- */
-function addLegend(svg, legendText, xOffset) {
-  //D3 Vertical Legend
-  let legend = svg
-    .selectAll(".legend")
-    .data(legendText)
-    .enter()
-    .append("g")
-    .attr("class", "legends3")
-    .attr("transform", function(d, i) {
-      {
-        return `translate(${xOffset},` + (i * 20 + 10) + ")";
-      }
-    });
-
-  legend
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", 10)
-    .attr("height", 10)
-    .attr("class", function(d, i) {
-      return "legend" + i;
-    });
-
-  legend
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 10)
-    //.attr("dy", ".35em")
-    .text(function(d, i) {
-      return d;
-    })
-    .attr("class", "textselected")
-    .style("text-anchor", "start")
-    .style("font-size", 10);
 }
 
 class MultiSeriesLineChart extends Component {
@@ -274,7 +233,7 @@ class MultiSeriesLineChart extends Component {
             })
       }
 
-      addLegend(svg, shareNames, this.props.size[0] - 400);
+      d3Util.addLegend(svg, shareNames, this.props.size[0] - 400, this.props.state.mainShares.concat(this.props.state.paramAnalysis.peers));
     }
   }
 
@@ -288,4 +247,11 @@ class MultiSeriesLineChart extends Component {
     );
   }
 }
-export default MultiSeriesLineChart;
+let mapStateToProps = state => ({
+  state: state
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(MultiSeriesLineChart);
