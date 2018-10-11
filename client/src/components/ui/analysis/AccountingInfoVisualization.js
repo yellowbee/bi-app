@@ -21,6 +21,8 @@ class AccountingInfoVisualization extends Component {
                 this.props.data[i],
                 this.props.qtrType
             );
+            data[this.props.data[i].code].violation = this.props.data[i].violation;
+
             let curMax = Math.max(...this.props.data[i].val);
             let curMin = Math.min(...this.props.data[i].val);
             max = max > curMax ? max : curMax;

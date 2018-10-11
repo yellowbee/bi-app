@@ -135,9 +135,17 @@ svg {
   stroke-width: 2px;
   box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.8);
   stroke: gray;
-  width: 100px;
-  height: 25px;
+  width: 300px;
+  height: 40px;
   fill: white;
   opacity: 1;
 }
 
+.foreign-div {
+  padding: 10px 5px;
+  background-color: white;
+  border: 1px solid gray;
+  height: 100%;
+  overflow: auto;
+  font-size: 18px;
+}

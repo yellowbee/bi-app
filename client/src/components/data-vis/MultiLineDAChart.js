@@ -176,6 +176,8 @@ class MultiLineDAChart extends Component {
         }
 
         let data = this.props.data[shareNames[i]].data;
+        let violation = this.props.data[shareNames[i]].violation;
+        let startYear = this.props.data[shareNames[i]].startYear;
 
         // define the line
         let valueline = line()
@@ -237,13 +239,20 @@ class MultiLineDAChart extends Component {
           });
 
         // display landmines
-        let rand = _.random(5, 10);
-        let landmineData = data.filter(function(d, i) {
-          return i % rand === 0;
-        });
+        let violationHistory = line()
+          .defined(function(d) {
+            return d;
+          })
+          .x(function(d) {
+            return x(parseInt(d.year) - startYear);
+          })
+          .y(function(d) {
+            return y(d.val);
+          });
+
         svg.selectAll(".landmine")
           .data(
-            landmineData.filter(function(d) {
+            violation.filter(function(d) {
               return d;
             })
           )
@@ -251,8 +260,8 @@ class MultiLineDAChart extends Component {
           .append("image")
           .attr("xlink:href", "/images/landmine.svg")
           .attr("class", "landmine")
-          .attr("x", valueline.x())
-          .attr("y", valueline.y())
+          .attr("x", violationHistory.x())
+          .attr("y", violationHistory.y())
           .attr("width", 30)
           .attr("height", 30)
           .attr("transform", "translate(15, -15)")
@@ -270,10 +279,35 @@ class MultiLineDAChart extends Component {
               .append("text")
               .attr("transform", "translate(10, 15)")
               .attr("class", "bi-tooltip__block__text")
-              .text("舞弊事件");
+              .text(d.event.substring(0, 9) + '......');
+            tipG
+              .append("text")
+              .attr("transform", "translate(10, 30)")
+              .attr("class", "bi-tooltip__block__text")
+              .text('(点击地雷打开窗口看全文，再点击窗口关闭。)');
           })
           .on("mouseout", function() {
             svg.selectAll(".bi-tooltip").remove();
+          })
+          .on("click", function(d) {
+            let x = parseFloat(select(this).attr("x"));
+            let y = parseFloat(select(this).attr("y"));
+            svg.append("foreignObject")
+              .attr("transform", "translate(-200, 0)")
+              .attr("width", 400)
+              .attr("height", 200)
+              .attr("x", x)
+              .attr("y", y)
+              .append("xhtml:div")
+              .attr("class", "foreign-div")
+              .attr("xmlns", "http://www.w3.org/1999/xhtml")
+              .html(d.event)
+              .on("click", function() {
+                console.log("click to remove");
+
+                 svg.selectAll("foreignObject").remove();
+              });
+
           });
 
       }
