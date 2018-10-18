@@ -27,7 +27,7 @@ class HandyNav extends Component {
             </NavLink>
           </li>
           <li className="hn-item">
-            <NavLink activeClassName="selected" to="/home/estimation">
+            <NavLink activeClassName="selected" to="/home/estimate">
               企业估值
             </NavLink>
           </li>
