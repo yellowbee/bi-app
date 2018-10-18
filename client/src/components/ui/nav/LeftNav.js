@@ -57,7 +57,7 @@ class LeftNav extends Component {
           <li className="left-nav__item">
             <NavLink
               activeClassName="selected"
-              to="/home/estimation"
+              to="/home/estimate"
               className="left-nav__link--sub"
             >
               企业估值

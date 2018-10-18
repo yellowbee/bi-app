@@ -12,6 +12,7 @@ import { setToken } from "../actions/action_auth";
 import ParameterQuery from "./ui/analysis/ParameterQuery";
 import ParameterPrediction from "./ui/analysis/ParameterPrediction";
 import AccountingInfo from "./ui/analysis/AccountingInfo";
+import Estimate from "./ui/analysis/Estimate";
 import MainNav from "./ui/nav/MainNav";
 import LeftNav from "./ui/nav/LeftNav";
 import ShareSelector from "./ui/analysis/ShareSelector";
@@ -98,6 +99,7 @@ class Home extends Component {
               <Route path="/home/param-query" component={ParameterQuery} />
               <Route path="/home/param-prediction" component={ParameterPrediction} />
               <Route path="/home/accounting-info" component={AccountingInfo} />
+              <Route path="/home/estimate" component={Estimate} />
               <Route path="/home/report" component={Report} />
           </Switch>
         </div>
