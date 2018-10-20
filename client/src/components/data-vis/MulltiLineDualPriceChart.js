@@ -29,6 +29,7 @@ class MultiLineDualPriceChart extends Component {
     super(props);
     this.createLineChart = this.createLineChart.bind(this);
     this.removePreviousChart = this.removePreviousChart.bind(this);
+    this.drawPath = this.drawPath.bind(this);
   }
   componentDidMount() {
     this.createLineChart();
@@ -43,12 +44,84 @@ class MultiLineDualPriceChart extends Component {
     svg.selectAll("*").remove();
   }
 
+  drawPath(datum, svg, shareNames, x, y, lineStyle, circleStyle) {
+    for (let i = 0; i < shareNames.length; i++) {
+      if (i > 4) {
+        // now only draws up to 5 lines
+        break;
+      }
+
+      let data = datum[shareNames[i]].data;
+
+      // define the line
+      let valueline = line()
+      //.curve(curveBasis)
+        .defined(function(d) {
+          return d;
+        })
+        .x(function(d) {
+          return x(d.date);
+        })
+        .y(function(d) {
+          return y(d.val);
+        });
+
+      // Add the valueline path.
+      let lineClass = "line" + i;
+      svg
+        .append("path")
+        .datum(data)
+        .attr("class", lineClass + " " + lineStyle)
+        .attr("d", valueline)
+        .attr("transform", "translate(30, 0)");
+
+      // Add the dots
+      let dotClass = "." + circleStyle + i;
+      let dotAttrClass = circleStyle + i;
+      svg
+        .selectAll(dotClass)
+        .data(
+          data.filter(function(d) {
+            return d;
+          })
+        )
+        .enter()
+        .append("circle")
+        .attr("class", dotAttrClass)
+        .attr("cx", valueline.x())
+        .attr("cy", valueline.y())
+        .attr("r", 3.5)
+        .attr("transform", "translate(30, 0)")
+        .on("mouseover", function (d) {
+          let x = parseFloat(select(this).attr('cx'));
+          let y = parseFloat(select(this).attr('cy'));
+          let tipG = svg.append('g')
+            .attr("transform", "translate(" + x + ", " + (y-35) + ")")
+            .attr("class", "bi-tooltip");
+
+          tipG.append('rect')
+            .attr("class", "bi-tooltip__block")
+
+          tipG.append('text')
+            .attr("transform", "translate(10, 15)")
+            .attr("class", "bi-tooltip__block__text")
+            .text(d.val);
+
+        })
+        .on("mouseout", function () {
+          svg.selectAll('.bi-tooltip').remove();
+        })
+    }
+  }
+
   createLineChart() {
-    console.log("data: ");
-    console.log(this.props.data);
+    console.log("history: ");
+    console.log(this.props.history);
+    console.log("estimate: ");
+    console.log(this.props.estimate);
     let svg = select(this.node);
 
-    let shareNames = Object.keys(this.props.data);
+    let shareNames = Object.keys(this.props.history);
     if (shareNames.length > 0) {
       // set the dimensions and margins of the graph
       let margin = { top: 20, right: 100, bottom: 30, left: 100 },
@@ -75,6 +148,7 @@ class MultiLineDualPriceChart extends Component {
 
       // set the ranges
       let x;
+      let xEstimate = scaleLinear().range([0, width]);
       if (this.props.dateType === "quarter") {
         x = scaleLinear().range([0, width]);
       } else {
@@ -83,7 +157,12 @@ class MultiLineDualPriceChart extends Component {
       let y = scaleLinear().range([height, 0]);
       // Scale the domains
       x.domain(
-        extent(this.props.data[shareNames[0]].data, function(d) {
+        extent(this.props.history[shareNames[0]].data, function(d) {
+          return d ? d.date : null;
+        })
+      );
+      xEstimate.domain(
+        extent(this.props.estimate[shareNames[0]].data, function(d) {
           return d ? d.date : null;
         })
       );
@@ -96,7 +175,7 @@ class MultiLineDualPriceChart extends Component {
 
       // get all non null data points
       let tValues = [];
-      for (let i = 0; i < this.props.data[shareNames[0]].data.length; i++) {
+      for (let i = 0; i < this.props.history[shareNames[0]].data.length; i++) {
         tValues.push(i);
       }
       svg
@@ -107,7 +186,7 @@ class MultiLineDualPriceChart extends Component {
             .tickValues(tValues)
             .tickFormat((d, i) => {
               let quarter;
-              let year = parseInt(this.props.data[shareNames[0]].startYear) + d;
+              let year = parseInt(this.props.history[shareNames[0]].startYear) + d;
               switch (this.props.qtrType) {
                 case qtrType.FIRST:
                   quarter = "一季报";
@@ -165,13 +244,13 @@ class MultiLineDualPriceChart extends Component {
       // parse the date / time
       //let parseTime = timeParse(this.props.timeFormat);
 
-      for (let i = 0; i < shareNames.length; i++) {
+      /*for (let i = 0; i < shareNames.length; i++) {
         if (i > 4) {
           // now only draws up to 5 lines
           break;
         }
 
-        let data = this.props.data[shareNames[i]].data;
+        let data = this.props.history[shareNames[i]].data;
 
         // define the line
         let valueline = line()
@@ -231,7 +310,10 @@ class MultiLineDualPriceChart extends Component {
           .on("mouseout", function () {
             svg.selectAll('.bi-tooltip').remove();
           })
-      }
+      }*/
+
+      this.drawPath(this.props.history, svg, shareNames, x, y, 'solid', 'dot');
+      this.drawPath(this.props.estimate, svg, shareNames, xEstimate, y, 'dashed', 'dat');
 
       d3Util.addLegend(svg, shareNames, this.props.size[0] - 400, this.props.state.mainShares.concat(this.props.state.paramAnalysis.peers));
     }
@@ -241,7 +323,7 @@ class MultiLineDualPriceChart extends Component {
     return (
       <div>
         <div className="line-chart-wrapper">
-          {this.props.data && <svg style={{padding: "4em 0"}} ref={node => (this.node = node)}/>}
+          {this.props.history && <svg style={{padding: "4em 0"}} ref={node => (this.node = node)}/>}
         </div>
       </div>
     );
