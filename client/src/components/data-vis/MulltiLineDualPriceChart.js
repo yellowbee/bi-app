@@ -132,7 +132,7 @@ class MultiLineDualPriceChart extends Component {
         .attr(
           "viewBox",
           //"0 0 " + Math.max(width, height) + " " + Math.min(width, height)
-          "0 0 1100 450"
+          "0 0 1100 500"
         )
         .attr("preserveAspectRatio", "xMinYMin");
       //.append("g")
@@ -198,7 +198,7 @@ class MultiLineDualPriceChart extends Component {
                   quarter = "三季报";
                   break;
                 default:
-                  quarter = "年报";
+                  quarter = "年";
                   break;
               }
               return year + quarter;
@@ -323,7 +323,7 @@ class MultiLineDualPriceChart extends Component {
     return (
       <div>
         <div className="line-chart-wrapper">
-          {this.props.history && <svg style={{padding: "4em 0"}} ref={node => (this.node = node)}/>}
+          {this.props.history && <svg style={{padding: "2em 0"}} ref={node => (this.node = node)}/>}
         </div>
       </div>
     );
