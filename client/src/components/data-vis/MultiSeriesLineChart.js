@@ -59,7 +59,7 @@ class MultiSeriesLineChart extends Component {
         .attr(
           "viewBox",
           //"0 0 " + Math.max(width, height) + " " + Math.min(width, height)
-          "0 0 1100 450"
+          "0 0 1100 500"
         )
         .attr("preserveAspectRatio", "xMinYMin");
       //.append("g")
@@ -241,7 +241,7 @@ class MultiSeriesLineChart extends Component {
     return (
         <div>
             <div className="line-chart-wrapper">
-            {this.props.data && <svg ref={node => (this.node = node)}/>}
+            {this.props.data && <svg style={{padding: "2em 0"}} ref={node => (this.node = node)}/>}
             </div>
         </div>
     );

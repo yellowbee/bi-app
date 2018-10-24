@@ -15,7 +15,7 @@
  */
 
 const util = {
-    getDataByQtrType: (data_raw, qtrType) => {
+    getDataByQtrType: (data_raw, qtrType, cut_tail_on = true) => {
 
         let startYear = data_raw.date[0].split("-")[0];
 
@@ -46,9 +46,9 @@ const util = {
             //data.push(val[i] ? {date: i, val: val[i]} : null);
             if (!val[i]) {
                 data.push(null);
-            } else if (val[i] > 99) {
+            } else if (cut_tail_on && val[i] > 99) {
                 data.push({date: i, val: 99});
-            } else if (val[i] < -99) {
+            } else if (cut_tail_on && val[i] < -99) {
                 data.push({date: i, val: -99});
             } else {
                 data.push({date: i, val: val[i]});

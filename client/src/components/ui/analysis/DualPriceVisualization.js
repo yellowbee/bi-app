@@ -17,7 +17,9 @@ class DualPriceVisualization extends Component {
     let min = 0;
     for (let i = 0; i < rawData.length; i++) {
       data[rawData[i].code] = util.getDataByQtrType(
-        rawData[i]
+        rawData[i],
+        "year",
+        false
       );
 
       let curMax = Math.max(...rawData[i].val);
