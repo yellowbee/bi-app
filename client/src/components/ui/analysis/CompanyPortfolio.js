@@ -14,6 +14,7 @@ import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
 import SlidingPanel from "../../widgets/SlidingPanel";
 import AdvancedConfig from "./AdvancedConfig";
+import CommonUtil from "../../../util/CommonUtil";
 
 class CompanyPortfolio extends Component {
   constructor(props) {
@@ -32,44 +33,8 @@ class CompanyPortfolio extends Component {
     this.getRoe = this.getRoe.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
     this.updateNavbar = this.updateNavbar.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
-  }
-
-  // infinite scrolling handler
-  handleScroll() {
-    const windowHeight =
-      "innerHeight" in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-    const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight) {
-      /*this.setState({
-                message:'bottom reached'
-            });*/
-      console.log("bottom reached");
-      if (this.state.loadTracker.length < 6) {
-        let nextParam = this.state.paramsToLoad[this.state.loadTracker.length];
-          this.getNextParam(
-              this.state.selectedIndex,
-              this.props.state.paramAnalysis.peers,
-              nextParam
-          );
-      }
-    } else {
-      /*this.setState({
-                message:'not at bottom'
-            });*/
-      console.log("not at bottom");
-    }
+    this.handleScroll = CommonUtil.handleScroll.bind(this);
+    this.handleScrollWrapper = this.handleScrollWrapper.bind(this);
   }
 
   /**
@@ -130,6 +95,19 @@ class CompanyPortfolio extends Component {
     this.setState({ qtrType: qtrType });
   }
 
+  handleScrollWrapper() {
+    this.handleScroll(() => {
+      if (this.state.loadTracker.length < 6) {
+        let nextParam = this.state.paramsToLoad[this.state.loadTracker.length];
+        this.getNextParam(
+          this.state.selectedIndex,
+          this.props.state.paramAnalysis.peers,
+          nextParam
+        );
+      }
+    })
+  }
+
   componentDidMount() {
     if (this.props.state.mainShares.length > 0) {
       //this.getRoe(this.props.state.mainShares[this.state.selectedIndex].value);
@@ -139,11 +117,11 @@ class CompanyPortfolio extends Component {
       );
     }
 
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.handleScrollWrapper);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScrollWrapper);
   }
 
   updateNavbar(menuItems) {

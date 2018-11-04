@@ -1,5 +1,6 @@
 import axios from "axios";
 import {BI_API_ROOT_URL} from "../constants";
+import ParamUtil from "./ParamUtil";
 
 /**
  * Util module for retrieving data via REST api.
@@ -35,7 +36,32 @@ const util = {
             //this.setState({ fetchInProgress: false, roes: response.data });
             this.setState({ roes: response.data });
         });
+    },
+
+  /**
+   * convert data from [{date: [], val: [], code}, ...] to
+   * {'000000.SH': {}, '000001': {}, ...}
+   */
+  convertDataFormat: function(data) {
+    let converted = {};
+    let max = 5;
+    let min = -10;
+
+    for (let i = 0; i < data.length; i++) {
+      converted[data[i].code] = ParamUtil.getDataByQtrType(
+        data[i]
+      );
+      let curMax = Math.max(...data[i].val);
+      let curMin = Math.min(...data[i].val);
+      max = max > curMax ? max : curMax;
+      min = min < curMin ? min : curMin;
+
     }
+    max = max <= 99 ? max : 120;
+    min = min >= -99 ? min : -120;
+
+    return {converted, max, min}
+  }
 };
 
 module.exports = util;

@@ -16,6 +16,41 @@ const util = {
         return stock.label;
       }
     }
+  },
+
+  /**
+   * scroll event handler to implement infinite scroll
+   * handleScroll needs to be binded where it's called
+   * callback contains the actual code to execute when
+   * the "scroll to bottom" event happens
+   */
+  handleScroll(callback) {
+    const windowHeight =
+      "innerHeight" in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight) {
+      /*this.setState({
+                message:'bottom reached'
+            });*/
+      console.log("bottom reached");
+      callback();
+    } else {
+      /*this.setState({
+                message:'not at bottom'
+            });*/
+      console.log("not at bottom");
+    }
   }
 };
 

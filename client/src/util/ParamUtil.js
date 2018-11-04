@@ -15,7 +15,7 @@
  */
 
 const util = {
-    getDataByQtrType: (data_raw, qtrType, cut_tail_on = true) => {
+    getDataByQtrType: (data_raw, qtrType=4, cut_tail_on = true) => {
 
         let startYear = data_raw.date[0].split("-")[0];
 

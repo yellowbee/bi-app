@@ -12,14 +12,18 @@ import StandardParameterVisualization from "./StandardParameterVisualization";
 import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
 import AccountingInfoVisualization from "./AccountingInfoVisualization";
+import CommonUtil from "../../../util/CommonUtil";
+import CharContiner from "./containers/ChartContainer";
 
-class CompanyPortfolio extends Component {
+class AccountingPortfolio extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedIndex: 0
     };
     this.getDAs = this.getDAs.bind(this);
+    //this.handleScroll = CommonUtil.handleScroll.bind(this);
+    //this.handleScrollWrapper = this.handleScrollWrapper.bind(this);
   }
 
   /**
@@ -45,11 +49,30 @@ class CompanyPortfolio extends Component {
     });
   }
 
+  /*handleScrollWrapper() {
+    this.handleScroll(() => {
+      if (this.state.loadTracker.length < 6) {
+        let nextParam = this.state.paramsToLoad[this.state.loadTracker.length];
+        this.getNextParam(
+          this.state.selectedIndex,
+          this.props.state.paramAnalysis.peers,
+          nextParam
+        );
+      }
+    })
+  }*/
+
   componentDidMount() {
     if (this.props.state.mainShares.length > 0) {
       this.getDAs(this.state.selectedIndex);
     }
+
+    //window.addEventListener("scroll", this.handleScrollWrapper);
   }
+
+  /*componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScrollWrapper);
+  }*/
 
   render() {
     console.log("current local state: ");
@@ -89,17 +112,8 @@ class CompanyPortfolio extends Component {
                 {this.state.selectedIndex === i &&
                   this.state.das && (
                     <div>
-                      <div
-                        style={{
-                          width: "100%",
-                          backgroundColor: "#d0e7f2",
-                          textAlign: "center",
-                          padding: "5px 0"
-                        }}
-                      >
-                        DA (可操纵性应计)
-                      </div>
-                      <AccountingInfoVisualization data={this.state.das} />
+                      <AccountingInfoVisualization data={this.state.das} title={"DA (可操纵性应计)"}/>
+                      <CharContiner dataApi={"/api/fraud"}/>
                     </div>
                   )}
               </TabPanel>
@@ -115,4 +129,4 @@ let mapStateToProps = state => ({
   state: state
 });
 
-export default connect(mapStateToProps, null)(CompanyPortfolio);
+export default connect(mapStateToProps, null)(AccountingPortfolio);

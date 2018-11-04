@@ -18,7 +18,7 @@ class DualPriceVisualization extends Component {
     for (let i = 0; i < rawData.length; i++) {
       data[rawData[i].code] = util.getDataByQtrType(
         rawData[i],
-        "year",
+        'year',
         false
       );
 
