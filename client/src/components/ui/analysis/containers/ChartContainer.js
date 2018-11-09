@@ -12,7 +12,6 @@ class ChartContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0
     };
     this.getData = this.getData.bind(this);
   }
@@ -47,7 +46,7 @@ class ChartContainer extends Component {
 
   componentDidMount() {
     if (this.props.state.mainShares.length > 0) {
-      this.getData(this.state.selectedIndex);
+      this.getData(this.props.mainIdx);
     }
   }
 

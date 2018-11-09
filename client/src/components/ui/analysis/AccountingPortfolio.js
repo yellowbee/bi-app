@@ -113,7 +113,7 @@ class AccountingPortfolio extends Component {
                   this.state.das && (
                     <div>
                       <AccountingInfoVisualization data={this.state.das} title={"DA (可操纵性应计)"}/>
-                      <CharContiner dataApi={"/api/fraud"}/>
+                      <CharContiner mainIdx={this.state.selectedIndex} dataApi={"/api/fraud"}/>
                     </div>
                   )}
               </TabPanel>
