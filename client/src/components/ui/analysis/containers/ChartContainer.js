@@ -11,8 +11,7 @@ import MultiLineDAChart from "../../../data-vis/MultiLineDAChart";
 class ChartContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
     this.getData = this.getData.bind(this);
   }
 
@@ -37,7 +36,7 @@ class ChartContainer extends Component {
       .then(response => {
         console.log("ChartContainer -> get data from service: ");
         console.log(response.data);
-        let data = DataUtil.convertDataFormat(response.data);
+        let data = this.props.prepData(response.data);
         console.log("ChartContainer -> converted data: ");
         console.log(data);
         this.setState({ fetchInProgress: false, data });
@@ -54,7 +53,19 @@ class ChartContainer extends Component {
     console.log("current local state: ");
     console.log(this.state);
 
-    let options = this.props.state.mainShares;
+    // By the time of definition, we don't know the type of children.
+    // So cloneElement is used to pass data from parent to children.
+    let items = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        size: [1200, 500],
+        data: this.state.data && this.state.data.converted,
+        domain: [
+          this.props.domain ? this.props.domain.min : this.state.data && this.state.data.min,
+          this.props.domain ? this.props.domain.max : this.state.data && this.state.data.max
+        ]
+      });
+    });
+
     return (
       <div>
         {this.state.fetchInProgress && <Spinner />}
@@ -64,13 +75,8 @@ class ChartContainer extends Component {
               className="std-param-vis"
               style={{ width: "90%", margin: "0 auto 100px auto" }}
             >
-              <div className="param-vis-elem__title">{'舞弊概率'}</div>
-              {/*<AccountingInfoVisualization data={this.state.das} title={"DA (可操纵性应计)"}/>*/}
-              <MultiLineFraudChart
-                size={[1200, 500]}
-                data={this.state.data.converted}
-                domain={[0, 1]}
-              />
+              <div className="param-vis-elem__title">{this.props.title}</div>
+              {items}
             </div>
           ))}
       </div>

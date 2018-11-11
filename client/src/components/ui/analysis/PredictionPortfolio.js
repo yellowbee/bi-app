@@ -15,7 +15,9 @@ import { qtrType } from "../../../constants";
 import SlidingPanel from "../../widgets/SlidingPanel";
 import AdvancedConfig from "./AdvancedConfig";
 import ParameterPredictionVisualization from "./ParameterPredictionVisualization";
-import dataUtil from "../../../util/DataUtil";
+import DataUtil from "../../../util/DataUtil";
+import ChartContainer from "./containers/ChartContainer";
+import MultiLinePredChart from "../../data-vis/MultiLinePredChart";
 
 class PredictionPortfolio extends Component {
   constructor(props) {
@@ -26,11 +28,9 @@ class PredictionPortfolio extends Component {
       peers: this.props.state.paramAnalysis.peers,
       menuItems: [true, false, false, false, false, false]
     };
-    //this.getRoes = this.getRoes.bind(this);
-      this.getRoes = dataUtil.getPredRoes.bind(this);
+      this.getRoes = DataUtil.getPredRoes.bind(this);
     this.updateQtrType = this.updateQtrType.bind(this);
     this.updateNavbar = this.updateNavbar.bind(this);
-    //this.getPredParamByName = this.getPredParamByName.bind(this);
   }
 
     /*getPredParamByName(mainIdx, peers, paramAcro) {
@@ -158,6 +158,22 @@ class PredictionPortfolio extends Component {
                               mainIdx={this.state.selectedIndex}
                               title="ROE (净资产收益率)"
                           />
+                          <ChartContainer
+                            mainIdx={this.state.selectedIndex}
+                            dataApi={"/api/roas-hist-pred"}
+                            title={"ROA"}
+                            prepData={DataUtil.prepHistPredCombo}
+                          >
+                            <MultiLinePredChart/>
+                          </ChartContainer>
+                          <ChartContainer
+                            mainIdx={this.state.selectedIndex}
+                            dataApi={"/api/epss-hist-pred"}
+                            title={"EPS"}
+                            prepData={DataUtil.prepHistPredCombo}
+                          >
+                            <MultiLinePredChart/>
+                          </ChartContainer>
                         </div>
                       )}
                     </div>

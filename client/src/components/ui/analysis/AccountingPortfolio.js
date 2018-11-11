@@ -13,7 +13,10 @@ import ShareSelector from "./ShareSelector";
 import ParameterQuery from "./ParameterQuery";
 import AccountingInfoVisualization from "./AccountingInfoVisualization";
 import CommonUtil from "../../../util/CommonUtil";
-import CharContiner from "./containers/ChartContainer";
+import ChartContainer from "./containers/ChartContainer";
+import MultiLineDAChart from "../../data-vis/MultiLineDAChart";
+import MultiLineFraudChart from "../../data-vis/MultiLineFraudChart";
+import DataUtil from "../../../util/DataUtil";
 
 class AccountingPortfolio extends Component {
   constructor(props) {
@@ -112,8 +115,19 @@ class AccountingPortfolio extends Component {
                 {this.state.selectedIndex === i &&
                   this.state.das && (
                     <div>
-                      <AccountingInfoVisualization data={this.state.das} title={"DA (可操纵性应计)"}/>
-                      <CharContiner mainIdx={this.state.selectedIndex} dataApi={"/api/fraud"}/>
+                      <AccountingInfoVisualization
+                        data={this.state.das}
+                        title={"DA (可操纵性应计)"}
+                      />
+                      <ChartContainer
+                        mainIdx={this.state.selectedIndex}
+                        dataApi={"/api/fraud"}
+                        title={"舞弊概率"}
+                        prepData={DataUtil.convertDataFormat}
+                        domain={{min: 0, max: 1}}
+                      >
+                        <MultiLineFraudChart />
+                      </ChartContainer>
                     </div>
                   )}
               </TabPanel>
