@@ -20,6 +20,20 @@ class CompanySelector extends Component {
     this.state = {
       spinner: false
     };
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
+  clickHandler(selectedLabel, dataUrl) {
+    this.setState({ selected: selectedLabel, spinner: true });
+    axios
+      .get(dataUrl)
+      .then(response => {
+        console.log(response);
+        this.setState({ options: response.data, spinner: false });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -48,16 +62,7 @@ class CompanySelector extends Component {
                           this.state.selected === "A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "A", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-a`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("A", "https://bi-ws.herokuapp.com/api/idx-a");
                         }}
                       >
                         全部a股
@@ -67,16 +72,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SH-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SH-A", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-sh-a`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("SH-A", "https://bi-ws.herokuapp.com/api/idx-sh-a");
                         }}
                       >
                         上证a股
@@ -86,16 +82,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SZ-A", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-sz-a`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("SZ-A", "https://bi-ws.herokuapp.com/api/idx-sz-a");
                         }}
                       >
                         深证a股
@@ -105,16 +92,7 @@ class CompanySelector extends Component {
                           this.state.selected === "STARTUP" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "STARTUP", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-startup`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("STARTUP", "https://bi-ws.herokuapp.com/api/idx-startup");
                         }}
                       >
                         创业板
@@ -124,16 +102,7 @@ class CompanySelector extends Component {
                           this.state.selected === "MD-SM" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "MD-SM", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-md-sm`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("MD-SM", "https://bi-ws.herokuapp.com/api/idx-md-sm");
                         }}
                       >
                         中小企业板
@@ -143,18 +112,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-MAIN-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SZ-MAIN-A", spinner: true });
-                          axios
-                            .get(
-                              `https://bi-ws.herokuapp.com/api/idx-sz-main-a`
-                            )
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("SZ-MAIN-A", "https://bi-ws.herokuapp.com/api/idx-sz-main-a");
                         }}
                       >
                         深圳主板a股
@@ -164,16 +122,7 @@ class CompanySelector extends Component {
                           this.state.selected === "B" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "B", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-b`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("B", "https://bi-ws.herokuapp.com/api/idx-b");
                         }}
                       >
                         全部b股
@@ -183,16 +132,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SH-B" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SH-B", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-sz-b`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("SH-B", "https://bi-ws.herokuapp.com/api/idx-sh-b");
                         }}
                       >
                         上证b股
@@ -202,16 +142,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-B" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.setState({ selected: "SZ-B", spinner: true });
-                          axios
-                            .get(`https://bi-ws.herokuapp.com/api/idx-sh-b`)
-                            .then(response => {
-                              console.log(response);
-                              this.setState({ options: response.data, spinner: false });
-                            })
-                            .catch(err => {
-                              console.log(err);
-                            });
+                          this.clickHandler("SZ-B", "https://bi-ws.herokuapp.com/api/idx-sz-b");
                         }}
                       >
                         深证b股

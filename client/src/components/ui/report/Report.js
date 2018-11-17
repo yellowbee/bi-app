@@ -8,6 +8,7 @@ import Spinner from "../common/Spinner";
 import { BI_API_ROOT_URL } from "../../../constants";
 import BooleanNavbar from "../../widgets/BooleanNavbar";
 import Blind from "../../widgets/Blind";
+import SimpleBlind from "../../widgets/SimpleBlind";
 import CompanyInfo from "./CompanyInfo";
 import dataUtil from "../../../util/DataUtil";
 import ParameterPredictionVisualization from "../analysis/ParameterPredictionVisualization";
@@ -156,13 +157,13 @@ class Report extends Component {
                               />
                             )}
                           </Blind>
-                          <Blind
+                          <SimpleBlind
                             index={3}
                             title={"公司估值"}
                             extendedAtRender={false}
                           >
                             Sample text
-                          </Blind>
+                          </SimpleBlind>
                           <Blind
                             index={4}
                             title={"公司会计信息质量"}

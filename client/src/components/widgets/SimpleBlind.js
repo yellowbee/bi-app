@@ -5,7 +5,7 @@
 
 import React, { Component } from "react";
 
-class Blind extends Component {
+class SimpleBlind extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,18 +17,16 @@ class Blind extends Component {
     let label = this.state.expanded ? "-" : "+";
     return (
       <div className="blind">
-        <div className="blind__bar">
+        <div className="blind__bar"
+             onClick={() => {
+               this.setState({ expanded: !this.state.expanded });
+             }}
+        >
           <div className="blind__desc">
             {this.props.index}.{this.props.title}
           </div>
           <div
             className="blind__btn"
-            onClick={() => {
-              if (!this.state.expanded && this.props.callback) {
-                this.props.callback();
-              }
-              this.setState({ expanded: !this.state.expanded });
-            }}
           >
             <span className="blind__btn__label">{label}</span>
           </div>
@@ -41,4 +39,4 @@ class Blind extends Component {
   }
 }
 
-export default Blind;
+export default SimpleBlind;

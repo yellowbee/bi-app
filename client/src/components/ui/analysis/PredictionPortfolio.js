@@ -161,7 +161,7 @@ class PredictionPortfolio extends Component {
                           <ChartContainer
                             mainIdx={this.state.selectedIndex}
                             dataApi={"/api/roas-hist-pred"}
-                            title={"ROA"}
+                            title={"ROA (总资产收益率)"}
                             prepData={DataUtil.prepHistPredCombo}
                           >
                             <MultiLinePredChart/>
@@ -169,7 +169,7 @@ class PredictionPortfolio extends Component {
                           <ChartContainer
                             mainIdx={this.state.selectedIndex}
                             dataApi={"/api/epss-hist-pred"}
-                            title={"EPS"}
+                            title={"EPS (每股收益)"}
                             prepData={DataUtil.prepHistPredCombo}
                           >
                             <MultiLinePredChart/>
