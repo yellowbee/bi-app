@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
 import Select from "react-select";
+import {setShareList} from "../../../actions/action_share_list";
 import {
   Accordion,
   AccordionItem,
@@ -34,6 +36,15 @@ class CompanySelector extends Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  componentDidMount() {
+    let {shareList} = this.props.state;
+    if (shareList.label) {
+      this.clickHandler(shareList.label, shareList.url);
+    } else {
+      this.clickHandler("A", "https://bi-ws.herokuapp.com/api/idx-a");
+    }
   }
 
   render() {
@@ -83,6 +94,7 @@ class CompanySelector extends Component {
                         }
                         onClick={e => {
                           this.clickHandler("SZ-A", "https://bi-ws.herokuapp.com/api/idx-sz-a");
+                          this.props.setShareList({label: "SZ-A", url: "https://bi-ws.herokuapp.com/api/idx-sz-a"})
                         }}
                       >
                         深证a股
@@ -196,4 +208,14 @@ class CompanySelector extends Component {
   }
 }
 
-export default CompanySelector;
+let mapStateToProps = state => ({
+  state: state
+});
+
+let mapDispatchToProps = dispatch => ({
+  setShareList: value => {
+    dispatch(setShareList(value));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompanySelector);
