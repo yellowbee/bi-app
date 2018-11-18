@@ -73,6 +73,7 @@ class CompanySelector extends Component {
                           this.state.selected === "A" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "A", url: "https://bi-ws.herokuapp.com/api/idx-a"});
                           this.clickHandler("A", "https://bi-ws.herokuapp.com/api/idx-a");
                         }}
                       >
@@ -83,6 +84,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SH-A" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "SH-A", url: "https://bi-ws.herokuapp.com/api/idx-sh-a"});
                           this.clickHandler("SH-A", "https://bi-ws.herokuapp.com/api/idx-sh-a");
                         }}
                       >
@@ -93,8 +95,8 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-A" ? "selected" : ""
                         }
                         onClick={e => {
-                          this.clickHandler("SZ-A", "https://bi-ws.herokuapp.com/api/idx-sz-a");
                           this.props.setShareList({label: "SZ-A", url: "https://bi-ws.herokuapp.com/api/idx-sz-a"})
+                          this.clickHandler("SZ-A", "https://bi-ws.herokuapp.com/api/idx-sz-a");
                         }}
                       >
                         深证a股
@@ -104,6 +106,7 @@ class CompanySelector extends Component {
                           this.state.selected === "STARTUP" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "STARTUP", url: "https://bi-ws.herokuapp.com/api/idx-startup"});
                           this.clickHandler("STARTUP", "https://bi-ws.herokuapp.com/api/idx-startup");
                         }}
                       >
@@ -114,6 +117,7 @@ class CompanySelector extends Component {
                           this.state.selected === "MD-SM" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "MD-SM", url: "https://bi-ws.herokuapp.com/api/idx-md-sm"});
                           this.clickHandler("MD-SM", "https://bi-ws.herokuapp.com/api/idx-md-sm");
                         }}
                       >
@@ -124,6 +128,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-MAIN-A" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "SZ-MAIN-A", url: "https://bi-ws.herokuapp.com/api/idx-sz-main-a"});
                           this.clickHandler("SZ-MAIN-A", "https://bi-ws.herokuapp.com/api/idx-sz-main-a");
                         }}
                       >
@@ -134,6 +139,7 @@ class CompanySelector extends Component {
                           this.state.selected === "B" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "B", url: "https://bi-ws.herokuapp.com/api/idx-b"});
                           this.clickHandler("B", "https://bi-ws.herokuapp.com/api/idx-b");
                         }}
                       >
@@ -144,6 +150,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SH-B" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "SH-B", url: "https://bi-ws.herokuapp.com/api/idx-sh-b"});
                           this.clickHandler("SH-B", "https://bi-ws.herokuapp.com/api/idx-sh-b");
                         }}
                       >
@@ -154,6 +161,7 @@ class CompanySelector extends Component {
                           this.state.selected === "SZ-B" ? "selected" : ""
                         }
                         onClick={e => {
+                          this.props.setShareList({label: "SZ-B", url: "https://bi-ws.herokuapp.com/api/idx-sz-b"});
                           this.clickHandler("SZ-B", "https://bi-ws.herokuapp.com/api/idx-sz-b");
                         }}
                       >
