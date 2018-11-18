@@ -196,6 +196,7 @@ class CompanySelector extends Component {
               </div>
               <Select
                 //filterOptions={filterOptions}
+                menuIsOpen={true}
                 options={this.state.options}
                 isMulti={true}
                 isSearchable={true}
