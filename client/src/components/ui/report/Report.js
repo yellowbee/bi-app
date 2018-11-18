@@ -12,6 +12,10 @@ import SimpleBlind from "../../widgets/SimpleBlind";
 import CompanyInfo from "./CompanyInfo";
 import dataUtil from "../../../util/DataUtil";
 import ParameterPredictionVisualization from "../analysis/ParameterPredictionVisualization";
+import MultiLinePredChart from "../../data-vis/MultiLinePredChart";
+import ChartContainer from "../analysis/containers/ChartContainer";
+import DataUtil from "../../../util/DataUtil";
+import MultiLineDAChart from "../../data-vis/MultiLineDAChart";
 
 class Report extends Component {
   constructor(props) {
@@ -162,15 +166,29 @@ class Report extends Component {
                             title={"公司估值"}
                             extendedAtRender={false}
                           >
-                            Sample text
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/roes-hist-pred"}
+                              title={"ROA (总资产收益率)"}
+                              prepData={DataUtil.prepHistPredCombo}
+                            >
+                              <MultiLinePredChart />
+                            </ChartContainer>
                           </SimpleBlind>
-                          <Blind
+                          <SimpleBlind
                             index={4}
                             title={"公司会计信息质量"}
                             extendedAtRender={false}
                           >
-                            Sample text
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/das"}
+                              title={"DA (可操纵性应计)"}
+                              prepData={DataUtil.prepDaData}
+                            >
+                              <MultiLineDAChart />
+                            </ChartContainer>
+                          </SimpleBlind>
                           <Blind
                             index={5}
                             title={"公司盈利能力分析"}
@@ -230,7 +248,4 @@ let mapStateToProps = state => ({
   state: state
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(Report);
+export default connect(mapStateToProps, null)(Report);

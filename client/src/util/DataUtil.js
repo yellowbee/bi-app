@@ -62,6 +62,27 @@ const util = {
     return { converted, max, min };
   },
 
+  prepDaData: function(data) {
+    let converted = {};
+    let max = 0.2;
+    let min = -0.2;
+
+    for (let i = 0; i < data.length; i++) {
+      converted[data[i].code] = ParamUtil.getDataByQtrType(data[i]);
+      converted[data[i].code].violation = data[i].violation;
+
+      let curMax = Math.max(...data[i].val);
+      let curMin = Math.min(...data[i].val);
+      max = max > curMax ? max : curMax;
+      min = min < curMin ? min : curMin;
+    }
+
+    max = max <= 99 ? max : 120;
+    min = min >= -99 ? min : -120;
+
+    return { converted, max, min };
+  },
+
   /**
    * prep stands for pre-process, which is the operation to
    * convert data format from db to ui
@@ -76,7 +97,7 @@ const util = {
 
     let converted = {};
     let max = 0;
-    let min = 0;
+    let min = -5;
     for (let i = 0; i < hist.length; i++) {
       let code = hist[i].code;
       converted[code] = ParamUtil.getDataByQtrType(hist[i], qtrType.YEAR);

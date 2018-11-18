@@ -113,12 +113,19 @@ class AccountingPortfolio extends Component {
             {options.map((option, i) => (
               <TabPanel key={option.value}>
                 {this.state.selectedIndex === i &&
-                  this.state.das && (
                     <div>
-                      <AccountingInfoVisualization
+                      {/*<AccountingInfoVisualization
                         data={this.state.das}
                         title={"DA (可操纵性应计)"}
-                      />
+                      />*/}
+                      <ChartContainer
+                        mainIdx={this.state.selectedIndex}
+                        dataApi={"/api/das"}
+                        title={"DA (可操纵性应计)"}
+                        prepData={DataUtil.prepDaData}
+                      >
+                        <MultiLineDAChart />
+                      </ChartContainer>
                       <ChartContainer
                         mainIdx={this.state.selectedIndex}
                         dataApi={"/api/fraud"}
@@ -129,7 +136,7 @@ class AccountingPortfolio extends Component {
                         <MultiLineFraudChart />
                       </ChartContainer>
                     </div>
-                  )}
+                  }
               </TabPanel>
             ))}
           </Tabs>
