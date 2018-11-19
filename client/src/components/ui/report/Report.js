@@ -16,6 +16,7 @@ import MultiLinePredChart from "../../data-vis/MultiLinePredChart";
 import ChartContainer from "../analysis/containers/ChartContainer";
 import DataUtil from "../../../util/DataUtil";
 import MultiLineDAChart from "../../data-vis/MultiLineDAChart";
+import MultiLineDualPriceChart from "../../data-vis/MulltiLineDualPriceChart";
 
 class Report extends Component {
   constructor(props) {
@@ -139,28 +140,20 @@ class Report extends Component {
                           >
                             <CompanyInfo info={this.state.companyInfo[0]} />
                           </Blind>
-                          <Blind
+                          <SimpleBlind
                             index={2}
                             title={"公司业绩预测"}
                             extendedAtRender={false}
-                            callback={() => {
-                              this.getPredRoes(
-                                this.state.selectedIndex,
-                                undefined
-                              );
-                            }}
                           >
-                            {!this.state.roes && <Spinner />}
-                            {this.state.roes && (
-                              <ParameterPredictionVisualization
-                                data={this.state.roes}
-                                domain={[-40, 40]}
-                                qtrType={3}
-                                mainIdx={this.state.selectedIndex}
-                                title="ROE (净资产收益率)"
-                              />
-                            )}
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/roes-hist-pred"}
+                              title={"ROE (净资产收益率)"}
+                              prepData={DataUtil.prepHistPredCombo}
+                            >
+                              <MultiLinePredChart />
+                            </ChartContainer>
+                          </SimpleBlind>
                           <SimpleBlind
                             index={3}
                             title={"公司估值"}
@@ -168,11 +161,11 @@ class Report extends Component {
                           >
                             <ChartContainer
                               mainIdx={this.state.selectedIndex}
-                              dataApi={"/api/roes-hist-pred"}
-                              title={"ROA (总资产收益率)"}
-                              prepData={DataUtil.prepHistPredCombo}
+                              dataApi={"/api/p-dual"}
+                              title={"公司股票估值"}
+                              prepData={DataUtil.prepHistEstimateData}
                             >
-                              <MultiLinePredChart />
+                              <MultiLineDualPriceChart/>
                             </ChartContainer>
                           </SimpleBlind>
                           <SimpleBlind
@@ -189,13 +182,20 @@ class Report extends Component {
                               <MultiLineDAChart />
                             </ChartContainer>
                           </SimpleBlind>
-                          <Blind
+                          <SimpleBlind
                             index={5}
                             title={"公司盈利能力分析"}
                             extendedAtRender={false}
                           >
-                            Sample text
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/roas-hist-pred"}
+                              title={"ROA (总资产收益率)"}
+                              prepData={DataUtil.prepHistPredCombo}
+                            >
+                              <MultiLinePredChart />
+                            </ChartContainer>
+                          </SimpleBlind>
                           <Blind
                             index={6}
                             title={"公司成长能力分析"}

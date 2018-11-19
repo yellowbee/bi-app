@@ -49,8 +49,7 @@ class DualPriceVisualization extends Component {
           <div className="param-vis-elem__title">{this.props.title}</div>
           <MultiLineDualPriceChart
             size={[1200, 500]}
-            history={history.data}
-            estimate={estimate.data}
+            data={{history: history.data, estimate: estimate.data}}
             domain={[min, max]}
             qtrType={this.props.qtrType}
           />

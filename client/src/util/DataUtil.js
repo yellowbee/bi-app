@@ -62,6 +62,17 @@ const util = {
     return { converted, max, min };
   },
 
+  prepHistEstimateData: (data) => {
+    console.log(data);
+    let history = util.convertDataFormat(data.history);
+    let estimate = util.convertDataFormat(data.estimate);
+    let converted = {history: history.converted, estimate: estimate.converted};
+    let min = Math.min(history.min, estimate.min);
+    let max = Math.max(history.max, estimate.max);
+
+    return {converted, min, max};
+  },
+
   prepDaData: function(data) {
     let converted = {};
     let max = 0.2;
