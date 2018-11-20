@@ -100,6 +100,11 @@ class Report extends Component {
           <NavLink activeClassName="selected" to="/home/main-shares">
             返回设置主选公司
           </NavLink>
+          <button className="bi-button"
+            onClick={e => window.print()}
+          >
+            打印报告
+          </button>
         </div>
 
         {this.state.fetchInProgress && <Spinner />}
