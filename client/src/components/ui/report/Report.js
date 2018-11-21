@@ -17,6 +17,7 @@ import ChartContainer from "../analysis/containers/ChartContainer";
 import DataUtil from "../../../util/DataUtil";
 import MultiLineDAChart from "../../data-vis/MultiLineDAChart";
 import MultiLineDualPriceChart from "../../data-vis/MulltiLineDualPriceChart";
+import MultiSeriesLineChart from "../../data-vis/MultiSeriesLineChart";
 
 class Report extends Component {
   constructor(props) {
@@ -201,13 +202,30 @@ class Report extends Component {
                               <MultiLinePredChart />
                             </ChartContainer>
                           </SimpleBlind>
-                          <Blind
+                          <SimpleBlind
                             index={6}
                             title={"公司成长能力分析"}
                             extendedAtRender={false}
                           >
-                            Sample text
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/brgrs"}
+                              title={"营业总收入增长率"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={3}
+                            >
+                              <MultiSeriesLineChart/>
+                            </ChartContainer>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/npgrs"}
+                              title={"净利润增长率"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={3}
+                            >
+                              <MultiSeriesLineChart/>
+                            </ChartContainer>
+                          </SimpleBlind>
                           <Blind
                             index={7}
                             title={"公司盈利质量分析"}

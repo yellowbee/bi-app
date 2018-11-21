@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import Spinner from "../../common/Spinner";
-import { BI_API_ROOT_URL } from "../../../../constants";
+import { BI_API_ROOT_URL, qtrType } from "../../../../constants";
 import DataUtil from "../../../../util/DataUtil";
 import MultiLineFraudChart from "../../../data-vis/MultiLineFraudChart";
 import MultiLineDAChart from "../../../data-vis/MultiLineDAChart";
@@ -36,7 +36,12 @@ class ChartContainer extends Component {
       .then(response => {
         console.log("ChartContainer -> get data from service: ");
         console.log(response.data);
-        let data = this.props.prepData(response.data);
+        let data;
+        if (this.props.qtrType) {
+          data = this.props.prepData(response.data, this.props.qtrType);
+        } else {
+          data = this.props.prepData(response.data);
+        }
         console.log("ChartContainer -> converted data: ");
         console.log(data);
         this.setState({ fetchInProgress: false, data });

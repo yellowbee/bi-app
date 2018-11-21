@@ -44,13 +44,13 @@ const util = {
    * convert data from [{date: [], val: [], code}, ...] to
    * {'000000.SH': {}, '000001': {}, ...}
    */
-  convertDataFormat: function(data) {
+  convertDataFormat: function(data, qtrType) {
     let converted = {};
     let max = 0;
     let min = 0;
 
     for (let i = 0; i < data.length; i++) {
-      converted[data[i].code] = ParamUtil.getDataByQtrType(data[i]);
+      converted[data[i].code] = ParamUtil.getDataByQtrType(data[i], qtrType);
       let curMax = Math.max(...data[i].val);
       let curMin = Math.min(...data[i].val);
       max = max > curMax ? max : curMax;
