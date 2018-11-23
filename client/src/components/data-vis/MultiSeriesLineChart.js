@@ -17,7 +17,7 @@ const d3Util = require("../../util/D3Util");
   return axisBottom(x).ticks(5);
 }*/
 function make_x_gridlines(x, tValues) {
-    return axisBottom(x).tickValues(tValues);
+  return axisBottom(x).tickValues(tValues);
 }
 // gridlines in y axis function
 function make_y_gridlines(y) {
@@ -140,17 +140,21 @@ class MultiSeriesLineChart extends Component {
         .call(axisLeft(y));
 
       // add the X gridlines
-        // To remove annoying end tick, use tickSizeOuter(0)
+      // To remove annoying end tick, use tickSizeOuter(0)
       svg
         .append("g")
         .attr("class", "grid")
+        .attr("id", "xgrid")
         .attr("transform", "translate(30," + height + ")")
         .call(
           make_x_gridlines(x, tValues)
             .tickSize(-height)
             .tickFormat("")
-              .tickSizeOuter(0)
+            .tickSizeOuter(0)
         );
+      // remove bottom line of x-grid
+      let xgrid = document.getElementById("xgrid");
+      xgrid.removeChild(xgrid.firstChild);
 
       // add the Y gridlines
       /*svg
@@ -212,38 +216,48 @@ class MultiSeriesLineChart extends Component {
           .attr("cy", valueline.y())
           .attr("r", 3.5)
           .attr("transform", "translate(30, 0)")
-            .on("mouseover", function (d) {
-                let x = parseFloat(select(this).attr('cx'));
-                let y = parseFloat(select(this).attr('cy'));
-                let tipG = svg.append('g')
-                    .attr("transform", "translate(" + x + ", " + (y-35) + ")")
-                    .attr("class", "bi-tooltip");
+          .on("mouseover", function(d) {
+            let x = parseFloat(select(this).attr("cx"));
+            let y = parseFloat(select(this).attr("cy"));
+            let tipG = svg
+              .append("g")
+              .attr("transform", "translate(" + x + ", " + (y - 35) + ")")
+              .attr("class", "bi-tooltip");
 
-                tipG.append('rect')
-                    .attr("class", "bi-tooltip__block")
+            tipG.append("rect").attr("class", "bi-tooltip__block");
 
-                tipG.append('text')
-                    .attr("transform", "translate(10, 15)")
-                    .attr("class", "bi-tooltip__block__text")
-                    .text(d.val);
-
-            })
-            .on("mouseout", function () {
-                svg.selectAll('.bi-tooltip').remove();
-            })
+            tipG
+              .append("text")
+              .attr("transform", "translate(10, 15)")
+              .attr("class", "bi-tooltip__block__text")
+              .text(d.val);
+          })
+          .on("mouseout", function() {
+            svg.selectAll(".bi-tooltip").remove();
+          });
       }
 
-      d3Util.addLegend(svg, shareNames, this.props.size[0] - 400, this.props.state.mainShares.concat(this.props.state.paramAnalysis.peers));
+      d3Util.addLegend(
+        svg,
+        shareNames,
+        this.props.size[0] - 400,
+        this.props.state.mainShares.concat(this.props.state.paramAnalysis.peers)
+      );
     }
   }
 
   render() {
     return (
-        <div>
-            <div className="line-chart-wrapper">
-            {this.props.data && <svg style={{padding: "2em 0"}} ref={node => (this.node = node)}/>}
-            </div>
+      <div>
+        <div className="line-chart-wrapper">
+          {this.props.data && (
+            <svg
+              style={{ padding: "2em 0" }}
+              ref={node => (this.node = node)}
+            />
+          )}
         </div>
+      </div>
     );
   }
 }
@@ -251,7 +265,4 @@ let mapStateToProps = state => ({
   state: state
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(MultiSeriesLineChart);
+export default connect(mapStateToProps, null)(MultiSeriesLineChart);

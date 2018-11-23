@@ -195,11 +195,12 @@ class Report extends Component {
                           >
                             <ChartContainer
                               mainIdx={this.state.selectedIndex}
-                              dataApi={"/api/roas-hist-pred"}
-                              title={"ROA (总资产收益率)"}
-                              prepData={DataUtil.prepHistPredCombo}
+                              dataApi={"/api/roas"}
+                              title={"总资产收益率 ROA (%)"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={3}
                             >
-                              <MultiLinePredChart />
+                              <MultiSeriesLineChart/>
                             </ChartContainer>
                           </SimpleBlind>
                           <SimpleBlind
@@ -233,13 +234,30 @@ class Report extends Component {
                           >
                             Sample text
                           </Blind>
-                          <Blind
+                          <SimpleBlind
                             index={8}
                             title={"公司营运能力分析"}
                             extendedAtRender={false}
                           >
-                            Sample text
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/tats"}
+                              title={"总资产周转率 (%)"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={3}
+                            >
+                              <MultiSeriesLineChart/>
+                            </ChartContainer>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/trois"}
+                              title={"存货周转率 (%)"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={3}
+                            >
+                              <MultiSeriesLineChart/>
+                            </ChartContainer>
+                          </SimpleBlind>
                           <Blind
                             index={9}
                             title={"公司风险分析"}
