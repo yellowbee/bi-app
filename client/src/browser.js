@@ -14,6 +14,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 //import Student from "./components/ui/student/Student";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import AnalystReportContainer from "./components/ui/analyst/AnalystReportContainer";
 import "./stylesheets/main.scss";
 
 //const history = createBrowserHistory();
@@ -30,6 +31,7 @@ render(
         <Switch>
           <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/analyst-report/:id" component={AnalystReportContainer} />
         </Switch>
       </Router>
     </PersistGate>

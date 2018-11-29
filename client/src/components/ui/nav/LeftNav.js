@@ -86,7 +86,7 @@ class LeftNav extends Component {
           </li>
           <li className="left-nav__item">
             <NavLink activeClassName="selected" to="/home/info">
-              <img className="left-navbar__icon" src="/images/info.svg" />资讯
+              <img className="left-navbar__icon" src="/images/info.svg" />分析师报告&资讯
             </NavLink>
           </li>
           <li className="left-nav__item">

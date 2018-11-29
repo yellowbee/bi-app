@@ -7,7 +7,7 @@ import { csv } from "d3-request";
 import { timeParse } from "d3-time-format";
 import axios from "axios";
 import { connect } from "react-redux";
-import {NavLink, Route, Switch, withRouter} from "react-router-dom";
+import { NavLink, Route, Switch, withRouter } from "react-router-dom";
 import { setToken } from "../actions/action_auth";
 import ParameterQuery from "./ui/analysis/ParameterQuery";
 import ParameterPrediction from "./ui/analysis/ParameterPrediction";
@@ -17,6 +17,8 @@ import MainNav from "./ui/nav/MainNav";
 import LeftNav from "./ui/nav/LeftNav";
 import ShareSelector from "./ui/analysis/ShareSelector";
 import Report from "./ui/report/Report";
+import AnalystReport from "./ui/analyst/AnalystReport";
+import AnalystShowcase from "./ui/analyst/AnalystShowcase";
 
 class Home extends Component {
   constructor(props) {
@@ -81,26 +83,30 @@ class Home extends Component {
 
     return (
       <div className="home">
-          <div id="navbar-top">
-              <div className="home-logo">
-                  <span className="logo__circle" />
-                  <span className="logo__title">企业分析软件</span>
-              </div>
+        <div id="navbar-top">
+          <div className="home-logo">
+            <span className="logo__circle" />
+            <span className="logo__title">企业分析软件</span>
           </div>
+        </div>
         <div className="left-navbar">
           <div>
-              <LeftNav/>
+            <LeftNav />
           </div>
         </div>
 
         <div className="content">
           <Switch>
-              <Route path="/home/main-shares" component={ShareSelector} />
-              <Route path="/home/param-query" component={ParameterQuery} />
-              <Route path="/home/param-prediction" component={ParameterPrediction} />
-              <Route path="/home/accounting-info" component={AccountingInfo} />
-              <Route path="/home/estimate" component={Estimate} />
-              <Route path="/home/report" component={Report} />
+            <Route path="/home/main-shares" component={ShareSelector} />
+            <Route path="/home/param-query" component={ParameterQuery} />
+            <Route
+              path="/home/param-prediction"
+              component={ParameterPrediction}
+            />
+            <Route path="/home/accounting-info" component={AccountingInfo} />
+            <Route path="/home/estimate" component={Estimate} />
+            <Route path="/home/report" component={Report} />
+            <Route path="/home/info" component={AnalystShowcase} />
           </Switch>
         </div>
       </div>
@@ -123,9 +129,4 @@ let mapDispatchToProps = dispatch => ({
   }
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Home)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
