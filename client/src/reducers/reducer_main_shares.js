@@ -7,7 +7,7 @@ import {
     SET_MAIN_SHARES
 } from "../actions/action_main_shares";
 
-export default (state = {}, action) => {
+export default (state = [], action) => {
     switch (action.type) {
         case SET_MAIN_SHARES:
             return action.value;

@@ -14,6 +14,7 @@ import createFilterOptions from "react-select-fast-filter-options";
 import "react-accessible-accordion/dist/fancy-example.css";
 import HandyNav from "../nav/HandyNav";
 import axios from "axios";
+import _ from "lodash";
 import Spinner from "../../ui/common/Spinner";
 
 class CompanySelector extends Component {
@@ -204,7 +205,7 @@ class CompanySelector extends Component {
                 onChange={this.props.handleChange}
                 closeMenuOnSelect={false}
                 className="home-select"
-                defaultValue={this.props.defaultValue}
+                defaultValue={_.isEmpty(this.props.defaultValue) ? [] : this.props.defaultValue}
               />
             </div>
             <div className="col-md-3">
