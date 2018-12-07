@@ -99,6 +99,10 @@ class MultiSeriesLineChart extends Component {
       for (let i = 0; i < this.props.data[shareNames[0]].data.length; i++) {
         tValues.push(i);
       }
+
+      let baseYear = this.props.data[shareNames[0]].startYear
+        ? parseInt(this.props.data[shareNames[0]].startYear)
+        : 1990;
       svg
         .append("g")
         .attr("transform", "translate(30," + originRatio * height + ")")
@@ -107,7 +111,7 @@ class MultiSeriesLineChart extends Component {
             .tickValues(tValues)
             .tickFormat((d, i) => {
               let quarter;
-              let year = 1990 + d;
+              let year = baseYear + d;
               switch (this.props.qtrType) {
                 case qtrType.FIRST:
                   quarter = "一季报";

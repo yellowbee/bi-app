@@ -227,13 +227,21 @@ class Report extends Component {
                               <MultiSeriesLineChart/>
                             </ChartContainer>
                           </SimpleBlind>
-                          <Blind
+                          <SimpleBlind
                             index={7}
                             title={"公司盈利质量分析"}
                             extendedAtRender={false}
                           >
-                            Sample text
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/op2nirs"}
+                              title={"净收益营运指数"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={3}
+                            >
+                              <MultiSeriesLineChart/>
+                            </ChartContainer>
+                          </SimpleBlind>
                           <SimpleBlind
                             index={8}
                             title={"公司营运能力分析"}
@@ -258,13 +266,21 @@ class Report extends Component {
                               <MultiSeriesLineChart/>
                             </ChartContainer>
                           </SimpleBlind>
-                          <Blind
+                          <SimpleBlind
                             index={9}
                             title={"公司风险分析"}
                             extendedAtRender={false}
                           >
-                            Sample text
-                          </Blind>
+                            <ChartContainer
+                              mainIdx={this.state.selectedIndex}
+                              dataApi={"/api/z-scores"}
+                              title={"风险指数"}
+                              prepData={DataUtil.convertDataFormat}
+                              qtrType={4}
+                            >
+                              <MultiSeriesLineChart/>
+                            </ChartContainer>
+                          </SimpleBlind>
                           <Blind
                             index={10}
                             title={"公司排行榜"}
